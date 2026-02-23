@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="da">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MarginRadar — Free E-commerce Profit Calculator</title>
-  <meta name="description" content="MarginRadar: gratis e-commerce calculator til Break-even ROAS og Profit pr. ordre." />
+  <meta name="description" content="MarginRadar: free e-commerce calculator for Break-even ROAS and Profit per Order." />
   <style>
     :root{--bg:#070b1a;--bg2:#0b1534;--card:rgba(18,27,57,.72);--border:rgba(140,170,255,.22);--text:#ecf2ff;--muted:#a8b6de;--accent:#66f3d5;--danger:#ff9f9f;--shadow:0 20px 55px rgba(0,0,0,.45)}
     *{box-sizing:border-box}
@@ -20,35 +20,35 @@
 </head>
 <body>
   <main class="wrap">
-    <div class="top"><a class="back" href="/">← Tilbage til Tool Hub</a></div>
-    <section class="hero"><div><h1>MarginRadar</h1><p class="sub">Gratis micro-tool for e-commerce ejere: regn på <b>break-even ROAS</b> og <b>profit pr. ordre</b> på 30 sekunder.</p></div><div class="badge">No API · No login · No cost</div></section>
+    <div class="top"><a class="back" href="/">← Back to Tool Hub</a></div>
+    <section class="hero"><div><h1>MarginRadar</h1><p class="sub">Free micro-tool for e-commerce owners: calculate <b>break-even ROAS</b> and <b>profit per order</b> in 30 seconds.</p></div><div class="badge">No API · No login · Zero ongoing cost</div></section>
     <section class="grid">
       <article class="card">
         <h2>Break-even ROAS</h2>
         <div class="row"><label for="aov">AOV (DKK)</label><input id="aov" type="number" value="500" /></div>
-        <div class="row"><label for="margin">Bruttoavance (%)</label><input id="margin" type="number" value="55" /></div>
-        <div class="row"><label for="ship">Fragt pr. ordre (DKK)</label><input id="ship" type="number" value="39" /></div>
-        <div class="row"><label for="fee">Betalingsfee (%)</label><input id="fee" type="number" value="2.5" /></div>
-        <div class="row"><label for="returns">Retur-rate (%)</label><input id="returns" type="number" value="8" /></div>
-        <div class="result"><div class="caption">Minimum ROAS for break-even</div><div id="roas" class="big">-</div><div id="roasHint" class="hint"></div><div class="kpi"><span class="pill" id="maxCac">Maks CAC: -</span><span class="pill" id="contribution">Contribution: -</span></div></div>
+        <div class="row"><label for="margin">Gross margin (%)</label><input id="margin" type="number" value="55" /></div>
+        <div class="row"><label for="ship">Shipping per order (DKK)</label><input id="ship" type="number" value="39" /></div>
+        <div class="row"><label for="fee">Payment fee (%)</label><input id="fee" type="number" value="2.5" /></div>
+        <div class="row"><label for="returns">Return rate (%)</label><input id="returns" type="number" value="8" /></div>
+        <div class="result"><div class="caption">Minimum ROAS for break-even</div><div id="roas" class="big">-</div><div id="roasHint" class="hint"></div><div class="kpi"><span class="pill" id="maxCac">Max CAC: -</span><span class="pill" id="contribution">Contribution: -</span></div></div>
       </article>
       <article class="card">
-        <h2>Profit pr. ordre</h2>
-        <div class="row"><label for="price">Salgspris inkl. moms (DKK)</label><input id="price" type="number" value="599" /></div>
+        <h2>Profit per order</h2>
+        <div class="row"><label for="price">Sale price incl. VAT (DKK)</label><input id="price" type="number" value="599" /></div>
         <div class="row"><label for="cogs">COGS (DKK)</label><input id="cogs" type="number" value="190" /></div>
-        <div class="row"><label for="shipping">Fragt (DKK)</label><input id="shipping" type="number" value="45" /></div>
+        <div class="row"><label for="shipping">Shipping (DKK)</label><input id="shipping" type="number" value="45" /></div>
         <div class="row"><label for="gateway">Gateway fee (%)</label><input id="gateway" type="number" value="2.9" /></div>
-        <div class="row"><label for="discount">Rabat (%)</label><input id="discount" type="number" value="10" /></div>
-        <div class="row"><label for="vat">Moms (%)</label><input id="vat" type="number" value="25" /></div>
-        <div class="result"><div class="caption">Profit pr. ordre (ekskl. ad spend)</div><div id="profit" class="big">-</div><div id="profitHint" class="hint"></div><div class="kpi"><span class="pill" id="marginPct">Margin: -</span><span class="pill" id="netExVat">Nettopris ex. moms: -</span></div></div>
+        <div class="row"><label for="discount">Discount (%)</label><input id="discount" type="number" value="10" /></div>
+        <div class="row"><label for="vat">VAT (%)</label><input id="vat" type="number" value="25" /></div>
+        <div class="result"><div class="caption">Profit per order (ekskl. ad spend)</div><div id="profit" class="big">-</div><div id="profitHint" class="hint"></div><div class="kpi"><span class="pill" id="marginPct">Margin: -</span><span class="pill" id="netExVat">Net price ex. VAT: -</span></div></div>
       </article>
     </section>
-    <p class="foot">Tip: Brug tallene i samme uge som kampagnerne kører.</p>
+    <p class="foot">Tip: Use these numbers in the same week your campaigns run.</p>
   </main>
   <script>
     const $=id=>document.getElementById(id),num=id=>parseFloat($(id).value||0),dkk=n=>`${Number.isFinite(n)?n.toFixed(2):'-'} DKK`;
-    function calcBreakEvenROAS(){const aov=num('aov'),margin=num('margin')/100,ship=num('ship'),fee=num('fee')/100,returns=num('returns')/100,gross=aov*margin,feeCost=aov*fee,retCost=aov*returns*margin,contrib=gross-ship-feeCost-retCost,roas=contrib>0?aov/contrib:Infinity;$('roas').textContent=Number.isFinite(roas)?`${roas.toFixed(2)}x`:'Ikke muligt';$('roasHint').innerHTML=Number.isFinite(roas)?`Hvis din faktiske ROAS er under <b>${roas.toFixed(2)}x</b>, taber du penge.`:'<span class="warn">Negativ enhedsøkonomi før ads.</span>';$('maxCac').textContent=`Maks CAC: ${dkk(contrib)}`;$('contribution').textContent=`Contribution: ${dkk(contrib)}`}
-    function calcProfitPerOrder(){const price=num('price'),cogs=num('cogs'),shipping=num('shipping'),gateway=num('gateway')/100,discount=num('discount')/100,vat=num('vat')/100,disc=price*(1-discount),net=disc/(1+vat),gate=disc*gateway,profit=net-cogs-shipping-gate,m=net>0?(profit/net)*100:0;$('profit').textContent=dkk(profit);$('profitHint').innerHTML=profit>=0?'Hold profit positiv efter ad spend.':'<span class="warn">Tab pr. ordre.</span>';$('marginPct').textContent=`Margin: ${m.toFixed(1)}%`;$('netExVat').textContent=`Nettopris: ${dkk(net)}`}
+    function calcBreakEvenROAS(){const aov=num('aov'),margin=num('margin')/100,ship=num('ship'),fee=num('fee')/100,returns=num('returns')/100,gross=aov*margin,feeCost=aov*fee,retCost=aov*returns*margin,contrib=gross-ship-feeCost-retCost,roas=contrib>0?aov/contrib:Infinity;$('roas').textContent=Number.isFinite(roas)?`${roas.toFixed(2)}x`:'Not possible';$('roasHint').innerHTML=Number.isFinite(roas)?`If your actual ROAS is below <b>${roas.toFixed(2)}x</b>, you are losing money.`:'<span class="warn">Negative unit economics before ads.</span>';$('maxCac').textContent=`Max CAC: ${dkk(contrib)}`;$('contribution').textContent=`Contribution: ${dkk(contrib)}`}
+    function calcProfitPerOrder(){const price=num('price'),cogs=num('cogs'),shipping=num('shipping'),gateway=num('gateway')/100,discount=num('discount')/100,vat=num('vat')/100,disc=price*(1-discount),net=disc/(1+vat),gate=disc*gateway,profit=net-cogs-shipping-gate,m=net>0?(profit/net)*100:0;$('profit').textContent=dkk(profit);$('profitHint').innerHTML=profit>=0?'Keep this positive after ad spend.':'<span class="warn">Loss per order.</span>';$('marginPct').textContent=`Margin: ${m.toFixed(1)}%`;$('netExVat').textContent=`Net price: ${dkk(net)}`}
     function recalc(){calcBreakEvenROAS();calcProfitPerOrder()}document.querySelectorAll('input').forEach(i=>i.addEventListener('input',recalc));recalc();
   </script>
 </body>
