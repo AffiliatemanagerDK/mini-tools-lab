@@ -13,37 +13,38 @@
     .sweep{position:absolute;inset:1px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 300deg,#22d3eebb 340deg,transparent 360deg);animation:spin 2.4s linear infinite}.ping{position:absolute;width:7px;height:7px;border-radius:999px;background:var(--teal);top:9px;right:8px;box-shadow:0 0 0 0 #22d3eeaa;animation:ping 1.8s ease-out 1}
     @keyframes spin{to{transform:rotate(360deg)}} @keyframes ping{0%{box-shadow:0 0 0 0 #22d3ee66}100%{box-shadow:0 0 0 16px transparent}}
     .hero{margin-top:12px;padding:18px}.hero h1{margin:0 0 8px;font-size:32px}.hero p{margin:0;color:var(--muted)} .badges{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}.badge{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#0f2136}
-    .controls{display:flex;gap:8px;align-items:center}.select{height:36px;border-radius:10px;border:1px solid var(--line);background:#0c1828;color:#eaf2ff;padding:0 10px}
+    .controls{display:flex;gap:18px;align-items:center}.select{height:36px;border-radius:999px;border:1px solid var(--line);background:#0c1828;color:#eaf2ff;padding:0 12px}
 
     .grid{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:14px}.card{padding:16px;animation:enter .35s ease both}.card:nth-child(2){animation-delay:.1s}@keyframes enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
     .head{display:flex;justify-content:space-between;align-items:center}.head h2{margin:0;font-size:18px}.chip{font-size:11px;padding:5px 9px;border-radius:999px;border:1px solid #2a4b69;color:#9bdef0}
-    .group{margin:18px 0 0;padding:12px;border:1px dashed #2b4866;border-radius:12px}.group h4{margin:0 0 8px;font-size:12px;color:#a6bddf;letter-spacing:.08em;text-transform:uppercase}
+    .group{margin:28px 0 0;padding:12px;border:1px dashed #2b4866;border-radius:12px}.group h4{margin:0 0 8px;font-size:12px;color:#a6bddf;letter-spacing:.08em;text-transform:uppercase}
     .row{margin:10px 0 14px}.label{display:flex;justify-content:space-between;font-size:13px;color:#c8d6ef;margin-bottom:5px}.sub{font-size:11px;color:var(--muted);margin-top:8px}
     .ctrl{display:grid;grid-template-columns:1fr 110px;gap:8px;align-items:center}
     input[type=range]{width:100%;height:48px;appearance:none;background:transparent} input[type=range]::-webkit-slider-runnable-track{height:8px;background:#233a55;border-radius:999px}
     .cost::-webkit-slider-runnable-track{background:#5a341f}
-    input[type=range]::-webkit-slider-thumb{appearance:none;margin-top:-8px;width:24px;height:24px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px #22d3ee30}
+    input[type=range]::-webkit-slider-thumb{appearance:none;margin-top:-9px;width:26px;height:26px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px #22d3ee30}
     input[type=number]{height:48px;border-radius:10px;border:1px solid var(--line);background:#0d1a2b;color:#f4f8ff;padding:10px;font-weight:600}
     input:focus,select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px #22d3ee24}
 
     .kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.mini{padding:10px;border:1px solid var(--line);border-radius:10px;background:#0c1828}.mini b{display:block;margin-top:4px;font-size:18px;color:var(--teal)}
     .viz{display:flex;align-items:center;gap:10px;margin-top:10px}.gauge{width:80px;height:80px;border-radius:50%;position:relative;display:grid;place-items:center;background:conic-gradient(var(--ring,#22d3ee) var(--pct,0%), #22384f 0)}.gauge::before{content:"";position:absolute;inset:8px;background:#0c1828;border-radius:50%}.gauge span{position:relative;font-size:10px;color:#aac0e2;text-align:center}
 
-    .cta{margin-top:14px;padding:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}.cta a{color:#90e6f7;text-decoration:none;font-weight:600}
+    .cta{margin-top:14px;padding:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}.cta a{color:var(--teal);text-decoration:none;font-weight:700;padding:8px 10px;border:1px solid #1f4f63;border-radius:10px;background:#0f2433}
 
-    .sticky{position:fixed;left:12px;right:12px;bottom:10px;z-index:20}.bar{padding:10px 12px;display:grid;grid-template-columns:1.2fr 1fr 1fr auto auto;gap:8px;align-items:center;border-top:1px solid #2b425f;box-shadow:0 -8px 24px #00000040}
-    .stat{padding:8px;border-radius:10px;background:#0c1828;border:1px solid var(--line)}.stat .k{font-size:11px;color:#9bb0d3}.stat .v{font-size:24px;font-weight:800;color:var(--teal)}
+    .sticky{position:fixed;left:12px;right:12px;bottom:10px;z-index:20}.bar{padding:10px 12px;display:grid;grid-template-columns:1.35fr 1fr 1fr auto auto;gap:8px;align-items:center;border-top:1px solid #35557a;box-shadow:0 -10px 26px #00000055}
+    .stat{padding:8px;border-radius:10px;background:#0c1828;border:1px solid var(--line)}.stat .k{font-size:11px;color:#9bb0d3}.stat .v{font-size:22px;font-weight:800;color:var(--teal)}
+    .stat.roas .v{font-size:27px}
     .dangerStat{background:#3a1018;border-color:#7f1d1d}.dangerStat .v{color:#fb7185}
     .btn{height:44px;padding:0 12px;border-radius:10px;border:1px solid var(--line);background:#13243a;color:#d9e9ff;font-weight:600;cursor:pointer}
     footer{margin-top:16px;text-align:center;color:#89a0c6;font-size:12px}
-    @media(max-width:900px){.grid{grid-template-columns:1fr}.bar{grid-template-columns:1fr 1fr}.stat .v{font-size:20px}}
+    @media(max-width:900px){.grid{grid-template-columns:1fr}.bar{grid-template-columns:1fr 1fr}.stat .v{font-size:20px}.stat.roas .v{font-size:23px}}
   </style>
 </head>
 <body>
   <main class="wrap">
     <div class="glass top">
       <div class="brand"><div class="logo"><div class="sweep"></div><div class="radar"></div><div class="ping"></div></div><div><div style="font-weight:600">MarginRadar</div><div style="font-size:12px;color:var(--muted)">Built for DTC brands running paid acquisition.</div></div></div>
-      <div class="controls"><select id="currency" class="select"><option>DKK</option><option>EUR</option><option>USD</option></select><a href="/" style="color:#b8c9e8;text-decoration:none;font-size:13px">Back</a></div>
+      <div class="controls"><select id="currency" class="select"><option>DKK</option><option>EUR</option><option>USD</option></select><a href="/" style="color:#b8c9e8;text-decoration:none;font-size:13px">← Tool Hub</a></div>
     </div>
 
     <section class="glass hero"><h1>Your unit economics, without guesswork.</h1><p>Dark control-room calculator for break-even ROAS and profit before ad spend.</p><div class="badges"><span class="badge">🛡 Privacy-first</span><span class="badge">🌐 100% browser-side</span><span class="badge">⚡ No API cost</span></div></section>
@@ -60,7 +61,7 @@
           <div class="row"><div class="label"><span>Payment fee (%)</span><span id="feev">2.5</span></div><div class="ctrl"><input class="cost" id="feer" type="range" min="0" max="8" step="0.1" value="2.5"><input id="fee" type="number" step="0.1" value="2.5"></div><div class="sub">Card + gateway fee on gross checkout.</div></div>
           <div class="row"><div class="label"><span>Return rate (%)</span><span id="returnsv">8</span></div><div class="ctrl"><input class="cost" id="returnsr" type="range" min="0" max="40" value="8"><input id="returns" type="number" value="8"></div><div class="sub">Expected return share of total orders.</div></div>
         </div>
-        <div class="kpis"><div class="mini">Max CAC<b id="maxCac">-</b></div><div class="mini">Contribution<b id="contribution">-</b></div></div>
+        <div class="kpis"><div class="mini">Max CAC<b id="maxCac" style="color:var(--green)">-</b></div><div class="mini">Contribution<b id="contribution" style="color:var(--teal)">-</b></div></div>
       </article>
 
       <article class="glass card">
@@ -81,10 +82,10 @@
     <footer>Built by Mini Tools Lab</footer>
   </main>
 
-  <div class="sticky"><div class="glass bar"><div class="stat"><div class="k">Break-even ROAS</div><div class="v" id="roas">-</div></div><div class="stat" id="profitStat"><div class="k">Profit / order</div><div class="v" id="profit">-</div></div><button class="btn" id="copyBtn">Copy results</button><button class="btn" id="resetBtn">Reset</button></div></div>
+  <div class="sticky"><div class="glass bar"><div class="stat roas"><div class="k">Break-even ROAS</div><div class="v" id="roas">-</div></div><div class="stat" id="profitStat"><div class="k">Profit / order</div><div class="v" id="profit">-</div></div><button class="btn" id="copyBtn">Copy results</button><button class="btn" id="resetBtn">Reset</button></div></div>
 
   <script>
-    const defaults={aov:399,margin:60,ship:39,fee:2.5,returns:8,price:599,cogs:190,shipping:45,gateway:2.9,discount:10,vat:25};
+    const defaults={aov:399,margin:60,ship:39,fee:2.5,returns:8,price:399,cogs:120,shipping:39,gateway:2.5,discount:5,vat:25};
     const symbols={DKK:'DKK',EUR:'€',USD:'$'}; const $=id=>document.getElementById(id); const fields=Object.keys(defaults);
     const dkk=n=>`${n.toFixed(2)} ${$('currency').value}`;
     function syncPair(n,v){const a=$(n),b=$(n+'r'),c=$(n+'v');if(a)a.value=v;if(b)b.value=v;if(c)c.textContent=v}
@@ -95,16 +96,16 @@
       const aov=+$('aov').value, margin=+$('margin').value/100, ship=+$('ship').value, fee=+$('fee').value/100, returns=+$('returns').value/100;
       const gross=aov*margin, feeCost=aov*fee, retCost=aov*returns*margin, contribution=gross-ship-feeCost-retCost, roas= contribution>0 ? aov/contribution : 999;
       const price=+$('price').value,cogs=+$('cogs').value,shipping=+$('shipping').value,gateway=+$('gateway').value/100,discount=+$('discount').value/100,vat=+$('vat').value/100;
-      const discounted=price*(1-discount), net=discounted/(1+vat), gatewayCost=discounted*gateway, profit=net-cogs-shipping-gatewayCost, marginPct=net?((profit/net)*100):0;
+      const discounted=price*(1-discount), net=discounted/(1+vat), gatewayCost=discounted*gateway, profit=net-cogs-shipping-gatewayCost, rawMargin=net?((profit/net)*100):0, marginPct=Number.isFinite(rawMargin)?rawMargin:0;
 
       animate($('roas'),Math.min(roas,999),'x');
       $('maxCac').textContent=dkk(contribution); $('contribution').textContent=dkk(contribution); $('netExVat').textContent=dkk(net);
       $('profit').textContent=dkk(profit); $('marginPct').textContent=marginPct.toFixed(1)+'%';
 
       const ps=$('profitStat'); ps.classList.toggle('dangerStat',profit<0); $('profit').style.color=profit<0?'var(--red)':'var(--green)';
-      let state='Healthy', ring='var(--green)', pct=75;
-      if(marginPct<0){state='Loss'; ring='var(--red)'; pct=8}
-      else if(marginPct<12){state='Tight'; ring='var(--orange)'; pct=40}
+      let state='Healthy', ring='var(--green)', pct=88;
+      if(marginPct<=0){state='Loss'; ring='var(--red)'; pct=6}
+      else if(marginPct<=20){state='Tight'; ring='var(--orange)'; pct=42}
       $('gauge').style.setProperty('--ring',ring); $('gauge').style.setProperty('--pct',pct+'%'); $('gaugeText').textContent=state;
       $('marginPct').style.color= ring;
     }
