@@ -3,164 +3,228 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MarginRadar — Unit Economics Control Room</title>
-  <meta name="description" content="MarginRadar helps e-commerce founders calculate break-even ROAS and profit per order in seconds." />
+  <title>MarginRadar — Dark Control Room</title>
+  <meta name="description" content="MarginRadar: a dark control-room calculator for break-even ROAS and profit per order." />
   <style>
     :root{
-      --bg:#f6f7fb;
-      --ink:#0f172a;
-      --muted:#52607a;
-      --line:#d9dfeb;
-      --card:#ffffff;
-      --brand:#ff5a3d;
-      --brand-2:#ffd166;
-      --ok:#0ea5a4;
-      --bad:#dc2626;
+      --bg0:#0b1220;
+      --bg1:#0f172a;
+      --bg2:#0b1f2f;
+      --surface:rgba(255,255,255,.05);
+      --line:rgba(255,255,255,.08);
+      --text:#e6eefc;
+      --muted:#92a4c7;
+      --accent:#22d3ee;
+      --warn:#f97316;
+      --ok:#10b981;
+      --danger:#fb7185;
     }
     *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial}
-    .shell{max-width:1100px;margin:22px auto;padding:14px}
-    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-    .back{font-size:13px;text-decoration:none;color:#334155}
-    .brand{display:flex;align-items:center;gap:10px}
-    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(145deg,var(--brand),var(--brand-2));display:grid;place-items:center;font-weight:900;color:#111}
-    .brand h1{font-size:20px;margin:0}
-    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-bottom:14px}
-    .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
-    .hero h2{margin:0 0 8px;font-size:30px;line-height:1.06}
-    .hero p{margin:0;color:var(--muted)}
-    .stamp{display:inline-block;margin-top:12px;font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#fff}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--text);background:radial-gradient(900px 600px at 0 -20%,#12345a44 0%,transparent 60%),linear-gradient(145deg,var(--bg0),var(--bg1) 35%,var(--bg2));min-height:100vh}
+    .wrap{max-width:1150px;margin:18px auto 120px;padding:14px}
+    .glass{background:var(--surface);border:1px solid var(--line);backdrop-filter: blur(10px);border-radius:16px}
+    .top{display:flex;justify-content:space-between;align-items:center;padding:14px 16px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{position:relative;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(160deg,#0f172a,#11263a);border:1px solid #2b415b}
+    .radar{position:relative;width:22px;height:22px;border-radius:50%;border:1.4px solid #38bdf8}
+    .radar:before,.radar:after{content:"";position:absolute;inset:4px;border-radius:50%;border:1px solid #38bdf866}
+    .radar:after{inset:8px}
+    .sweep{position:absolute;inset:1px;border-radius:50%;background:conic-gradient(from 0deg, transparent 0 310deg,#22d3eeaa 345deg,transparent 360deg);animation:spin 2.6s linear infinite}
+    .ping{position:absolute;width:6px;height:6px;border-radius:999px;background:#22d3ee;top:9px;right:8px;box-shadow:0 0 0 0 #22d3eeaa;animation:ping 2s ease-out 1}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes ping{0%{box-shadow:0 0 0 0 #22d3ee88}100%{box-shadow:0 0 0 14px transparent}}
 
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
-    .title{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-    .title h3{margin:0;font-size:18px}
-    .chip{font-size:11px;padding:5px 8px;border-radius:999px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
-    .row{display:grid;grid-template-columns:1fr 130px;gap:10px;align-items:center;margin:9px 0}
-    label{font-size:13px;color:#334155}
-    input{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font-weight:600;background:#fff}
-    input:focus{outline:none;border-color:#aab5ce;box-shadow:0 0 0 3px rgba(59,130,246,.12)}
-    .result{margin-top:12px;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px}
-    .metric{font-size:32px;font-weight:800;color:var(--ok);line-height:1.1}
-    .hint{margin-top:6px;font-size:13px;color:var(--muted)}
-    .warn{color:var(--bad)}
-    .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-    .pill{font-size:11px;padding:5px 8px;border-radius:999px;background:#eef2ff;border:1px solid #c7d2fe;color:#312e81}
-    @media(max-width:920px){.grid,.hero{grid-template-columns:1fr}}
+    .hero{margin-top:12px;padding:18px}
+    .hero h1{margin:0 0 8px;font-size:32px}
+    .hero p{margin:0;color:var(--muted)}
+    .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .badge{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#0d1a2b}
+
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+    .card{padding:14px;animation:enter .35s ease both}
+    .card:nth-child(2){animation-delay:.1s}
+    @keyframes enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .head h2{margin:0;font-size:18px}
+    .chip{font-size:11px;padding:5px 8px;border:1px solid #284661;border-radius:999px;color:#9ddff0}
+    .group{margin:10px 0;padding:10px;border:1px dashed #284661;border-radius:12px}
+    .group h4{margin:0 0 6px;font-size:12px;color:#9eb9df;text-transform:uppercase;letter-spacing:.08em}
+
+    .row{margin:8px 0}
+    .label{display:flex;justify-content:space-between;font-size:13px;color:#c6d4ee;margin-bottom:4px}
+    .sub{font-size:11px;color:var(--muted);margin-top:4px}
+    .ctrl{display:grid;grid-template-columns:1fr 110px;gap:8px;align-items:center}
+    input[type=range]{width:100%;height:48px;-webkit-appearance:none;appearance:none;background:transparent}
+    input[type=range]::-webkit-slider-runnable-track{height:6px;background:#20364f;border-radius:999px}
+    input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;margin-top:-6px;width:18px;height:18px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px #22d3ee33}
+    input[type=number]{height:48px;border-radius:10px;border:1px solid var(--line);background:#0c1828;color:var(--text);padding:10px;font-weight:600}
+    input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px #22d3ee26}
+
+    .kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+    .mini{padding:10px;border:1px solid var(--line);border-radius:10px;background:#0c1828}
+    .mini b{display:block;font-size:18px;margin-top:3px;color:var(--accent)}
+
+    .sticky{position:fixed;left:12px;right:12px;bottom:10px;z-index:20}
+    .bar{display:grid;grid-template-columns:1.2fr 1fr 1fr auto auto;gap:8px;align-items:center;padding:10px 12px}
+    .stat{padding:8px;border-radius:10px;background:#0c1828;border:1px solid var(--line)}
+    .stat .k{font-size:11px;color:#9bb0d3}
+    .stat .v{font-size:24px;font-weight:800;color:var(--accent)}
+    .btn{height:44px;padding:0 12px;border-radius:10px;border:1px solid var(--line);background:#13243a;color:#d9e9ff;font-weight:600;cursor:pointer}
+
+    .gauge{width:74px;height:74px;border-radius:50%;border:6px solid #1f334a;position:relative;display:grid;place-items:center}
+    .gauge:after{content:"";position:absolute;inset:-6px;border-radius:50%;border:6px solid transparent;border-top-color:var(--accent);transform:rotate(var(--deg,20deg));}
+    .gauge span{font-size:10px;color:#9fb4d6}
+
+    footer{margin-top:18px;color:#89a0c6;font-size:12px;text-align:center}
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr}
+      .bar{grid-template-columns:1fr 1fr;}
+      .stat .v{font-size:20px}
+      .btn{height:42px}
+    }
   </style>
 </head>
 <body>
-  <main class="shell">
-    <div class="top">
-      <a class="back" href="/">← Back to Tool Hub</a>
-      <div class="brand"><div class="logo">MR</div><h1>MarginRadar</h1></div>
+  <main class="wrap">
+    <div class="glass top">
+      <div class="brand">
+        <div class="logo">
+          <div class="sweep"></div><div class="radar"></div><div class="ping"></div>
+        </div>
+        <div>
+          <div style="font-weight:600">MarginRadar</div>
+          <div style="font-size:12px;color:var(--muted)">Built for DTC brands running paid acquisition.</div>
+        </div>
+      </div>
+      <a href="/" style="color:#b6c8e7;text-decoration:none;font-size:13px">Back to Tool Hub</a>
     </div>
 
-    <section class="hero">
-      <div class="panel">
-        <h2>Your unit economics,<br/>without guesswork.</h2>
-        <p>Use this control room before launching any campaign. If your economics break here, ad scale will amplify losses.</p>
-        <span class="stamp">No API • No login • 100% browser-side</span>
-      </div>
-      <div class="panel">
-        <strong>What this tool gives you</strong>
-        <ul>
-          <li>Break-even ROAS threshold</li>
-          <li>Max CAC per order</li>
-          <li>Profit per order before ad spend</li>
-          <li>Quick margin sanity check</li>
-        </ul>
+    <section class="glass hero">
+      <h1>Your unit economics, without guesswork.</h1>
+      <p>Dark control-room calculator for break-even ROAS and profit before ad spend.</p>
+      <div class="badges">
+        <span class="badge">🛡 Privacy-first</span>
+        <span class="badge">🌐 100% browser-side</span>
+        <span class="badge">⚡ No API cost</span>
       </div>
     </section>
 
     <section class="grid">
-      <article class="card">
-        <div class="title"><h3>Break-even ROAS</h3><span class="chip">Acquisition</span></div>
-        <div class="row"><label for="aov">AOV (DKK)</label><input id="aov" type="number" value="500"></div>
-        <div class="row"><label for="margin">Gross margin (%)</label><input id="margin" type="number" value="55"></div>
-        <div class="row"><label for="ship">Shipping per order (DKK)</label><input id="ship" type="number" value="39"></div>
-        <div class="row"><label for="fee">Payment fee (%)</label><input id="fee" type="number" value="2.5"></div>
-        <div class="row"><label for="returns">Return rate (%)</label><input id="returns" type="number" value="8"></div>
+      <article class="glass card">
+        <div class="head"><h2>Break-even ROAS</h2><span class="chip">Acquisition</span></div>
 
-        <div class="result">
-          <div style="font-size:12px;color:#64748b">Minimum ROAS to avoid loss</div>
-          <div id="roas" class="metric">-</div>
-          <div id="roasHint" class="hint"></div>
-          <div class="meta"><span class="pill" id="maxCac">Max CAC: -</span><span class="pill" id="contribution">Contribution: -</span></div>
+        <div class="group"><h4>Revenue assumptions</h4>
+          <div class="row">
+            <div class="label"><span>AOV (DKK)</span><span id="aovv">399</span></div>
+            <div class="ctrl"><input id="aovr" type="range" min="100" max="3000" value="399"><input id="aov" type="number" value="399"></div>
+            <div class="sub">Average order value including VAT.</div>
+          </div>
+          <div class="row">
+            <div class="label"><span>Gross margin (%)</span><span id="marginv">60</span></div>
+            <div class="ctrl"><input id="marginr" type="range" min="10" max="90" value="60"><input id="margin" type="number" value="60"></div>
+            <div class="sub">Before shipping, fees, and returns.</div>
+          </div>
+        </div>
+
+        <div class="group"><h4>Acquisition costs</h4>
+          <div class="row"><div class="label"><span>Shipping per order</span><span id="shipv">39</span></div><div class="ctrl"><input id="shipr" type="range" min="0" max="200" value="39"><input id="ship" type="number" value="39"></div><div class="sub">Includes pick, pack, and final-mile shipping.</div></div>
+          <div class="row"><div class="label"><span>Payment fee (%)</span><span id="feev">2.5</span></div><div class="ctrl"><input id="feer" type="range" min="0" max="8" step="0.1" value="2.5"><input id="fee" type="number" step="0.1" value="2.5"></div><div class="sub">Card + gateway transaction fee.</div></div>
+          <div class="row"><div class="label"><span>Return rate (%)</span><span id="returnsv">8</span></div><div class="ctrl"><input id="returnsr" type="range" min="0" max="40" value="8"><input id="returns" type="number" value="8"></div><div class="sub">Share of orders expected to return.</div></div>
+        </div>
+
+        <div class="kpis">
+          <div class="mini">Max CAC<b id="maxCac">-</b></div>
+          <div class="mini">Contribution<b id="contribution">-</b></div>
         </div>
       </article>
 
-      <article class="card">
-        <div class="title"><h3>Profit per Order</h3><span class="chip">Margin</span></div>
-        <div class="row"><label for="price">Sale price incl. VAT (DKK)</label><input id="price" type="number" value="599"></div>
-        <div class="row"><label for="cogs">COGS (DKK)</label><input id="cogs" type="number" value="190"></div>
-        <div class="row"><label for="shipping">Shipping (DKK)</label><input id="shipping" type="number" value="45"></div>
-        <div class="row"><label for="gateway">Gateway fee (%)</label><input id="gateway" type="number" value="2.9"></div>
-        <div class="row"><label for="discount">Discount (%)</label><input id="discount" type="number" value="10"></div>
-        <div class="row"><label for="vat">VAT (%)</label><input id="vat" type="number" value="25"></div>
+      <article class="glass card">
+        <div class="head"><h2>Profit per Order</h2><span class="chip">Margin</span></div>
+        <div class="group"><h4>Order economics</h4>
+          <div class="row"><div class="label"><span>Sale price incl. VAT</span><span id="pricev">599</span></div><div class="ctrl"><input id="pricer" type="range" min="100" max="5000" value="599"><input id="price" type="number" value="599"></div><div class="sub">Final checkout price paid by customer.</div></div>
+          <div class="row"><div class="label"><span>COGS</span><span id="cogsv">190</span></div><div class="ctrl"><input id="cogsr" type="range" min="10" max="3000" value="190"><input id="cogs" type="number" value="190"></div><div class="sub">Product cost from supplier/manufacturer.</div></div>
+          <div class="row"><div class="label"><span>Shipping</span><span id="shippingv">45</span></div><div class="ctrl"><input id="shippingr" type="range" min="0" max="300" value="45"><input id="shipping" type="number" value="45"></div><div class="sub">Fulfillment + outbound shipping per order.</div></div>
+          <div class="row"><div class="label"><span>Gateway fee (%)</span><span id="gatewayv">2.9</span></div><div class="ctrl"><input id="gatewayr" type="range" min="0" max="8" step="0.1" value="2.9"><input id="gateway" type="number" step="0.1" value="2.9"></div><div class="sub">Processor fee on gross order value.</div></div>
+          <div class="row"><div class="label"><span>Discount (%)</span><span id="discountv">10</span></div><div class="ctrl"><input id="discountr" type="range" min="0" max="70" value="10"><input id="discount" type="number" value="10"></div><div class="sub">Campaign or always-on discount.</div></div>
+          <div class="row"><div class="label"><span>VAT (%)</span><span id="vatv">25</span></div><div class="ctrl"><input id="vatr" type="range" min="0" max="30" value="25"><input id="vat" type="number" value="25"></div><div class="sub">Local VAT rate for your market.</div></div>
+        </div>
 
-        <div class="result">
-          <div style="font-size:12px;color:#64748b">Profit per order (before ad spend)</div>
-          <div id="profit" class="metric">-</div>
-          <div id="profitHint" class="hint"></div>
-          <div class="meta"><span class="pill" id="marginPct">Margin: -</span><span class="pill" id="netExVat">Net price: -</span></div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:6px">
+          <div class="gauge" id="gauge"><span id="gaugeText">ROAS</span></div>
+          <div class="kpis" style="flex:1">
+            <div class="mini">Margin %<b id="marginPct">-</b></div>
+            <div class="mini">Net price ex VAT<b id="netExVat">-</b></div>
+          </div>
         </div>
       </article>
     </section>
+
+    <footer>Built by Mini Tools Lab</footer>
   </main>
 
+  <div class="sticky">
+    <div class="glass bar">
+      <div class="stat"><div class="k">Break-even ROAS</div><div class="v" id="roas">-</div></div>
+      <div class="stat"><div class="k">Profit / order</div><div class="v" id="profit">-</div></div>
+      <button class="btn" id="copyBtn">Copy results</button>
+      <button class="btn" id="resetBtn">Reset</button>
+    </div>
+  </div>
+
   <script>
-    const $ = id => document.getElementById(id);
-    const num = id => parseFloat($(id).value || 0);
-    const dkk = n => `${Number.isFinite(n) ? n.toFixed(2) : '-'} DKK`;
+    const defaults={aov:399,margin:60,ship:39,fee:2.5,returns:8,price:599,cogs:190,shipping:45,gateway:2.9,discount:10,vat:25};
+    const $=id=>document.getElementById(id);
+    const dkk=n=>`${n.toFixed(2)} DKK`;
+    const fields=Object.keys(defaults);
 
-    function calcBreakEvenROAS() {
-      const aov = num('aov');
-      const margin = num('margin') / 100;
-      const ship = num('ship');
-      const fee = num('fee') / 100;
-      const returns = num('returns') / 100;
-
-      const gross = aov * margin;
-      const feeCost = aov * fee;
-      const returnCost = aov * returns * margin;
-      const contribution = gross - ship - feeCost - returnCost;
-      const roas = contribution > 0 ? aov / contribution : Infinity;
-
-      $('roas').textContent = Number.isFinite(roas) ? `${roas.toFixed(2)}x` : 'Not viable';
-      $('roasHint').innerHTML = Number.isFinite(roas)
-        ? `If your real ROAS is below <b>${roas.toFixed(2)}x</b>, this campaign loses money.`
-        : `<span class="warn">Unit economics are negative before ad spend.</span>`;
-      $('maxCac').textContent = `Max CAC: ${dkk(contribution)}`;
-      $('contribution').textContent = `Contribution: ${dkk(contribution)}`;
+    function syncPair(name,val){
+      const n=$(name), r=$(name+'r'), v=$(name+'v');
+      if(n) n.value=val; if(r) r.value=val; if(v) v.textContent=val;
+    }
+    function bind(name){
+      const n=$(name), r=$(name+'r');
+      [n,r].forEach(el=>el&&el.addEventListener('input',e=>{syncPair(name,e.target.value);calc()}));
     }
 
-    function calcProfitPerOrder() {
-      const price = num('price');
-      const cogs = num('cogs');
-      const shipping = num('shipping');
-      const gateway = num('gateway') / 100;
-      const discount = num('discount') / 100;
-      const vat = num('vat') / 100;
-
-      const discounted = price * (1 - discount);
-      const net = discounted / (1 + vat);
-      const gatewayCost = discounted * gateway;
-      const profit = net - cogs - shipping - gatewayCost;
-      const margin = net > 0 ? (profit / net) * 100 : 0;
-
-      $('profit').textContent = dkk(profit);
-      $('profit').style.color = profit >= 0 ? 'var(--ok)' : 'var(--bad)';
-      $('profitHint').innerHTML = profit >= 0
-        ? `Healthy before ad spend. Protect this with disciplined CAC.`
-        : `<span class="warn">Loss per order. Fix pricing, discount, or costs.</span>`;
-      $('marginPct').textContent = `Margin: ${margin.toFixed(1)}%`;
-      $('netExVat').textContent = `Net price: ${dkk(net)}`;
+    function animateNumber(el,to,prefix='',suffix=''){
+      const from=parseFloat((el.dataset.v||'0')); const dur=180; const start=performance.now();
+      function f(t){const p=Math.min(1,(t-start)/dur);const val=from+(to-from)*p; el.textContent=prefix+val.toFixed(2)+suffix; if(p<1) requestAnimationFrame(f); else el.dataset.v=to;}
+      requestAnimationFrame(f);
     }
 
-    function recalc(){ calcBreakEvenROAS(); calcProfitPerOrder(); }
-    document.querySelectorAll('input').forEach(i => i.addEventListener('input', recalc));
-    recalc();
+    function calc(){
+      const aov=+$("aov").value, margin=+$("margin").value/100, ship=+$("ship").value, fee=+$("fee").value/100, returns=+$("returns").value/100;
+      const gross=aov*margin, feeCost=aov*fee, retCost=aov*returns*margin, contribution=gross-ship-feeCost-retCost;
+      const roas = contribution>0 ? aov/contribution : 999;
+
+      const price=+$("price").value, cogs=+$("cogs").value, shipping=+$("shipping").value, gateway=+$("gateway").value/100, discount=+$("discount").value/100, vat=+$("vat").value/100;
+      const discounted=price*(1-discount), net=discounted/(1+vat), gatewayCost=discounted*gateway;
+      const profit=net-cogs-shipping-gatewayCost, marginPct=(profit/net)*100;
+
+      animateNumber($("roas"), Math.min(roas,999), '', 'x');
+      animateNumber($("profit"), profit, '', '');
+      $("profit").textContent = dkk(profit);
+      $("profit").style.color = profit>=0 ? 'var(--ok)' : 'var(--warn)';
+
+      $("maxCac").textContent=dkk(contribution);
+      $("contribution").textContent=dkk(contribution);
+      $("marginPct").textContent=marginPct.toFixed(1)+'%';
+      $("marginPct").style.color= marginPct>20 ? 'var(--ok)' : (marginPct>5 ? '#f59e0b' : 'var(--danger)');
+      $("netExVat").textContent=dkk(net);
+
+      const deg=Math.max(10,Math.min(320,roas*38));
+      $("gauge").style.setProperty('--deg',deg+'deg');
+      $("gaugeText").textContent=(roas>15?'High':roas>6?'Medium':'Low')+' risk';
+    }
+
+    fields.forEach(f=>{syncPair(f,defaults[f]);bind(f)});
+    calc();
+
+    $('resetBtn').addEventListener('click',()=>{fields.forEach(f=>syncPair(f,defaults[f]));calc();});
+    $('copyBtn').addEventListener('click',async()=>{
+      const text=`MarginRadar Results\nBreak-even ROAS: ${$('roas').textContent}\nProfit/order: ${$('profit').textContent}\nMax CAC: ${$('maxCac').textContent}\nContribution: ${$('contribution').textContent}\nMargin: ${$('marginPct').textContent}`;
+      try{await navigator.clipboard.writeText(text);$('copyBtn').textContent='Copied';setTimeout(()=>$('copyBtn').textContent='Copy results',1200);}catch{}
+    });
   </script>
 </body>
 </html>
