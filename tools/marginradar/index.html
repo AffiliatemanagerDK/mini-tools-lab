@@ -3,53 +3,164 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MarginRadar — Free E-commerce Profit Calculator</title>
-  <meta name="description" content="MarginRadar: free e-commerce calculator for Break-even ROAS and Profit per Order." />
+  <title>MarginRadar — Unit Economics Control Room</title>
+  <meta name="description" content="MarginRadar helps e-commerce founders calculate break-even ROAS and profit per order in seconds." />
   <style>
-    :root{--bg:#070b1a;--bg2:#0b1534;--card:rgba(18,27,57,.72);--border:rgba(140,170,255,.22);--text:#ecf2ff;--muted:#a8b6de;--accent:#66f3d5;--danger:#ff9f9f;--shadow:0 20px 55px rgba(0,0,0,.45)}
+    :root{
+      --bg:#f6f7fb;
+      --ink:#0f172a;
+      --muted:#52607a;
+      --line:#d9dfeb;
+      --card:#ffffff;
+      --brand:#ff5a3d;
+      --brand-2:#ffd166;
+      --ok:#0ea5a4;
+      --bad:#dc2626;
+    }
     *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:radial-gradient(1000px 600px at -10% -20%, #1c3170 0%, transparent 60%),radial-gradient(900px 600px at 110% 0%, #0f5b64 0%, transparent 55%),linear-gradient(155deg,var(--bg),var(--bg2))}
-    .wrap{max-width:1080px;margin:38px auto;padding:16px}.top{margin-bottom:14px}.back{color:#cfe0ff;text-decoration:none;font-size:14px}
-    .hero{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-bottom:18px}h1{margin:0;font-size:clamp(28px,4vw,42px);line-height:1.05}.sub{margin:10px 0 0;color:var(--muted)}.badge{padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:rgba(102,243,213,.12);font-size:12px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:var(--shadow);backdrop-filter: blur(12px)}
-    .card h2{margin:2px 0 12px;font-size:20px}.row{display:grid;grid-template-columns:1fr 140px;gap:10px;align-items:center;margin:10px 0}label{font-size:14px;color:#d8e4ff}
-    input{width:100%;padding:10px 11px;border-radius:10px;border:1px solid #38508f;background:#0b1331;color:white;outline:none;font-weight:500}input:focus{border-color:#7ea4ff;box-shadow:0 0 0 3px rgba(126,164,255,.22)}
-    .result{margin-top:14px;padding:14px;border-radius:12px;background:#0b1430;border:1px solid #30457f}.caption{font-size:13px;color:var(--muted)}.big{font-size:34px;font-weight:800;line-height:1.1;color:var(--accent);margin-top:6px}.hint{font-size:13px;color:#c9d6ff;margin-top:8px}.warn{color:var(--danger)}.foot{margin-top:14px;font-size:12px;color:var(--muted)}.kpi{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}.pill{font-size:12px;padding:6px 10px;border-radius:999px;background:rgba(126,164,255,.16);border:1px solid var(--border)}
-    @media(max-width:900px){.grid{grid-template-columns:1fr}}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    .shell{max-width:1100px;margin:22px auto;padding:14px}
+    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+    .back{font-size:13px;text-decoration:none;color:#334155}
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(145deg,var(--brand),var(--brand-2));display:grid;place-items:center;font-weight:900;color:#111}
+    .brand h1{font-size:20px;margin:0}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-bottom:14px}
+    .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+    .hero h2{margin:0 0 8px;font-size:30px;line-height:1.06}
+    .hero p{margin:0;color:var(--muted)}
+    .stamp{display:inline-block;margin-top:12px;font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#fff}
+
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+    .title{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .title h3{margin:0;font-size:18px}
+    .chip{font-size:11px;padding:5px 8px;border-radius:999px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
+    .row{display:grid;grid-template-columns:1fr 130px;gap:10px;align-items:center;margin:9px 0}
+    label{font-size:13px;color:#334155}
+    input{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font-weight:600;background:#fff}
+    input:focus{outline:none;border-color:#aab5ce;box-shadow:0 0 0 3px rgba(59,130,246,.12)}
+    .result{margin-top:12px;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px}
+    .metric{font-size:32px;font-weight:800;color:var(--ok);line-height:1.1}
+    .hint{margin-top:6px;font-size:13px;color:var(--muted)}
+    .warn{color:var(--bad)}
+    .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .pill{font-size:11px;padding:5px 8px;border-radius:999px;background:#eef2ff;border:1px solid #c7d2fe;color:#312e81}
+    @media(max-width:920px){.grid,.hero{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <div class="top"><a class="back" href="/">← Back to Tool Hub</a></div>
-    <section class="hero"><div><h1>MarginRadar</h1><p class="sub">Free micro-tool for e-commerce owners: calculate <b>break-even ROAS</b> and <b>profit per order</b> in 30 seconds.</p></div><div class="badge">No API · No login · Zero ongoing cost</div></section>
+  <main class="shell">
+    <div class="top">
+      <a class="back" href="/">← Back to Tool Hub</a>
+      <div class="brand"><div class="logo">MR</div><h1>MarginRadar</h1></div>
+    </div>
+
+    <section class="hero">
+      <div class="panel">
+        <h2>Your unit economics,<br/>without guesswork.</h2>
+        <p>Use this control room before launching any campaign. If your economics break here, ad scale will amplify losses.</p>
+        <span class="stamp">No API • No login • 100% browser-side</span>
+      </div>
+      <div class="panel">
+        <strong>What this tool gives you</strong>
+        <ul>
+          <li>Break-even ROAS threshold</li>
+          <li>Max CAC per order</li>
+          <li>Profit per order before ad spend</li>
+          <li>Quick margin sanity check</li>
+        </ul>
+      </div>
+    </section>
+
     <section class="grid">
       <article class="card">
-        <h2>Break-even ROAS</h2>
-        <div class="row"><label for="aov">AOV (DKK)</label><input id="aov" type="number" value="500" /></div>
-        <div class="row"><label for="margin">Gross margin (%)</label><input id="margin" type="number" value="55" /></div>
-        <div class="row"><label for="ship">Shipping per order (DKK)</label><input id="ship" type="number" value="39" /></div>
-        <div class="row"><label for="fee">Payment fee (%)</label><input id="fee" type="number" value="2.5" /></div>
-        <div class="row"><label for="returns">Return rate (%)</label><input id="returns" type="number" value="8" /></div>
-        <div class="result"><div class="caption">Minimum ROAS for break-even</div><div id="roas" class="big">-</div><div id="roasHint" class="hint"></div><div class="kpi"><span class="pill" id="maxCac">Max CAC: -</span><span class="pill" id="contribution">Contribution: -</span></div></div>
+        <div class="title"><h3>Break-even ROAS</h3><span class="chip">Acquisition</span></div>
+        <div class="row"><label for="aov">AOV (DKK)</label><input id="aov" type="number" value="500"></div>
+        <div class="row"><label for="margin">Gross margin (%)</label><input id="margin" type="number" value="55"></div>
+        <div class="row"><label for="ship">Shipping per order (DKK)</label><input id="ship" type="number" value="39"></div>
+        <div class="row"><label for="fee">Payment fee (%)</label><input id="fee" type="number" value="2.5"></div>
+        <div class="row"><label for="returns">Return rate (%)</label><input id="returns" type="number" value="8"></div>
+
+        <div class="result">
+          <div style="font-size:12px;color:#64748b">Minimum ROAS to avoid loss</div>
+          <div id="roas" class="metric">-</div>
+          <div id="roasHint" class="hint"></div>
+          <div class="meta"><span class="pill" id="maxCac">Max CAC: -</span><span class="pill" id="contribution">Contribution: -</span></div>
+        </div>
       </article>
+
       <article class="card">
-        <h2>Profit per order</h2>
-        <div class="row"><label for="price">Sale price incl. VAT (DKK)</label><input id="price" type="number" value="599" /></div>
-        <div class="row"><label for="cogs">COGS (DKK)</label><input id="cogs" type="number" value="190" /></div>
-        <div class="row"><label for="shipping">Shipping (DKK)</label><input id="shipping" type="number" value="45" /></div>
-        <div class="row"><label for="gateway">Gateway fee (%)</label><input id="gateway" type="number" value="2.9" /></div>
-        <div class="row"><label for="discount">Discount (%)</label><input id="discount" type="number" value="10" /></div>
-        <div class="row"><label for="vat">VAT (%)</label><input id="vat" type="number" value="25" /></div>
-        <div class="result"><div class="caption">Profit per order (ekskl. ad spend)</div><div id="profit" class="big">-</div><div id="profitHint" class="hint"></div><div class="kpi"><span class="pill" id="marginPct">Margin: -</span><span class="pill" id="netExVat">Net price ex. VAT: -</span></div></div>
+        <div class="title"><h3>Profit per Order</h3><span class="chip">Margin</span></div>
+        <div class="row"><label for="price">Sale price incl. VAT (DKK)</label><input id="price" type="number" value="599"></div>
+        <div class="row"><label for="cogs">COGS (DKK)</label><input id="cogs" type="number" value="190"></div>
+        <div class="row"><label for="shipping">Shipping (DKK)</label><input id="shipping" type="number" value="45"></div>
+        <div class="row"><label for="gateway">Gateway fee (%)</label><input id="gateway" type="number" value="2.9"></div>
+        <div class="row"><label for="discount">Discount (%)</label><input id="discount" type="number" value="10"></div>
+        <div class="row"><label for="vat">VAT (%)</label><input id="vat" type="number" value="25"></div>
+
+        <div class="result">
+          <div style="font-size:12px;color:#64748b">Profit per order (before ad spend)</div>
+          <div id="profit" class="metric">-</div>
+          <div id="profitHint" class="hint"></div>
+          <div class="meta"><span class="pill" id="marginPct">Margin: -</span><span class="pill" id="netExVat">Net price: -</span></div>
+        </div>
       </article>
     </section>
-    <p class="foot">Tip: Use these numbers in the same week your campaigns run.</p>
   </main>
+
   <script>
-    const $=id=>document.getElementById(id),num=id=>parseFloat($(id).value||0),dkk=n=>`${Number.isFinite(n)?n.toFixed(2):'-'} DKK`;
-    function calcBreakEvenROAS(){const aov=num('aov'),margin=num('margin')/100,ship=num('ship'),fee=num('fee')/100,returns=num('returns')/100,gross=aov*margin,feeCost=aov*fee,retCost=aov*returns*margin,contrib=gross-ship-feeCost-retCost,roas=contrib>0?aov/contrib:Infinity;$('roas').textContent=Number.isFinite(roas)?`${roas.toFixed(2)}x`:'Not possible';$('roasHint').innerHTML=Number.isFinite(roas)?`If your actual ROAS is below <b>${roas.toFixed(2)}x</b>, you are losing money.`:'<span class="warn">Negative unit economics before ads.</span>';$('maxCac').textContent=`Max CAC: ${dkk(contrib)}`;$('contribution').textContent=`Contribution: ${dkk(contrib)}`}
-    function calcProfitPerOrder(){const price=num('price'),cogs=num('cogs'),shipping=num('shipping'),gateway=num('gateway')/100,discount=num('discount')/100,vat=num('vat')/100,disc=price*(1-discount),net=disc/(1+vat),gate=disc*gateway,profit=net-cogs-shipping-gate,m=net>0?(profit/net)*100:0;$('profit').textContent=dkk(profit);$('profitHint').innerHTML=profit>=0?'Keep this positive after ad spend.':'<span class="warn">Loss per order.</span>';$('marginPct').textContent=`Margin: ${m.toFixed(1)}%`;$('netExVat').textContent=`Net price: ${dkk(net)}`}
-    function recalc(){calcBreakEvenROAS();calcProfitPerOrder()}document.querySelectorAll('input').forEach(i=>i.addEventListener('input',recalc));recalc();
+    const $ = id => document.getElementById(id);
+    const num = id => parseFloat($(id).value || 0);
+    const dkk = n => `${Number.isFinite(n) ? n.toFixed(2) : '-'} DKK`;
+
+    function calcBreakEvenROAS() {
+      const aov = num('aov');
+      const margin = num('margin') / 100;
+      const ship = num('ship');
+      const fee = num('fee') / 100;
+      const returns = num('returns') / 100;
+
+      const gross = aov * margin;
+      const feeCost = aov * fee;
+      const returnCost = aov * returns * margin;
+      const contribution = gross - ship - feeCost - returnCost;
+      const roas = contribution > 0 ? aov / contribution : Infinity;
+
+      $('roas').textContent = Number.isFinite(roas) ? `${roas.toFixed(2)}x` : 'Not viable';
+      $('roasHint').innerHTML = Number.isFinite(roas)
+        ? `If your real ROAS is below <b>${roas.toFixed(2)}x</b>, this campaign loses money.`
+        : `<span class="warn">Unit economics are negative before ad spend.</span>`;
+      $('maxCac').textContent = `Max CAC: ${dkk(contribution)}`;
+      $('contribution').textContent = `Contribution: ${dkk(contribution)}`;
+    }
+
+    function calcProfitPerOrder() {
+      const price = num('price');
+      const cogs = num('cogs');
+      const shipping = num('shipping');
+      const gateway = num('gateway') / 100;
+      const discount = num('discount') / 100;
+      const vat = num('vat') / 100;
+
+      const discounted = price * (1 - discount);
+      const net = discounted / (1 + vat);
+      const gatewayCost = discounted * gateway;
+      const profit = net - cogs - shipping - gatewayCost;
+      const margin = net > 0 ? (profit / net) * 100 : 0;
+
+      $('profit').textContent = dkk(profit);
+      $('profit').style.color = profit >= 0 ? 'var(--ok)' : 'var(--bad)';
+      $('profitHint').innerHTML = profit >= 0
+        ? `Healthy before ad spend. Protect this with disciplined CAC.`
+        : `<span class="warn">Loss per order. Fix pricing, discount, or costs.</span>`;
+      $('marginPct').textContent = `Margin: ${margin.toFixed(1)}%`;
+      $('netExVat').textContent = `Net price: ${dkk(net)}`;
+    }
+
+    function recalc(){ calcBreakEvenROAS(); calcProfitPerOrder(); }
+    document.querySelectorAll('input').forEach(i => i.addEventListener('input', recalc));
+    recalc();
   </script>
 </body>
 </html>
