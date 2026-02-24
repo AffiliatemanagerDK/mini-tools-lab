@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StockPulse — Reorder & Runway Calculator</title>
+  <meta name="description" content="No-API inventory runway and reorder calculator for e-commerce stores." />
+  <style>
+    :root{--bg:#0b1224;--bg2:#121a33;--card:#18233f;--line:#2a3c67;--text:#ecf2ff;--muted:#9fb2d9;--accent:#6ee7ff;--ok:#22c55e;--warn:#f59e0b;--bad:#ef4444}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui;background:linear-gradient(160deg,var(--bg),var(--bg2));color:var(--text)}
+    .wrap{max-width:980px;margin:24px auto;padding:16px}
+    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+    a{color:#bcd7ff;text-decoration:none}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+    h1{margin:0 0 8px;font-size:30px} p{margin:0;color:var(--muted)}
+    .field{margin-top:12px}
+    label{display:block;font-size:13px;color:#c8d8f8;margin-bottom:6px}
+    input{width:100%;height:42px;border-radius:10px;border:1px solid var(--line);background:#0f1931;color:#eef4ff;padding:8px 10px;font-size:16px}
+    .kpi{display:grid;gap:10px}
+    .box{border:1px solid var(--line);background:#101a33;border-radius:12px;padding:12px}
+    .k{font-size:12px;color:var(--muted)} .v{font-size:24px;font-weight:800;margin-top:3px}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700}
+    .safe{background:#123622;color:#9af2b8;border:1px solid #2f8c53}
+    .warning{background:#3f2a12;color:#ffd58a;border:1px solid #b27a2b}
+    .critical{background:#44161b;color:#ffadb8;border:1px solid #b84b59}
+    @media(max-width:840px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="top">
+      <div>
+        <h1>StockPulse</h1>
+        <p>Inventory runway + reorder date for e-commerce teams (no API).</p>
+      </div>
+      <a href="/">← Tool Hub</a>
+    </div>
+
+    <section class="grid">
+      <article class="card">
+        <div class="field"><label for="stock">Current stock (units)</label><input id="stock" type="number" min="0" value="520" /></div>
+        <div class="field"><label for="sales">Units sold / day</label><input id="sales" type="number" min="0.01" step="0.01" value="26" /></div>
+        <div class="field"><label for="lead">Lead time (days)</label><input id="lead" type="number" min="0" value="14" /></div>
+        <div class="field"><label for="safety">Safety stock (units)</label><input id="safety" type="number" min="0" value="120" /></div>
+        <div class="field"><label for="moq">MOQ (minimum order quantity)</label><input id="moq" type="number" min="0" value="300" /></div>
+      </article>
+
+      <article class="card kpi">
+        <div class="box"><div class="k">Days until stockout</div><div class="v" id="runway">-</div></div>
+        <div class="box"><div class="k">Reorder latest date</div><div class="v" id="reorderDate" style="font-size:19px">-</div></div>
+        <div class="box"><div class="k">Recommended order qty</div><div class="v" id="orderQty">-</div></div>
+        <div class="box"><div class="k">Risk status</div><div class="v" style="font-size:18px"><span id="risk" class="badge">-</span></div></div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    const ids = ["stock","sales","lead","safety","moq"];
+    ids.forEach(id => $(id).addEventListener('input', calc));
+
+    function fmtDate(d){return d.toLocaleDateString('da-DK',{year:'numeric',month:'short',day:'numeric'});}    
+
+    function calc(){
+      const stock = Math.max(0, +$("stock").value || 0);
+      const sales = Math.max(0.01, +$("sales").value || 0.01);
+      const lead = Math.max(0, +$("lead").value || 0);
+      const safety = Math.max(0, +$("safety").value || 0);
+      const moq = Math.max(0, +$("moq").value || 0);
+
+      const runwayDays = stock / sales;
+      const reorderPoint = sales * lead + safety;
+      const daysUntilReorder = (stock - reorderPoint) / sales;
+      const suggested = Math.ceil(Math.max(moq, (sales * 30 + safety) - stock));
+
+      const now = new Date();
+      const stockoutDate = new Date(now.getTime() + runwayDays * 24*60*60*1000);
+      const reorderDate = new Date(stockoutDate.getTime() - lead * 24*60*60*1000);
+
+      $("runway").textContent = runwayDays.toFixed(1) + " dage";
+      $("reorderDate").textContent = fmtDate(reorderDate);
+      $("orderQty").textContent = Math.max(0, suggested).toLocaleString('da-DK') + " enheder";
+
+      const risk = $("risk");
+      if (daysUntilReorder <= 0) {
+        risk.className = "badge critical";
+        risk.textContent = "Critical";
+      } else if (daysUntilReorder <= 7) {
+        risk.className = "badge warning";
+        risk.textContent = "Warning";
+      } else {
+        risk.className = "badge safe";
+        risk.textContent = "Safe";
+      }
+    }
+
+    calc();
+  </script>
+</body>
+</html>
