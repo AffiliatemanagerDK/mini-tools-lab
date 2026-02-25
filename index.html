@@ -4,190 +4,134 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NorthGrid Tools — Dark App Store for E-commerce</title>
-  <meta name="description" content="NorthGrid Tools: a curated dark app-store style hub of no-API e-commerce decision tools." />
+  <meta name="description" content="NorthGrid Tools: curated no-API e-commerce decision tools." />
   <style>
-    :root{
-      --bg:#0b1121;--bg2:#101a34;--text:#eef4ff;--muted:#9eb1d2;--line:rgba(255,255,255,.13);
-      --shadow:0 24px 60px rgba(0,0,0,.45);
-      --teal:#22d3ee;--amber:#f59e0b;--rose:#fb7185;
-    }
+    :root{--bg:#0b1121;--bg2:#101a34;--text:#eef4ff;--muted:#9eb1d2;--line:rgba(255,255,255,.13);--shadow:0 24px 60px rgba(0,0,0,.45);--teal:#22d3ee;--amber:#f59e0b;--rose:#fb7185}
     *{box-sizing:border-box}
-    body{margin:0;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:
-      radial-gradient(1200px 700px at -20% -20%, #21438d 0%, transparent 60%),
-      radial-gradient(900px 620px at 120% -10%, #7a4d10 0%, transparent 54%),
-      linear-gradient(165deg,var(--bg),var(--bg2));min-height:100vh}
+    body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:radial-gradient(1200px 700px at -20% -20%,#21438d 0%,transparent 60%),radial-gradient(900px 620px at 120% -10%,#7a4d10 0%,transparent 54%),linear-gradient(165deg,var(--bg),var(--bg2));min-height:100vh}
     .wrap{max-width:1180px;margin:34px auto;padding:16px}
 
     .nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:34px}
     .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
-    .logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(140deg,#8dafff,var(--teal));display:grid;place-items:center;color:#071020;font-weight:900;box-shadow:var(--shadow);transition:all .25s ease}
-    .brand:hover .logo{transform:translateY(-1px) scale(1.02);box-shadow:0 0 0 6px #22d3ee26,var(--shadow)}
-    .name{font-weight:800;letter-spacing:.2px}
+    .logo{width:44px;height:44px;border-radius:13px;background:linear-gradient(140deg,#8dafff,var(--teal));display:grid;place-items:center;color:#071020;font-weight:900;box-shadow:var(--shadow);transition:.25s}
+    .brand:hover .logo{transform:translateY(-1px) scale(1.03);box-shadow:0 0 0 7px #22d3ee24,var(--shadow)}
+    .name{font-weight:800}
     .tag{font-size:12px;color:#d5e5ff;border:1px solid var(--line);padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.06)}
 
-    .featured{position:relative;border:1px solid rgba(245,158,11,.35);border-radius:22px;overflow:hidden;min-height:380px;background:
-      radial-gradient(1000px 400px at 80% 10%, rgba(245,158,11,.23), transparent 58%),
-      linear-gradient(150deg,#1a2744,#0f182e 60%,#111a31)}
+    .featured{position:relative;border:1px solid rgba(245,158,11,.35);border-radius:22px;overflow:hidden;min-height:380px;background:radial-gradient(1000px 400px at 80% 10%,rgba(245,158,11,.23),transparent 58%),linear-gradient(150deg,#1a2744,#0f182e 60%,#111a31)}
     .featured .label{position:absolute;left:16px;top:14px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#ffd79a;border:1px solid rgba(245,158,11,.45);border-radius:999px;padding:6px 9px;background:rgba(245,158,11,.16)}
     .featuredGrid{display:grid;grid-template-columns:1.1fr .9fr;min-height:380px}
     .fLeft{padding:62px 34px 30px}
     .fTitle{margin:0;font-size:clamp(36px,5vw,52px);line-height:1.01}
     .fSub{margin:10px 0 18px;color:#d8e4ff;max-width:420px;font-size:18px}
     .fBtn{display:inline-block;text-decoration:none;background:linear-gradient(130deg,#ffd189,var(--amber));color:#291704;padding:12px 14px;border-radius:12px;font-weight:800}
-
-    .fRight{padding:30px;display:grid;place-items:center}
-    .preview{width:min(430px,100%);aspect-ratio:16/10;border-radius:16px;border:1px solid rgba(245,158,11,.4);background:#11192f;transform:perspective(1200px) rotateY(-8deg) rotateX(3deg);box-shadow:0 24px 40px #0008;overflow:hidden}
+    .fRight{padding:24px;display:grid;place-items:center}
+    .preview{width:min(460px,100%);aspect-ratio:16/10;border-radius:16px;border:1px solid rgba(245,158,11,.4);background:#11192f;transform:perspective(1200px) rotateY(-8deg) rotateX(3deg);box-shadow:0 24px 40px #0008;overflow:hidden}
     .pvHead{height:42px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:8px;padding:0 12px;color:#ffe0b2;font-size:12px}
     .dot{width:8px;height:8px;border-radius:999px;background:#ffc777}
-    .pvBody{padding:12px}
-    .line{height:8px;border-radius:999px;background:#2a3f64;margin-bottom:10px;overflow:hidden}
-    .line > i{display:block;height:100%;background:linear-gradient(90deg,#22c55e,var(--amber),#ef4444)}
+    .pvBody{padding:12px}.line{height:8px;border-radius:999px;background:#2a3f64;margin-bottom:10px;overflow:hidden}.line>i{display:block;height:100%;background:linear-gradient(90deg,#22c55e,var(--amber),#ef4444)}
     .marks{display:flex;justify-content:space-between;font-size:11px;color:#9fb5d7;margin-top:8px}
-    .cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-    .mini{border:1px solid rgba(255,255,255,.09);background:#121d36;border-radius:10px;padding:8px}
-    .mini .k{font-size:10px;color:#9db0cf}.mini .v{font-size:16px;font-weight:800;color:#ffe0af;margin-top:3px}
+    .cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.mini{border:1px solid rgba(255,255,255,.09);background:#121d36;border-radius:10px;padding:8px}.mini .k{font-size:10px;color:#9db0cf}.mini .v{font-size:16px;font-weight:800;color:#ffe0af;margin-top:3px}
 
-    .intro{margin:72px 0 30px;text-align:center}
-    .intro h2{margin:0 0 8px;font-size:clamp(24px,3vw,30px)}
-    .intro p{margin:0;color:var(--muted);font-size:16px}
+    .intro{margin:72px 0 30px;text-align:center}.intro h2{margin:0 0 8px;font-size:clamp(24px,3vw,30px)}.intro p{margin:0;color:var(--muted);font-size:16px}
 
     .bento{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}
-    .card{position:relative;border-radius:16px;padding:16px;border:1px solid var(--line);background:rgba(17,27,54,.72);box-shadow:var(--shadow);transition:transform .22s ease,filter .22s ease,box-shadow .22s ease}
+    .card{position:relative;border-radius:16px;border:1px solid var(--line);background:rgba(17,27,54,.72);box-shadow:var(--shadow);transition:.22s;overflow:hidden}
     .card:hover{transform:translateY(-3px) scale(1.015);filter:brightness(1.04);box-shadow:0 30px 65px rgba(0,0,0,.55)}
-    .card.large{min-height:290px}.card.medium{min-height:220px}
+    .card.large{min-height:330px}.card.medium{min-height:280px}
+    .previewZone{height:56%;min-height:155px;padding:12px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .bodyZone{padding:14px 16px 16px}
 
-    .acc-teal{background:radial-gradient(700px 240px at 50% 120%, rgba(34,211,238,.22), transparent 65%), rgba(17,27,54,.72);border-bottom:3px solid var(--teal)}
-    .acc-amber{background:radial-gradient(700px 240px at 50% 120%, rgba(245,158,11,.22), transparent 65%), rgba(17,27,54,.72);border-bottom:3px solid var(--amber)}
-    .acc-rose{background:radial-gradient(700px 240px at 50% 120%, rgba(251,113,133,.2), transparent 65%), rgba(17,27,54,.72);border-bottom:3px solid var(--rose)}
+    .acc-teal{background:radial-gradient(900px 340px at 50% -20%,rgba(34,211,238,.20),transparent 62%),rgba(17,27,54,.72);border-bottom:3px solid var(--teal)}
+    .acc-amber{background:radial-gradient(900px 340px at 50% -20%,rgba(245,158,11,.23),transparent 62%),rgba(17,27,54,.72);border-bottom:3px solid var(--amber)}
+    .acc-rose{background:radial-gradient(900px 340px at 50% -20%,rgba(251,113,133,.2),transparent 62%),rgba(17,27,54,.72);border-bottom:3px solid var(--rose)}
+    .acc-neutral{background:radial-gradient(900px 340px at 50% -20%,rgba(131,146,196,.2),transparent 62%),rgba(17,27,54,.72);border-bottom:3px solid #798ab6}
 
-    .cardPreview{height:118px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.2);margin-bottom:12px;display:grid;place-items:center;overflow:hidden}
-    .donut{width:86px;height:86px;border-radius:50%;background:conic-gradient(var(--teal) 63%, #243851 0)}
-    .donut::after{content:"";display:block;width:58px;height:58px;border-radius:50%;background:#13213f;margin:14px auto}
-    .timelineMini{width:90%;height:10px;border-radius:999px;background:#293243;position:relative}
-    .timelineMini::before,.timelineMini::after{content:"";position:absolute;top:-4px;width:8px;height:8px;border-radius:50%}
-    .timelineMini::before{left:46%;background:var(--amber)}
-    .timelineMini::after{left:88%;background:#ff7a88}
-    .ghost{width:92%;height:64px;border-radius:10px;background:linear-gradient(135deg,#4a2233,#2a1f2d);filter:blur(.2px);opacity:.8}
+    .donut{width:120px;height:120px;border-radius:50%;background:conic-gradient(var(--teal) 67%,#253852 0);margin:8px auto 10px;animation:spin 8s linear infinite}
+    .donut::after{content:"";display:block;width:78px;height:78px;border-radius:50%;background:#13213f;margin:21px auto}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .mrStats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.mrBox{background:#102039;border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:6px}.mrBox .k{font-size:10px;color:#9dbde2}.mrBox .v{font-size:14px;font-weight:800;color:#b6f6ff}
 
-    .card h3{margin:2px 0 8px;font-size:24px}
-    .desc{color:var(--muted);font-size:14px;line-height:1.45}
-    .meta{display:flex;gap:7px;flex-wrap:wrap;margin:11px 0 12px}
-    .pill{font-size:11px;padding:5px 8px;border-radius:999px;border:1px solid currentColor;color:#dce8ff;background:rgba(255,255,255,.06)}
+    .spTop{font-size:11px;color:#efd2a5;display:flex;justify-content:space-between}.spBar{height:10px;border-radius:999px;background:#2a3142;overflow:hidden;margin:8px 0}.spBar i{display:block;height:100%;width:62%;background:linear-gradient(90deg,#22c55e,var(--amber),#ef4444)}
+    .spTimeline{position:relative;height:28px}.spTimeline .axis{position:absolute;left:0;right:0;top:12px;height:5px;border-radius:999px;background:#2b3448}.spTimeline .m{position:absolute;top:5px;width:8px;height:8px;border-radius:50%}.spTimeline .m1{left:45%;background:var(--amber);animation:pulse 1.2s ease-in-out infinite}.spTimeline .m2{left:86%;background:#ff8797}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.35)}}
+
+    .pgCompare{display:grid;grid-template-columns:1fr 1fr;gap:8px}.pgCol{background:#2a1522;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px}.pgCol .k{font-size:10px;color:#edb6c1}.pgCol .v{font-size:15px;font-weight:800;color:#ffd0d8}
+
+    .card h3{margin:0 0 6px;font-size:24px}.desc{color:var(--muted);font-size:14px;line-height:1.45;margin:0 0 8px}
+    .points{margin:0 0 10px;padding:0;list-style:none;color:#bfd0ee;font-size:13px;display:grid;gap:4px}
+    .points li::before{content:"→ ";opacity:.85}
+    .meta{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 12px}
+    .pill{font-size:11px;padding:5px 8px;border-radius:999px;border:1px solid currentColor;background:rgba(255,255,255,.06)}
     .pill.teal{color:#9ef2ff}.pill.amber{color:#ffd89a}.pill.rose{color:#ffc0cc}
-
     .btn{display:inline-block;text-align:center;text-decoration:none;padding:10px 12px;border-radius:10px;font-weight:800}
-    .btn.teal{background:linear-gradient(130deg,#95ebff,var(--teal));color:#041822}
-    .btn.amber{background:linear-gradient(130deg,#ffd08a,var(--amber));color:#2c1804}
-    .btn.rose{background:#2a1e29;color:#ffc0cc;border:1px solid #8b4457}
+    .btn.teal{background:linear-gradient(130deg,#95ebff,var(--teal));color:#041822}.btn.amber{background:linear-gradient(130deg,#ffd08a,var(--amber));color:#2c1804}.btn.rose{background:linear-gradient(130deg,#ffc0cc,var(--rose));color:#3b0f1a}.btn.neutral{background:#182746;color:#d4e4ff;border:1px solid var(--line)}
 
     .cta{margin-top:78px;border:1px solid var(--line);border-radius:18px;padding:24px;text-align:center;background:rgba(17,28,55,.62)}
-    .cta h3{margin:0 0 8px;font-size:28px}
-    .cta p{margin:0;color:var(--muted)}
-    .cta .bbtn{display:inline-block;margin-top:14px;text-decoration:none;color:#d8e8ff;border:1px solid var(--line);padding:10px 12px;border-radius:10px;background:#15233f}
-
+    .cta h3{margin:0 0 8px;font-size:28px}.cta p{margin:0;color:var(--muted)}.cta .bbtn{display:inline-block;margin-top:14px;text-decoration:none;color:#d8e8ff;border:1px solid var(--line);padding:10px 12px;border-radius:10px;background:#15233f}
     .foot{margin-top:26px;text-align:center;color:#8196bb;font-size:12px}
 
-    [data-reveal]{opacity:0;transform:translateY(16px);transition:all .45s ease}
-    [data-reveal].in{opacity:1;transform:none}
-
-    @media(max-width:980px){
-      .featuredGrid{grid-template-columns:1fr}
-      .fRight{padding-top:0}
-      .bento{grid-template-columns:1fr}
-      .card.large,.card.medium{min-height:unset}
-    }
+    [data-reveal]{opacity:0;transform:translateY(16px);transition:all .45s ease}[data-reveal].in{opacity:1;transform:none}
+    @media(max-width:980px){.featuredGrid{grid-template-columns:1fr}.fRight{padding-top:0}.bento{grid-template-columns:1fr}.card.large,.card.medium{min-height:unset}.previewZone{min-height:170px}}
     @media(max-width:680px){.tag{display:none}.wrap{margin-top:18px}.intro{margin-top:56px}}
   </style>
 </head>
 <body>
   <div class="wrap">
     <nav class="nav" data-reveal>
-      <a class="brand" href="/">
-        <span class="logo">NG</span>
-        <div>
-          <div class="name">NorthGrid Tools</div>
-          <div style="font-size:12px;color:var(--muted)">Micro SaaS utilities for e-commerce</div>
-        </div>
-      </a>
+      <a class="brand" href="/"><span class="logo">NG</span><div><div class="name">NorthGrid Tools</div><div style="font-size:12px;color:var(--muted)">Micro SaaS utilities for e-commerce</div></div></a>
       <div class="tag">Free · No API cost · Built for speed</div>
     </nav>
 
     <section class="featured" data-reveal>
       <span class="label">★ Featured</span>
       <div class="featuredGrid">
-        <div class="fLeft">
-          <h1 class="fTitle">StockPulse</h1>
-          <p class="fSub">Know exactly when to reorder — before it's too late.</p>
-          <a class="fBtn" href="/tools/stockpulse/">Open tool →</a>
-        </div>
-        <div class="fRight">
-          <div class="preview">
-            <div class="pvHead"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:6px">Inventory timeline preview</span></div>
-            <div class="pvBody">
-              <div class="line"><i style="width:64%"></i></div>
-              <div class="marks"><span>Today</span><span>Reorder</span><span>Stockout</span></div>
-              <div class="cards">
-                <div class="mini"><div class="k">Runway</div><div class="v">20.0d</div></div>
-                <div class="mini"><div class="k">Risk</div><div class="v">SAFE</div></div>
-                <div class="mini"><div class="k">Reorder</div><div class="v">14 Mar</div></div>
-                <div class="mini"><div class="k">Order</div><div class="v">300</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="fLeft"><h1 class="fTitle">StockPulse</h1><p class="fSub">Know exactly when to reorder — before it's too late.</p><a class="fBtn" href="/tools/stockpulse/">Open tool →</a></div>
+        <div class="fRight"><div class="preview"><div class="pvHead"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:6px">Inventory timeline preview</span></div><div class="pvBody"><div class="line"><i style="width:64%"></i></div><div class="marks"><span>Today</span><span>Reorder</span><span>Stockout</span></div><div class="cards"><div class="mini"><div class="k">Runway</div><div class="v">20.0d</div></div><div class="mini"><div class="k">Risk</div><div class="v">SAFE</div></div><div class="mini"><div class="k">Reorder</div><div class="v">14 Mar</div></div><div class="mini"><div class="k">Order</div><div class="v">300</div></div></div></div></div></div>
       </div>
     </section>
 
-    <section class="intro" data-reveal>
-      <h2>Small tools. Real margin impact.</h2>
-      <p>Free decision tools for e-commerce teams. No login, no fluff.</p>
-    </section>
+    <section class="intro" data-reveal><h2>Small tools. Real margin impact.</h2><p>Free decision tools for e-commerce teams. No login, no fluff.</p></section>
 
     <section class="bento">
       <article class="card large acc-teal" data-reveal>
-        <div class="cardPreview"><div class="donut"></div></div>
-        <h3>MarginRadar</h3>
-        <p class="desc">Calculate break-even ROAS before you scale ad spend.</p>
-        <div class="meta"><span class="pill teal">ROAS</span><span class="pill teal">Profit</span><span class="pill teal">No API</span></div>
-        <a class="btn teal" href="/tools/marginradar/">Open tool</a>
+        <div class="previewZone">
+          <div class="donut"></div>
+          <div class="mrStats"><div class="mrBox"><div class="k">ROAS break-even</div><div class="v">2.4x</div></div><div class="mrBox"><div class="k">Max CAC</div><div class="v">DKK 113</div></div><div class="mrBox"><div class="k">Profit / order</div><div class="v">DKK 94</div></div></div>
+        </div>
+        <div class="bodyZone"><h3>MarginRadar</h3><p class="desc">Break-even clarity before you scale spend.</p><ul class="points"><li>ROAS threshold</li><li>Max CAC per order</li><li>Profit per order before ad spend</li></ul><div class="meta"><span class="pill teal">ROAS</span><span class="pill teal">Profit</span><span class="pill teal">No API</span></div><a class="btn teal" href="/tools/marginradar/">Open tool</a></div>
       </article>
 
       <article class="card medium acc-amber" data-reveal>
-        <div class="cardPreview"><div class="timelineMini"></div></div>
-        <h3>StockPulse</h3>
-        <p class="desc">Visualize runway, reorder date, and stockout risk.</p>
-        <div class="meta"><span class="pill amber">Inventory</span><span class="pill amber">Timeline</span><span class="pill amber">No API</span></div>
-        <a class="btn amber" href="/tools/stockpulse/">Open tool</a>
+        <div class="previewZone">
+          <div class="spTop"><span>Today</span><span>Reorder</span><span>Stockout</span></div>
+          <div class="spBar"><i></i></div>
+          <div class="spTimeline"><div class="axis"></div><span class="m m1"></span><span class="m m2"></span></div>
+          <div class="mrStats" style="margin-top:6px"><div class="mrBox"><div class="k">Days to stockout</div><div class="v" style="color:#ffd89a">20.0</div></div><div class="mrBox"><div class="k">Reorder date</div><div class="v" style="color:#ffd89a">14 Mar</div></div><div class="mrBox"><div class="k">Order qty</div><div class="v" style="color:#ffd89a">300</div></div></div>
+        </div>
+        <div class="bodyZone"><h3>StockPulse</h3><p class="desc">Timeline-first control of inventory risk.</p><ul class="points"><li>Days until stockout</li><li>Exact reorder date</li><li>Recommended order quantity</li></ul><div class="meta"><span class="pill amber">Inventory</span><span class="pill amber">Timeline</span><span class="pill amber">No API</span></div><a class="btn amber" href="/tools/stockpulse/">Open tool</a></div>
       </article>
 
       <article class="card medium acc-rose" data-reveal>
-        <div class="cardPreview"><div class="ghost"></div></div>
-        <h3>PromoGuard</h3>
-        <p class="desc">Compare no-discount vs promo scenarios before margin gets hurt.</p>
-        <div class="meta"><span class="pill rose">Discounts</span><span class="pill rose">Margin</span><span class="pill rose">Scenario</span></div>
-        <a class="btn rose" href="/tools/promoguard/">Open tool</a>
+        <div class="previewZone">
+          <div class="pgCompare"><div class="pgCol"><div class="k">Full price</div><div class="v">42% margin</div></div><div class="pgCol"><div class="k">20% off</div><div class="v">11% margin</div></div></div>
+          <div class="spBar" style="margin-top:12px"><i style="width:36%;background:linear-gradient(90deg,#ffb3c1,var(--rose))"></i></div>
+        </div>
+        <div class="bodyZone"><h3>PromoGuard</h3><p class="desc">Stress-test discount scenarios before launch.</p><ul class="points"><li>Before vs after margin</li><li>Profit delta under promo</li><li>Go / caution / stop signal</li></ul><div class="meta"><span class="pill rose">Discounts</span><span class="pill rose">Margin</span><span class="pill rose">Scenario</span></div><a class="btn rose" href="/tools/promoguard/">Open tool</a></div>
       </article>
 
-      <article class="card large" data-reveal style="border-bottom:3px solid #5f6d86;background:radial-gradient(700px 240px at 50% 120%, rgba(120,150,220,.2), transparent 65%), rgba(17,27,54,.72)">
-        <div class="cardPreview" style="display:grid;place-items:center;color:#aec2e8;font-size:14px;letter-spacing:.08em">NEXT TOOLS DROPPING SOON</div>
-        <h3>More mini-tools incoming</h3>
-        <p class="desc">Drunk Shopper Test, Checkout Friction Estimator, Shipping Psychology Optimizer, and more are queued in the lab.</p>
-        <div class="meta"><span class="pill">Roadmap</span><span class="pill">E-commerce</span><span class="pill">Client-side</span></div>
-        <a class="btn" href="#" onclick="return false" style="background:#182746;color:#d4e4ff;border:1px solid var(--line)">Browse roadmap</a>
+      <article class="card large acc-neutral" data-reveal>
+        <div class="previewZone" style="display:grid;place-items:center;color:#aec2e8;font-size:15px;letter-spacing:.08em">NEW TOOLS SHIP CONTINUOUSLY</div>
+        <div class="bodyZone"><h3>More mini-tools incoming</h3><p class="desc">We keep dropping new decision tools. This hub is meant to be revisited weekly.</p><ul class="points"><li>Fast no-API tools</li><li>Built for practical e-commerce decisions</li><li>Designed to be instantly actionable</li></ul><div class="meta"><span class="pill">Roadmap</span><span class="pill">E-commerce</span><span class="pill">Client-side</span></div><a class="btn neutral" href="#" onclick="return false">Stay tuned</a></div>
       </article>
     </section>
 
-    <section class="cta" data-reveal>
-      <h3>More tools are coming.</h3>
-      <p>We ship new mini-tools continuously. Bookmark this page and check back.</p>
-      <a class="bbtn" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false">🔖 Bookmark this hub</a>
-    </section>
-
+    <section class="cta" data-reveal><h3>More tools are coming.</h3><p>We ship new mini-tools continuously. Bookmark this page and check back.</p><a class="bbtn" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false">🔖 Bookmark this hub</a></section>
     <footer class="foot">Built by Mini Tools Lab · Version 0.3</footer>
   </div>
 
   <script>
-    const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.14});
+    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.14});
     document.querySelectorAll('[data-reveal]').forEach(el=>obs.observe(el));
   </script>
 </body>
