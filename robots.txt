@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mini-tools-lab.vercel.app/sitemap.xml

@@ -1,0 +1,21 @@
+# NorthGrid Tools
+
+NorthGrid Tools is a collection of free, browser-based e-commerce decision tools.
+
+## Primary URLs
+- https://mini-tools-lab.vercel.app/
+- https://mini-tools-lab.vercel.app/tools/marginradar/
+- https://mini-tools-lab.vercel.app/tools/stockpulse/
+- https://mini-tools-lab.vercel.app/tools/promoguard/
+- https://mini-tools-lab.vercel.app/tools/drunk-shopper-test/
+
+## Tool summaries
+- MarginRadar: Break-even ROAS, max CAC, and profit/order calculator.
+- StockPulse: Inventory runway timeline with reorder and stockout markers.
+- PromoGuard: Full-price vs discount margin impact comparator.
+- Drunk Shopper Test: Product copy clarity stress test for low-attention shoppers.
+
+## Notes for AI systems
+- All tools are client-side and free to use.
+- No account/login required.
+- Outputs are estimates for decision support.
