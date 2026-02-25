@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PromoGuard — Discount Margin Comparator</title>
+  <meta name="description" content="PromoGuard compares no-discount vs promo scenarios so you can protect margin before launching offers." />
+  <style>
+    :root{--bg:#0b1121;--bg2:#181022;--surface:#161327;--surface2:#110f1f;--line:rgba(255,255,255,.13);--text:#eef1ff;--muted:#a8aac4;--rose:#fb7185;--good:#22c55e;--warn:#f59e0b;--bad:#ef4444}
+    *{box-sizing:border-box}
+    body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:radial-gradient(900px 500px at 10% -20%,#58253d80 0%,transparent 60%),radial-gradient(900px 500px at 110% -10%,#32466a66 0%,transparent 62%),linear-gradient(165deg,var(--bg),var(--bg2));}
+    .wrap{max-width:1120px;margin:20px auto 120px;padding:16px}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+    .brand{display:flex;gap:10px;align-items:center}.dot{width:13px;height:13px;border-radius:999px;background:var(--rose);box-shadow:0 0 0 0 #fb718566;animation:snap .9s ease-in-out infinite alternate}
+    @keyframes snap{from{transform:scale(1)}to{transform:scale(1.17)}}
+    .hub{color:#ffc0cd;text-decoration:none;font-size:13px}
+
+    .panel{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:14px}
+    h1{margin:0 0 6px;font-size:34px}.sub{color:var(--muted);margin:0}
+
+    .controls{margin-top:12px;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:10px}
+    .field label{display:block;font-size:12px;color:#d9dcf3;margin-bottom:6px}
+    .field input{width:100%;height:42px;border-radius:10px;border:1px solid #65405a;background:#110f1d;color:var(--text);padding:8px 10px;font-weight:700}
+    .field input:focus{outline:none;border-color:#ff8ca0;box-shadow:0 0 0 3px #fb71852b}
+
+    .seg{display:flex;gap:8px}
+    .seg button{height:42px;border-radius:10px;border:1px solid #694056;background:#171122;color:#eec5ce;padding:0 12px;font-weight:700;cursor:pointer}
+    .seg button.active{background:#2a1622;border-color:#fb7185;color:#ffd2da}
+
+    .compare{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .card{border:1px solid var(--line);border-radius:14px;background:var(--surface2);padding:12px}
+    .card h2{margin:0 0 10px;font-size:20px}
+    .kv{display:grid;gap:8px}
+    .item{padding:9px;border-radius:10px;background:#171428;border:1px solid rgba(255,255,255,.08)}
+    .k{font-size:11px;color:var(--muted)} .v{font-size:24px;font-weight:800;margin-top:2px}
+
+    .delta{margin-top:12px;padding:12px;border-radius:14px;border:1px solid var(--line);background:#140f1f}
+    .delta h3{margin:0 0 8px}
+    .bars{display:grid;gap:9px}
+    .barRow{display:grid;grid-template-columns:130px 1fr auto;gap:8px;align-items:center}
+    .bar{height:10px;border-radius:999px;background:#2a2338;overflow:hidden}
+    .fill{height:100%;width:0;transition:width .28s ease}
+    .base{background:linear-gradient(90deg,#8ab4ff,#4e78dd)}
+    .promo{background:linear-gradient(90deg,#ffb0bf,var(--rose))}
+
+    .actions{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+    .btn{height:42px;padding:0 12px;border-radius:10px;border:1px solid #6f4258;background:#211629;color:#ffd1da;font-weight:700;cursor:pointer}
+
+    footer{margin-top:18px;text-align:center;color:#8f90ab;font-size:12px}
+
+    .sticky{position:fixed;left:12px;right:12px;bottom:10px;display:none;z-index:20}
+    .sticky.show{display:block}
+    .sbar{display:grid;grid-template-columns:1fr 1fr auto auto;gap:8px;background:#161126;border:1px solid #6f4258;border-radius:12px;padding:8px}
+    .sstat{padding:7px;border-radius:8px;background:#1d1530}.sstat .k{font-size:10px}.sstat .v{font-size:18px;font-weight:800}
+
+    @media(max-width:940px){.controls{grid-template-columns:1fr 1fr}.compare{grid-template-columns:1fr}}
+    @media(max-width:768px){.controls{grid-template-columns:1fr}.sbar{grid-template-columns:1fr 1fr}.wrap{padding-bottom:150px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <div class="brand"><div class="dot"></div><div><strong>PromoGuard</strong><div style="font-size:12px;color:var(--muted)">Compare promo scenarios before launch.</div></div></div>
+      <a class="hub" href="/">← Tool Hub</a>
+    </header>
+
+    <section class="panel">
+      <h1>Protect margin before you run discounts</h1>
+      <p class="sub">No discount vs promo side-by-side. One glance, clear decision.</p>
+
+      <div class="controls">
+        <div class="field"><label>Product price</label><input id="price" type="number" min="0" step="0.01" value="399"></div>
+        <div class="field"><label>COGS + handling</label><input id="cogs" type="number" min="0" step="0.01" value="145"></div>
+        <div class="field"><label>Shipping paid by store</label><input id="ship" type="number" min="0" step="0.01" value="39"></div>
+        <div class="field"><label>Payment fee %</label><input id="feePct" type="number" min="0" step="0.01" value="2.9"></div>
+        <div class="field"><label>Ad cost per order</label><input id="ad" type="number" min="0" step="0.01" value="90"></div>
+        <div class="field">
+          <label>Discount type</label>
+          <div class="seg">
+            <button id="tPct" class="active" type="button">% off</button>
+            <button id="tFix" type="button">Fixed off</button>
+          </div>
+        </div>
+        <div class="field"><label id="discLabel">Discount (%)</label><input id="disc" type="number" min="0" step="0.01" value="15"></div>
+      </div>
+
+      <section id="outputSection" class="compare">
+        <article class="card">
+          <h2>No discount</h2>
+          <div class="kv">
+            <div class="item"><div class="k">Revenue / order</div><div id="baseRev" class="v">DKK 399</div></div>
+            <div class="item"><div class="k">Profit / order</div><div id="baseProfit" class="v">DKK 113</div></div>
+            <div class="item"><div class="k">Margin %</div><div id="baseMargin" class="v">28.3%</div></div>
+          </div>
+        </article>
+        <article class="card">
+          <h2>Promo scenario</h2>
+          <div class="kv">
+            <div class="item"><div class="k">Revenue / order</div><div id="promoRev" class="v">DKK 339.15</div></div>
+            <div class="item"><div class="k">Profit / order</div><div id="promoProfit" class="v">DKK 54.32</div></div>
+            <div class="item"><div class="k">Margin %</div><div id="promoMargin" class="v">16.0%</div></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="delta">
+        <h3>Impact overview</h3>
+        <div class="bars">
+          <div class="barRow"><span class="k">Revenue</span><div class="bar"><div id="barRevBase" class="fill base"></div></div><strong id="revDelta">-15.0%</strong></div>
+          <div class="barRow"><span class="k">Profit</span><div class="bar"><div id="barProfitPromo" class="fill promo"></div></div><strong id="profitDelta">-51.9%</strong></div>
+          <div class="barRow"><span class="k">Decision</span><div class="bar"><div id="decisionBar" class="fill promo"></div></div><strong id="decisionText">Warning</strong></div>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button id="copyBtn" class="btn" type="button">Copy results</button>
+        <button id="resetBtn" class="btn" type="button">Reset</button>
+      </div>
+    </section>
+
+    <footer id="footer">Built by Mini Tools Lab</footer>
+  </main>
+
+  <div id="sticky" class="sticky">
+    <div class="sbar">
+      <div class="sstat"><div class="k">Promo margin</div><div id="sMargin" class="v">16.0%</div></div>
+      <div class="sstat"><div class="k">Decision</div><div id="sDecision" class="v">Warning</div></div>
+      <button id="sCopy" class="btn" type="button">Copy</button>
+      <button id="sReset" class="btn" type="button">Reset</button>
+    </div>
+  </div>
+
+  <script>
+    const defaults={price:399,cogs:145,ship:39,feePct:2.9,ad:90,disc:15,type:'pct'};
+    const $=id=>document.getElementById(id);
+    let discountType=defaults.type;
+
+    const dkk=n=>`DKK ${n.toFixed(2).replace('.00','')}`;
+    const pct=n=>`${n.toFixed(1)}%`;
+
+    function val(id,min=0){return Math.max(min,+$(id).value||min)}
+
+    function setType(t){
+      discountType=t;
+      $('tPct').classList.toggle('active',t==='pct');
+      $('tFix').classList.toggle('active',t==='fix');
+      $('discLabel').textContent=t==='pct'?'Discount (%)':'Discount amount (DKK)';
+      calc();
+    }
+
+    function profit(rev,cogs,ship,feePct,ad){
+      const fee=rev*(feePct/100);
+      return rev - cogs - ship - fee - ad;
+    }
+
+    function colorize(el,val,type='profit'){
+      let c='var(--good)';
+      if((type==='profit'&&val<0)||(type==='margin'&&val<10)) c='var(--bad)';
+      else if((type==='profit'&&val<40)||(type==='margin'&&val<20)) c='var(--warn)';
+      el.style.color=c;
+    }
+
+    function calc(){
+      const price=val('price'), cogs=val('cogs'), ship=val('ship'), feePct=val('feePct'), ad=val('ad'), disc=val('disc');
+      const promoRev=Math.max(0, discountType==='pct' ? price*(1-disc/100) : price-disc);
+
+      const baseProfit=profit(price,cogs,ship,feePct,ad);
+      const promoProfit=profit(promoRev,cogs,ship,feePct,ad);
+      const baseMargin=price>0?(baseProfit/price)*100:0;
+      const promoMargin=promoRev>0?(promoProfit/promoRev)*100:0;
+
+      $('baseRev').textContent=dkk(price);
+      $('baseProfit').textContent=dkk(baseProfit);
+      $('baseMargin').textContent=pct(baseMargin);
+      $('promoRev').textContent=dkk(promoRev);
+      $('promoProfit').textContent=dkk(promoProfit);
+      $('promoMargin').textContent=pct(promoMargin);
+
+      colorize($('baseProfit'),baseProfit,'profit');
+      colorize($('promoProfit'),promoProfit,'profit');
+      colorize($('baseMargin'),baseMargin,'margin');
+      colorize($('promoMargin'),promoMargin,'margin');
+
+      const revDelta=((promoRev-price)/(price||1))*100;
+      const profitDelta=((promoProfit-baseProfit)/(Math.abs(baseProfit)||1))*100;
+      $('revDelta').textContent=`${revDelta>=0?'+':''}${revDelta.toFixed(1)}%`;
+      $('profitDelta').textContent=`${profitDelta>=0?'+':''}${profitDelta.toFixed(1)}%`;
+
+      const baseBar=Math.max(6,Math.min(100,(promoRev/(price||1))*100));
+      const promoBar=Math.max(0,Math.min(100,(promoProfit/(Math.max(baseProfit,1)))*100));
+      $('barRevBase').style.width=`${baseBar}%`;
+      $('barProfitPromo').style.width=`${Math.max(6,promoBar)}%`;
+
+      let decision='Healthy'; let c='var(--good)'; let dbar=78;
+      if(promoProfit<0||promoMargin<10){decision='Critical';c='var(--bad)';dbar=24}
+      else if(profitDelta<-35||promoMargin<20){decision='Warning';c='var(--warn)';dbar=46}
+      $('decisionText').textContent=decision;
+      $('decisionText').style.color=c;
+      $('decisionBar').style.width=`${dbar}%`;
+      $('decisionBar').style.background=c;
+
+      $('sMargin').textContent=pct(promoMargin);
+      $('sMargin').style.color=c;
+      $('sDecision').textContent=decision;
+      $('sDecision').style.color=c;
+    }
+
+    function copyResults(){
+      const txt=`PromoGuard\nNo-discount profit: ${$('baseProfit').textContent} (${ $('baseMargin').textContent })\nPromo profit: ${$('promoProfit').textContent} (${ $('promoMargin').textContent })\nRevenue delta: ${$('revDelta').textContent}\nProfit delta: ${$('profitDelta').textContent}\nDecision: ${$('decisionText').textContent}`;
+      navigator.clipboard.writeText(txt).then(()=>{ $('copyBtn').textContent='Copied';$('sCopy').textContent='Copied';setTimeout(()=>{$('copyBtn').textContent='Copy results';$('sCopy').textContent='Copy';},1100)}).catch(()=>{});
+    }
+
+    function resetAll(){Object.entries(defaults).forEach(([k,v])=>{if(k!=='type') $(k).value=v}); setType(defaults.type); calc();}
+
+    ['price','cogs','ship','feePct','ad','disc'].forEach(id=>$(id).addEventListener('input',calc));
+    $('tPct').addEventListener('click',()=>setType('pct'));
+    $('tFix').addEventListener('click',()=>setType('fix'));
+    $('copyBtn').addEventListener('click',copyResults);
+    $('sCopy').addEventListener('click',copyResults);
+    $('resetBtn').addEventListener('click',resetAll);
+    $('sReset').addEventListener('click',resetAll);
+
+    // smart sticky bar on mobile
+    const sticky=$('sticky'); let outputVisible=true, footerVisible=false;
+    const refresh=()=>{const mobile=window.matchMedia('(max-width: 768px)').matches; sticky.classList.toggle('show', mobile && !outputVisible && !footerVisible)};
+    const ioOut=new IntersectionObserver(([e])=>{outputVisible=e.isIntersecting;refresh()},{threshold:.1});
+    const ioFoot=new IntersectionObserver(([e])=>{footerVisible=e.isIntersecting;refresh()},{threshold:.1});
+    ioOut.observe($('outputSection')); ioFoot.observe($('footer')); window.addEventListener('resize',refresh);
+
+    setType(defaults.type); calc();
+  </script>
+</body>
+</html>

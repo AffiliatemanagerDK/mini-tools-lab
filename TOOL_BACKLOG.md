@@ -7,6 +7,8 @@ Status legend: `idea` | `building` | `live` | `paused`
   - URL: https://mini-tools-lab.vercel.app/tools/marginradar/
 - [x] StockPulse — inventory runway + reorder calculator (live)
   - URL: https://mini-tools-lab.vercel.app/tools/stockpulse/
+- [x] PromoGuard — discount viability / margin guardrails (live)
+  - URL: https://mini-tools-lab.vercel.app/tools/promoguard/
 
 ## Canonical 10-tool list from Mikael (to build)
 1. [ ] Drunk Shopper Test (`idea`)
@@ -21,7 +23,6 @@ Status legend: `idea` | `building` | `live` | `paused`
 10. [ ] The Impulse Buy Calculator (`idea`)
 
 ## Additional concepts (secondary)
-- [ ] PromoGuard — discount viability / margin guardrails (`idea`)
 - [ ] BundleLift — bundle impact calculator (`idea`)
 - [ ] AdFatigueWatch — creative fatigue score helper (`idea`)
 
