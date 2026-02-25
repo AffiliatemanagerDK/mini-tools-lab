@@ -155,6 +155,35 @@ max-width:92%}
 
     @media(max-width:940px){.controls{grid-template-columns:1fr 1fr}.compare{grid-template-columns:1fr}}
     @media(max-width:768px){.controls{grid-template-columns:1fr}.sbar{grid-template-columns:1fr 1fr}.wrap{padding-bottom:150px}}
+  
+    /* Related tools PRO cards (homepage-style) */
+    .relatedPro{margin-top:14px;padding:14px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(14,20,40,.78)}
+    .relatedPro h2{margin:0 0 10px;font-size:18px}
+    .relatedProGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .rpCard{position:relative;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#0f1830;overflow:hidden;text-decoration:none;color:#eef4ff;display:grid;grid-template-rows:44% 1fr;min-height:258px;transition:.2s}
+    .rpCard:hover{transform:translateY(-3px) scale(1.01);border-color:rgba(255,255,255,.3);box-shadow:0 14px 28px rgba(0,0,0,.3)}
+    .rpTop{position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.1)}
+    .rpGlow{position:absolute;inset:0;opacity:.95}
+    .rpPanelBack,.rpPanelMain{position:absolute;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:#0f1729;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+    .rpPanelBack{right:14px;top:12px;left:20px;bottom:12px;opacity:.35}
+    .rpPanelMain{right:10px;top:8px;left:14px;bottom:10px;transform:perspective(700px) rotateY(-2deg) rotateX(1.2deg)}
+    .rpPanelMain::before{content:'';position:absolute;left:10px;right:10px;top:12px;height:8px;border-radius:999px;background:linear-gradient(90deg,#22c55e,#f59e0b,#ef4444)}
+    .rpPanelMain::after{position:absolute;left:10px;bottom:10px;font-size:11px}
+    .rpCard.teal .rpGlow{background:radial-gradient(280px 140px at 12% 10%,rgba(34,211,238,.28),transparent 72%)}
+    .rpCard.amber .rpGlow{background:radial-gradient(280px 140px at 12% 10%,rgba(245,158,11,.30),transparent 72%)}
+    .rpCard.rose .rpGlow{background:radial-gradient(280px 140px at 12% 10%,rgba(251,113,133,.28),transparent 72%)}
+    .rpCard.violet .rpGlow{background:radial-gradient(280px 140px at 12% 10%,rgba(167,139,250,.30),transparent 72%)}
+    .rpPanelMain.mr::after{content:'2.4x  ·  DKK 94';color:#b7f4ff}
+    .rpPanelMain.sp::after{content:'20 days  ·  SAFE';color:#ffdca7}
+    .rpPanelMain.pg::after{content:'42% vs 11%';color:#ffc8d2}
+    .rpPanelMain.ds::after{content:'Clarity 58/100';color:#ddd0ff}
+    .rpBody{padding:12px}
+    .rpBody h3{margin:0 0 6px;font-size:24px;line-height:1.1}
+    .rpBody p{margin:0;color:#9fb2d6;font-size:13px}
+    .rpBul{margin:8px 0 0;padding:0;list-style:none;color:#d7e3fb;font-size:13px;display:grid;gap:3px}
+    .rpBul li::before{content:'→ ';opacity:.8}
+    @media(max-width:900px){.relatedProGrid{grid-template-columns:1fr}.rpCard{min-height:230px}}
+
   </style>
 
   <script type="application/ld+json" id="faq-schema">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is PromoGuard best used for?", "acceptedAnswer": {"@type": "Answer", "text": "PromoGuard compares full-price and discount scenarios so you can see margin and profit trade-offs before launch."}}, {"@type": "Question", "name": "Can I test both percentage and fixed discounts?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. You can switch between percent-off and fixed-amount discounts to compare impact."}}, {"@type": "Question", "name": "Why can revenue rise while profit falls?", "acceptedAnswer": {"@type": "Answer", "text": "Discounts can increase conversion but still reduce contribution margin per order. PromoGuard highlights that cannibalization risk."}}, {"@type": "Question", "name": "What inputs matter most?", "acceptedAnswer": {"@type": "Answer", "text": "Price, COGS, shipping, payment fees, ad cost, and discount depth are the key drivers of net profitability."}}, {"@type": "Question", "name": "How should I interpret “Warning” or “Critical”?", "acceptedAnswer": {"@type": "Answer", "text": "Those states indicate the promo likely damages economics under your assumptions and should be redesigned or limited."}}, {"@type": "Question", "name": "Is PromoGuard suitable for DTC teams?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. It is designed for practical DTC pricing checks and runs fully client-side."}}]}</script>
@@ -230,7 +259,9 @@ max-width:92%}
 
     <section class="faqV2" aria-label="Frequently asked questions"><h2>FAQ</h2><div class="faqList"><details class="faqItem" open><summary><span>What is PromoGuard best used for?</span><span class="icon">▾</span></summary><p>PromoGuard compares full-price and discount scenarios so you can see margin and profit trade-offs before launch.</p></details><details class="faqItem"><summary><span>Can I test both percentage and fixed discounts?</span><span class="icon">▾</span></summary><p>Yes. You can switch between percent-off and fixed-amount discounts to compare impact.</p></details><details class="faqItem"><summary><span>Why can revenue rise while profit falls?</span><span class="icon">▾</span></summary><p>Discounts can increase conversion but still reduce contribution margin per order. PromoGuard highlights that cannibalization risk.</p></details><details class="faqItem"><summary><span>What inputs matter most?</span><span class="icon">▾</span></summary><p>Price, COGS, shipping, payment fees, ad cost, and discount depth are the key drivers of net profitability.</p></details><details class="faqItem"><summary><span>How should I interpret “Warning” or “Critical”?</span><span class="icon">▾</span></summary><p>Those states indicate the promo likely damages economics under your assumptions and should be redesigned or limited.</p></details><details class="faqItem"><summary><span>Is PromoGuard suitable for DTC teams?</span><span class="icon">▾</span></summary><p>Yes. It is designed for practical DTC pricing checks and runs fully client-side.</p></details></div></section>
 
-    <section class="relatedV2" aria-label="Related tools"><h2>Related tools</h2><div class="relatedGridV2"><a href="/tools/marginradar/" class="rCard teal"><div class="rVisual"><div class="rGlow"></div><div class="rPanel mr"></div></div><div class="rBody"><strong>MarginRadar</strong><span>ROAS + profit clarity</span></div></a><a href="/tools/stockpulse/" class="rCard amber"><div class="rVisual"><div class="rGlow"></div><div class="rPanel sp"></div></div><div class="rBody"><strong>StockPulse</strong><span>Inventory runway timing</span></div></a></div></section>
+    
+
+    <section class="relatedPro" aria-label="Related tools"><h2>Related tools</h2><div class="relatedProGrid"><a class="rpCard teal" href="/tools/marginradar/"><div class="rpTop"><div class="rpGlow"></div><div class="rpPanelBack"></div><div class="rpPanelMain mr"></div></div><div class="rpBody"><h3>MarginRadar</h3><p>ROAS + profit clarity</p><ul class="rpBul"><li>Break-even ROAS threshold</li><li>Max CAC per order</li></ul></div></a><a class="rpCard amber" href="/tools/stockpulse/"><div class="rpTop"><div class="rpGlow"></div><div class="rpPanelBack"></div><div class="rpPanelMain sp"></div></div><div class="rpBody"><h3>StockPulse</h3><p>Inventory runway timing</p><ul class="rpBul"><li>Days until stockout</li><li>Exact reorder date</li></ul></div></a></div></section>
 
     <footer id="footer">Built by Mini Tools Lab</footer>
   </main>

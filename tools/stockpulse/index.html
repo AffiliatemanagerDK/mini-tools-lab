@@ -167,6 +167,35 @@ max-width:92%}
 
     @media(max-width:900px){.assumpGrid{grid-template-columns:1fr 1fr}.riskWord{font-size:36px}}
     @media(max-width:768px){.cards{grid-template-columns:1fr}.assumpGrid{grid-template-columns:1fr}.sbar{grid-template-columns:1fr 1fr}.wrap{padding-bottom:145px}}
+  
+    /* Related tools PRO cards (homepage-style) */
+    .relatedPro{margin-top:14px;padding:14px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(14,20,40,.78)}
+    .relatedPro h2{margin:0 0 10px;font-size:18px}
+    .relatedProGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .rpCard{position:relative;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:#0f1830;overflow:hidden;text-decoration:none;color:#eef4ff;display:grid;grid-template-rows:44% 1fr;min-height:258px;transition:.2s}
+    .rpCard:hover{transform:translateY(-3px) scale(1.01);border-color:rgba(255,255,255,.3);box-shadow:0 14px 28px rgba(0,0,0,.3)}
+    .rpTop{position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.1)}
+    .rpGlow{position:absolute;inset:0;opacity:.95}
+    .rpPanelBack,.rpPanelMain{position:absolute;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:#0f1729;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+    .rpPanelBack{right:14px;top:12px;left:20px;bottom:12px;opacity:.35}
+    .rpPanelMain{right:10px;top:8px;left:14px;bottom:10px;transform:perspective(700px) rotateY(-2deg) rotateX(1.2deg)}
+    .rpPanelMain::before{content:'';position:absolute;left:10px;right:10px;top:12px;height:8px;border-radius:999px;background:linear-gradient(90deg,#22c55e,#f59e0b,#ef4444)}
+    .rpPanelMain::after{position:absolute;left:10px;bottom:10px;font-size:11px}
+    .rpCard.teal .rpGlow{background:radial-gradient(280px 140px at 12% 10%,rgba(34,211,238,.28),transparent 72%)}
+    .rpCard.amber .rpGlow{background:radial-gradient(280px 140px at 12% 10%,rgba(245,158,11,.30),transparent 72%)}
+    .rpCard.rose .rpGlow{background:radial-gradient(280px 140px at 12% 10%,rgba(251,113,133,.28),transparent 72%)}
+    .rpCard.violet .rpGlow{background:radial-gradient(280px 140px at 12% 10%,rgba(167,139,250,.30),transparent 72%)}
+    .rpPanelMain.mr::after{content:'2.4x  ·  DKK 94';color:#b7f4ff}
+    .rpPanelMain.sp::after{content:'20 days  ·  SAFE';color:#ffdca7}
+    .rpPanelMain.pg::after{content:'42% vs 11%';color:#ffc8d2}
+    .rpPanelMain.ds::after{content:'Clarity 58/100';color:#ddd0ff}
+    .rpBody{padding:12px}
+    .rpBody h3{margin:0 0 6px;font-size:24px;line-height:1.1}
+    .rpBody p{margin:0;color:#9fb2d6;font-size:13px}
+    .rpBul{margin:8px 0 0;padding:0;list-style:none;color:#d7e3fb;font-size:13px;display:grid;gap:3px}
+    .rpBul li::before{content:'→ ';opacity:.8}
+    @media(max-width:900px){.relatedProGrid{grid-template-columns:1fr}.rpCard{min-height:230px}}
+
   </style>
 
   <script type="application/ld+json" id="faq-schema">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does “Reorder by” date represent?", "acceptedAnswer": {"@type": "Answer", "text": "It is the latest date you should place a purchase order to avoid projected stockout based on your current velocity and lead time."}}, {"@type": "Question", "name": "How is runway calculated?", "acceptedAnswer": {"@type": "Answer", "text": "Runway is current stock divided by average units sold per day. The timeline then maps that runway to stockout and reorder markers."}}, {"@type": "Question", "name": "Should I enter sales per day or week?", "acceptedAnswer": {"@type": "Answer", "text": "Use whichever mode is shown in the tool and keep it consistent with your current velocity period."}}, {"@type": "Question", "name": "How does safety stock affect results?", "acceptedAnswer": {"@type": "Answer", "text": "Higher safety stock moves your reorder date earlier, reducing stockout risk but increasing inventory buffer needs."}}, {"@type": "Question", "name": "Can StockPulse handle seasonality?", "acceptedAnswer": {"@type": "Answer", "text": "Use current season-adjusted velocity for best short-term decisions, then re-check frequently as demand shifts."}}, {"@type": "Question", "name": "Does StockPulse store my numbers?", "acceptedAnswer": {"@type": "Answer", "text": "No. Calculations are browser-side only and your inputs stay local."}}]}</script>
@@ -233,7 +262,9 @@ max-width:92%}
 
     <section class="faqV2" aria-label="Frequently asked questions"><h2>FAQ</h2><div class="faqList"><details class="faqItem" open><summary><span>What does “Reorder by” date represent?</span><span class="icon">▾</span></summary><p>It is the latest date you should place a purchase order to avoid projected stockout based on your current velocity and lead time.</p></details><details class="faqItem"><summary><span>How is runway calculated?</span><span class="icon">▾</span></summary><p>Runway is current stock divided by average units sold per day. The timeline then maps that runway to stockout and reorder markers.</p></details><details class="faqItem"><summary><span>Should I enter sales per day or week?</span><span class="icon">▾</span></summary><p>Use whichever mode is shown in the tool and keep it consistent with your current velocity period.</p></details><details class="faqItem"><summary><span>How does safety stock affect results?</span><span class="icon">▾</span></summary><p>Higher safety stock moves your reorder date earlier, reducing stockout risk but increasing inventory buffer needs.</p></details><details class="faqItem"><summary><span>Can StockPulse handle seasonality?</span><span class="icon">▾</span></summary><p>Use current season-adjusted velocity for best short-term decisions, then re-check frequently as demand shifts.</p></details><details class="faqItem"><summary><span>Does StockPulse store my numbers?</span><span class="icon">▾</span></summary><p>No. Calculations are browser-side only and your inputs stay local.</p></details></div></section>
 
-    <section class="relatedV2" aria-label="Related tools"><h2>Related tools</h2><div class="relatedGridV2"><a href="/tools/marginradar/" class="rCard teal"><div class="rVisual"><div class="rGlow"></div><div class="rPanel mr"></div></div><div class="rBody"><strong>MarginRadar</strong><span>ROAS + profit clarity</span></div></a><a href="/tools/promoguard/" class="rCard rose"><div class="rVisual"><div class="rGlow"></div><div class="rPanel pg"></div></div><div class="rBody"><strong>PromoGuard</strong><span>Promo margin impact</span></div></a></div></section>
+    
+
+    <section class="relatedPro" aria-label="Related tools"><h2>Related tools</h2><div class="relatedProGrid"><a class="rpCard teal" href="/tools/marginradar/"><div class="rpTop"><div class="rpGlow"></div><div class="rpPanelBack"></div><div class="rpPanelMain mr"></div></div><div class="rpBody"><h3>MarginRadar</h3><p>ROAS + profit clarity</p><ul class="rpBul"><li>Break-even ROAS threshold</li><li>Max CAC per order</li></ul></div></a><a class="rpCard rose" href="/tools/promoguard/"><div class="rpTop"><div class="rpGlow"></div><div class="rpPanelBack"></div><div class="rpPanelMain pg"></div></div><div class="rpBody"><h3>PromoGuard</h3><p>Promo margin impact</p><ul class="rpBul"><li>Before vs after margin</li><li>Profit delta under promo</li></ul></div></a></div></section>
 
     <footer id="footer">Built by Mini Tools Lab</footer>
   </main>
