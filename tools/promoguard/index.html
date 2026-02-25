@@ -327,7 +327,7 @@ max-width:92%}
 
     
 
-    <section class="relatedPro" aria-label="Related tools"><h2>Related tools</h2><div class="relatedProGrid" id="related-grid" data-current-slug="promoguard"></div><div class="rvStats"><div class="rvBox"><div class="k">ROAS break-even</div><div class="v">2.4x</div></div><div class="rvBox"><div class="k">Max CAC</div><div class="v">DKK 113</div></div><div class="rvBox"><div class="k">Profit/order</div><div class="v">DKK 94</div></div></div></div><div class="rvBody"><h3 class="rvTitle"><span>MarginRadar</span><img class="rvLogo" src="/tools/marginradar/logo.svg" alt="MarginRadar logo" /></h3><p>ROAS + profit clarity</p><ul class="rvBul"><li>Break-even ROAS threshold</li></ul></div></a><a class="rvCard" href="/tools/stockpulse/"><div class="rvCardPreview rv-amber"><div class="rvTop"><span>Today</span><span>Reorder</span><span>Stockout</span></div><div class="rvBar"><i></i></div><div class="rvTimeline"><div class="axis"></div><span class="m m1"></span><span class="m m2"></span></div><div class="rvStats" style="margin-top:6px"><div class="rvBox"><div class="k">Runway</div><div class="v" style="color:#ffd89a">20.0</div></div><div class="rvBox"><div class="k">Reorder</div><div class="v" style="color:#ffd89a">14 Mar</div></div><div class="rvBox"><div class="k">Qty</div><div class="v" style="color:#ffd89a">300</div></div></div></div><div class="rvBody"><h3 class="rvTitle"><span>StockPulse</span><img class="rvLogo" src="/tools/stockpulse/logo.svg" alt="StockPulse logo" /></h3><p>Inventory runway timing</p><ul class="rvBul"><li>Days until stockout</li></ul></div></a></div></section>
+    <section class="relatedPro" aria-label="Related tools"><h2>Related tools</h2><div class="relatedProGrid" data-current-slug="promoguard"><a class="rvCard" href="/tools/marginradar/"><div class="rvCardPreview rv-teal"><div class="rvDonut"></div><div class="rvStats"><div class="rvBox"><div class="k">ROAS break-even</div><div class="v">2.4x</div></div><div class="rvBox"><div class="k">Max CAC</div><div class="v">DKK 113</div></div><div class="rvBox"><div class="k">Profit/order</div><div class="v">DKK 94</div></div></div></div><div class="rvBody"><h3 class="rvTitle"><span>MarginRadar</span><img class="rvLogo" src="/tools/marginradar/logo.svg" alt="MarginRadar logo" /></h3><p>ROAS + profit clarity</p><ul class="rvBul"><li>Break-even ROAS threshold</li></ul></div></a><a class="rvCard" href="/tools/stockpulse/"><div class="rvCardPreview rv-amber"><div class="rvTop"><span>Today</span><span>Reorder</span><span>Stockout</span></div><div class="rvBar"><i></i></div><div class="rvTimeline"><div class="axis"></div><span class="m m1"></span><span class="m m2"></span></div><div class="rvStats" style="margin-top:6px"><div class="rvBox"><div class="k">Runway</div><div class="v" style="color:#ffd89a">20.0</div></div><div class="rvBox"><div class="k">Reorder</div><div class="v" style="color:#ffd89a">14 Mar</div></div><div class="rvBox"><div class="k">Qty</div><div class="v" style="color:#ffd89a">300</div></div></div></div><div class="rvBody"><h3 class="rvTitle"><span>StockPulse</span><img class="rvLogo" src="/tools/stockpulse/logo.svg" alt="StockPulse logo" /></h3><p>Inventory runway timing</p><ul class="rvBul"><li>Days until stockout</li></ul></div></a><a class="rvCard" href="/tools/drunk-shopper-test/"><div class="rvCardPreview rv-violet"><div class="rvStats"><div class="rvBox"><div class="k">Score</div><div class="v" style="color:#ddd0ff">58/100</div></div><div class="rvBox"><div class="k">Verdict</div><div class="v" style="color:#ddd0ff">Confusing</div></div><div class="rvBox"><div class="k">Mode</div><div class="v" style="color:#ddd0ff">23:00</div></div></div><div class="rvBar" style="margin-top:10px"><i style="width:58%;background:linear-gradient(90deg,#ef4444,#f59e0b,#22c55e)"></i></div></div><div class="rvBody"><h3 class="rvTitle"><span>Drunk Shopper Test</span><img class="rvLogo" src="/tools/drunk-shopper-test/logo.svg" alt="Drunk Shopper Test logo" /></h3><p>Copy clarity stress test</p><ul class="rvBul"><li>Clarity score</li></ul></div></a></div></section>
 
     <footer id="footer">Built by Mini Tools Lab</footer>
   </main>
@@ -440,51 +440,17 @@ max-width:92%}
 
     setType(defaults.type); calc();
 
-    // Dynamic related tools (rotates by relevance + day)
-    const TOOL_CATALOG = [
-      { slug:'marginradar', name:'MarginRadar', url:'/tools/marginradar/', accent:'teal', tag:'ROAS + profit clarity', bullet:'Break-even ROAS threshold', tags:['pricing','roas','profit','ads'] },
-      { slug:'stockpulse', name:'StockPulse', url:'/tools/stockpulse/', accent:'amber', tag:'Inventory runway timing', bullet:'Days until stockout', tags:['inventory','operations','forecast'] },
-      { slug:'promoguard', name:'PromoGuard', url:'/tools/promoguard/', accent:'rose', tag:'Promo margin impact', bullet:'Before vs after margin', tags:['pricing','discount','profit'] },
-      { slug:'drunk-shopper-test', name:'Drunk Shopper Test', url:'/tools/drunk-shopper-test/', accent:'violet', tag:'Copy clarity stress test', bullet:'Clarity score', tags:['copy','ux','conversion'] }
-    ];
-
-    function hashSeed(s){ let h=2166136261; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619);} return (h>>>0); }
-    function rng(seed){ let t=seed||1; return ()=>{ t += 0x6D2B79F5; let x=Math.imul(t ^ t>>>15, 1 | t); x ^= x + Math.imul(x ^ x>>>7, 61 | x); return ((x ^ x>>>14)>>>0)/4294967296; }; }
-
-    function previewBySlug(slug){
-      if(slug==='marginradar') return `<div class="rvCardPreview rv-teal"><div class="rvDonut"></div><div class="rvStats"><div class="rvBox"><div class="k">ROAS break-even</div><div class="v">2.4x</div></div><div class="rvBox"><div class="k">Max CAC</div><div class="v">DKK 113</div></div><div class="rvBox"><div class="k">Profit/order</div><div class="v">DKK 94</div></div></div></div>`;
-      if(slug==='stockpulse') return `<div class="rvCardPreview rv-amber"><div class="rvTop"><span>Today</span><span>Reorder</span><span>Stockout</span></div><div class="rvBar"><i></i></div><div class="rvTimeline"><div class="axis"></div><span class="m m1"></span><span class="m m2"></span></div><div class="rvStats" style="margin-top:6px"><div class="rvBox"><div class="k">Runway</div><div class="v" style="color:#ffd89a">20.0</div></div><div class="rvBox"><div class="k">Reorder</div><div class="v" style="color:#ffd89a">14 Mar</div></div><div class="rvBox"><div class="k">Qty</div><div class="v" style="color:#ffd89a">300</div></div></div></div>`;
-      if(slug==='promoguard') return `<div class="rvCardPreview rv-rose"><div class="rvCompare"><div class="rvCol"><div class="k">Full price</div><div class="v">42% margin</div></div><div class="rvCol"><div class="k">20% off</div><div class="v">11% margin</div></div></div><div class="rvBar" style="margin-top:10px"><i style="width:36%;background:linear-gradient(90deg,#ffb3c1,#fb7185)"></i></div></div>`;
-      return `<div class="rvCardPreview rv-violet"><div class="rvStats"><div class="rvBox"><div class="k">Score</div><div class="v" style="color:#ddd0ff">58/100</div></div><div class="rvBox"><div class="k">Verdict</div><div class="v" style="color:#ddd0ff">Confusing</div></div><div class="rvBox"><div class="k">Mode</div><div class="v" style="color:#ddd0ff">23:00</div></div></div><div class="rvBar" style="margin-top:10px"><i style="width:58%;background:linear-gradient(90deg,#ef4444,#f59e0b,#22c55e)"></i></div></div>`;
-    }
-
-    (function renderDynamicRelated(){
-      const grid=document.getElementById('related-grid');
+    // Dynamic related tools: show 2 of 3 cards (daily rotation)
+    (function(){
+      const grid=document.querySelector('.relatedProGrid');
       if(!grid) return;
-      const current=grid.dataset.currentSlug;
-      const currentTags=["pricing", "discount", "profit"];
-      const dayKey=new Date().toISOString().slice(0,10);
-      const random=rng(hashSeed(current+'|'+dayKey));
-
-      const pool=TOOL_CATALOG.filter(t=>t.slug!==current).map(t=>{
-        const overlap=t.tags.filter(x=>currentTags.includes(x)).length;
-        const weight=1 + overlap*3;
-        return {...t, overlap, weight};
-      });
-
-      // Weighted deterministic shuffle
-      const picked=[];
-      let candidates=[...pool];
-      while(candidates.length && picked.length<2){
-        const total=candidates.reduce((a,c)=>a+c.weight,0);
-        let r=random()*total;
-        let idx=0;
-        for(let i=0;i<candidates.length;i++){ r-=candidates[i].weight; if(r<=0){ idx=i; break; } }
-        picked.push(candidates[idx]);
-        candidates.splice(idx,1);
-      }
-
-      grid.innerHTML=picked.map(t=>`<a class="rvCard" href="${t.url}">${previewBySlug(t.slug)}<div class="rvBody"><h3 class="rvTitle"><span>${t.name}</span><img class="rvLogo" src="/tools/${t.slug}/logo.svg" alt="${t.name} logo" /></h3><p>${t.tag}</p><ul class="rvBul"><li>${t.bullet}</li></ul></div></a>`).join('');
+      const cards=[...grid.querySelectorAll('.rvCard')];
+      if(cards.length<=2) return;
+      const slug=grid.dataset.currentSlug||'';
+      const day=new Date().toISOString().slice(0,10);
+      let h=0; const s=slug+'|'+day; for(let i=0;i<s.length;i++) h=(h*31 + s.charCodeAt(i))>>>0;
+      const hideIndex=h % cards.length;
+      cards.forEach((c,i)=>{ c.style.display = (i===hideIndex)?'none':''; });
     })();
 </script>
 </body>
