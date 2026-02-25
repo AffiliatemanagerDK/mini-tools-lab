@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Drunk Shopper Test logo">
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="#14142b" stroke="#3f3270"/>
+  <g transform="translate(10 16)">
+    <rect x="0" y="0" width="28" height="22" rx="6" fill="#101a34" stroke="#32466a"/>
+    <line x1="5" y1="6" x2="23" y2="6" stroke="#7086b8"/>
+    <line x1="5" y1="11" x2="20" y2="11" stroke="#7086b8"/>
+    <line x1="5" y1="16" x2="22" y2="16" stroke="#7086b8"/>
+  </g>
+  <g transform="translate(31 24)">
+    <circle cx="10" cy="10" r="8" fill="none" stroke="#a78bfa" stroke-width="3"/>
+    <line x1="16" y1="16" x2="22" y2="22" stroke="#a78bfa" stroke-width="3" stroke-linecap="round"/>
+    <line x1="7" y1="10" x2="13" y2="10" stroke="#e5dbff" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+</svg>

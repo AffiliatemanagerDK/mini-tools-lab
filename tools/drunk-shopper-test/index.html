@@ -5,13 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Drunk Shopper Test — Clarity Stress Test</title>
   <meta name="description" content="Test if your product description is understandable for a tired, distracted late-night shopper." />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <style>
     :root{--bg:#0c1224;--bg2:#1a1230;--violet:#a78bfa;--violet2:#c4b5fd;--text:#eef1ff;--muted:#a9afd0;--good:#22c55e;--warn:#f59e0b;--bad:#ef4444}
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--text);background:radial-gradient(900px 520px at 0% -20%,#4b2b8a55 0%,transparent 62%),radial-gradient(900px 520px at 100% -20%,#22386e55 0%,transparent 62%),linear-gradient(165deg,var(--bg),var(--bg2));}
     .wrap{max-width:1140px;margin:20px auto 60px;padding:16px}
     .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
-    .brand{display:flex;gap:10px;align-items:center}.dot{width:14px;height:14px;border-radius:999px;background:var(--violet);box-shadow:0 0 0 0 #a78bfa66;animation:pulse 1.6s ease-in-out infinite}
+    .brand{display:flex;gap:10px;align-items:center}
+    .logo{width:28px;height:28px;display:block;filter:drop-shadow(0 0 10px #a78bfa66);animation:pulse 1.6s ease-in-out infinite}
     @keyframes pulse{0%,100%{box-shadow:0 0 0 0 #a78bfa55}50%{box-shadow:0 0 0 9px transparent}}
     a.hub{color:#d8ccff;text-decoration:none;font-size:13px}
 
@@ -62,7 +64,7 @@
 <body>
   <main class="wrap">
     <header class="top">
-      <div class="brand"><span class="dot"></span><div><strong>Drunk Shopper Test</strong><div style="font-size:12px;color:var(--muted)">Will a distracted 23:00 shopper understand this?</div></div></div>
+      <div class="brand"><img class="logo" src="./logo.svg" alt="Drunk Shopper Test logo" /><div><strong>Drunk Shopper Test</strong><div style="font-size:12px;color:var(--muted)">Will a distracted 23:00 shopper understand this?</div></div></div>
       <a class="hub" href="/">← Tool Hub</a>
     </header>
 

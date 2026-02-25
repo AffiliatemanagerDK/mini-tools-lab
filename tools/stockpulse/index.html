@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StockPulse — Output-First Inventory Timeline</title>
   <meta name="description" content="StockPulse: output-first inventory runway timeline with reorder markers. 100% browser-side." />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <style>
     :root{--bg:#0b1121;--zoneA:#1a2744;--zoneB:#0d1526;--text:#eaf1ff;--muted:#97a8c6;--accent:#f59e0b;--good:#22c55e;--warn:#f59e0b;--danger:#ef4444}
     *{box-sizing:border-box}
@@ -12,8 +13,8 @@
     .wrap{max-width:1050px;margin:0 auto;padding:18px 16px 120px}
     .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
     .brand{display:flex;align-items:center;gap:10px}
-    .pulse{width:14px;height:14px;border-radius:999px;background:var(--accent);box-shadow:0 0 0 0 #f59e0b66;animation:pulse 1.8s ease-out infinite}
-    @keyframes pulse{0%{box-shadow:0 0 0 0 #f59e0b66}100%{box-shadow:0 0 0 13px transparent}}
+    .logo{width:28px;height:28px;display:block;filter:drop-shadow(0 0 10px #f59e0b55);animation:pulse 1.8s ease-out infinite}
+    @keyframes pulse{0%{filter:drop-shadow(0 0 0 #f59e0b00)}100%{filter:drop-shadow(0 0 10px #f59e0b55)}}
     .hub{color:#ffd89a;text-decoration:none;font-size:13px}
 
     .zone{border-radius:18px;padding:18px}
@@ -73,7 +74,7 @@
 <body>
   <main class="wrap">
     <header class="top">
-      <div class="brand"><div class="pulse"></div><div><strong>StockPulse</strong><div style="font-size:12px;color:var(--muted)">Output-first inventory control</div></div></div>
+      <div class="brand"><img class="logo" src="./logo.svg" alt="StockPulse logo" /><div><strong>StockPulse</strong><div style="font-size:12px;color:var(--muted)">Output-first inventory control</div></div></div>
       <a class="hub" href="/">← Tool Hub</a>
     </header>
 

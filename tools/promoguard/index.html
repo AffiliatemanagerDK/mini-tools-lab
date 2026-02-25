@@ -5,13 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PromoGuard — Discount Margin Comparator</title>
   <meta name="description" content="PromoGuard compares no-discount vs promo scenarios so you can protect margin before launching offers." />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <style>
     :root{--bg:#0b1121;--bg2:#181022;--surface:#161327;--surface2:#110f1f;--line:rgba(255,255,255,.13);--text:#eef1ff;--muted:#a8aac4;--rose:#fb7185;--good:#22c55e;--warn:#f59e0b;--bad:#ef4444}
     *{box-sizing:border-box}
     body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:radial-gradient(900px 500px at 10% -20%,#58253d80 0%,transparent 60%),radial-gradient(900px 500px at 110% -10%,#32466a66 0%,transparent 62%),linear-gradient(165deg,var(--bg),var(--bg2));}
     .wrap{max-width:1120px;margin:20px auto 120px;padding:16px}
     .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
-    .brand{display:flex;gap:10px;align-items:center}.dot{width:13px;height:13px;border-radius:999px;background:var(--rose);box-shadow:0 0 0 0 #fb718566;animation:snap .9s ease-in-out infinite alternate}
+    .brand{display:flex;gap:10px;align-items:center}
+    .logo{width:28px;height:28px;display:block;filter:drop-shadow(0 0 10px #fb718566);animation:snap .9s ease-in-out infinite alternate}
     @keyframes snap{from{transform:scale(1)}to{transform:scale(1.17)}}
     .hub{color:#ffc0cd;text-decoration:none;font-size:13px}
 
@@ -60,7 +62,7 @@
 <body>
   <main class="wrap">
     <header class="top">
-      <div class="brand"><div class="dot"></div><div><strong>PromoGuard</strong><div style="font-size:12px;color:var(--muted)">Compare promo scenarios before launch.</div></div></div>
+      <div class="brand"><img class="logo" src="./logo.svg" alt="PromoGuard logo" /><div><strong>PromoGuard</strong><div style="font-size:12px;color:var(--muted)">Compare promo scenarios before launch.</div></div></div>
       <a class="hub" href="/">← Tool Hub</a>
     </header>
 
