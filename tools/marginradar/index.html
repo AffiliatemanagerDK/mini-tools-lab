@@ -66,15 +66,41 @@
     .relatedCard{display:block;padding:10px 12px;border:1px solid rgba(255,255,255,.12);border-radius:10px;background:#111a32;text-decoration:none;color:#e8efff}
     .relatedCard span{display:block;color:#9fb2d6;font-size:12px;margin-top:2px}
 
-    /* FAQ + related v4 */
+    /* FAQ + related v5 */
     .faqV2{margin-top:14px;padding:14px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(14,20,40,.78)}
     .faqV2 h2{margin:0 0 10px;font-size:18px}
-    .accList{display:grid;gap:8px}
-    .accItem{border:1px solid rgba(255,255,255,.12);border-radius:12px;background:#101a33;overflow:hidden;transition:.2s}
-    .accItem.open{border-color:rgba(255,255,255,.28);box-shadow:0 10px 22px rgba(0,0,0,.24);background:#132041}
-    .accBtn{all:unset;display:flex;align-items:center;justify-content:space-between;width:100%;padding:12px 12px;cursor:pointer;font-weight:700;font-size:14px;color:#eef4ff}
-    .accBtn:hover{background:rgba(255,255,255,.03)}
-    .accBtn > span:first-child{max-width:92%}
+    .faqList{display:grid;gap:8px}
+    .faqItem{border:1px solid rgba(255,255,255,.12);border-radius:12px;background:#111a33;overflow:hidden}
+    .faqItem[open]{border-color:rgba(255,255,255,.26);box-shadow:0 10px 22px rgba(0,0,0,.22);background:#132041}
+    .faqItem summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;cursor:pointer;font-weight:700;font-size:14px;color:#eef4ff}
+    .faqItem summary::-webkit-details-marker{display:none}
+    .faqItem summary .icon{width:22px;height:22px;border-radius:999px;display:grid;place-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);font-size:14px;line-height:1;color:#dbe8ff;flex:0 0 22px;transition:transform .2s ease,background .2s ease}
+    .faqItem[open] summary .icon{transform:rotate(180deg);background:rgba(255,255,255,.16)}
+    .faqItem p{margin:0;padding:0 12px 12px;color:#d7e3fb;font-size:14px;line-height:1.52}
+
+    .relatedV2{margin-top:14px;padding:14px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(14,20,40,.78)}
+    .relatedV2 h2{margin:0 0 10px;font-size:18px}
+    .relatedGridV2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .rCard{position:relative;display:block;text-decoration:none;color:#eaf1ff;border:1px solid rgba(255,255,255,.14);border-radius:12px;background:#101932;overflow:hidden;transition:.2s}
+    .rCard:hover{transform:translateY(-2px) scale(1.01);border-color:rgba(255,255,255,.28);box-shadow:0 14px 28px rgba(0,0,0,.28)}
+    .rVisual{height:128px;position:relative;border-bottom:1px solid rgba(255,255,255,.09);overflow:hidden;background:#14203a}
+    .rGlow{position:absolute;inset:0;opacity:.95}
+    .rPanel{position:absolute;right:14px;top:12px;left:14px;bottom:12px;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:#0f1729;box-shadow:0 8px 24px rgba(0,0,0,.34);transform:perspective(700px) rotateY(-2deg) rotateX(1.2deg)}
+    .rPanel::before{content:'';position:absolute;left:10px;right:10px;top:12px;height:8px;border-radius:999px;background:linear-gradient(90deg,#22c55e,#f59e0b,#ef4444)}
+    .rPanel::after{position:absolute;left:10px;bottom:10px;font-size:11px}
+    .rPanel.mr::after{content:'2.4x  ·  DKK 94';color:#b7f4ff}
+    .rPanel.sp::after{content:'20 days  ·  SAFE';color:#ffdca7}
+    .rPanel.pg::after{content:'42% vs 11%';color:#ffc8d2}
+    .rPanel.ds::after{content:'Clarity 58/100';color:#ddd0ff}
+    .rCard.teal .rGlow{background:radial-gradient(280px 140px at 12% 10%,rgba(34,211,238,.28),transparent 72%)}
+    .rCard.amber .rGlow{background:radial-gradient(280px 140px at 12% 10%,rgba(245,158,11,.30),transparent 72%)}
+    .rCard.rose .rGlow{background:radial-gradient(280px 140px at 12% 10%,rgba(251,113,133,.28),transparent 72%)}
+    .rCard.violet .rGlow{background:radial-gradient(280px 140px at 12% 10%,rgba(167,139,250,.30),transparent 72%)}
+    .rBody{padding:10px 12px}
+    .rBody strong{display:block;font-size:16px;line-height:1.2}
+    .rBody span{display:block;color:#9fb2d6;font-size:13px;margin-top:3px}
+    @media(max-width:760px){.relatedGridV2{grid-template-columns:1fr}}
+max-width:92%}
     .accIcon{width:22px;height:22px;border-radius:999px;display:grid;place-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);font-size:14px;line-height:1;color:#dbe8ff;opacity:1;transition:transform .2s ease,background .2s ease}
     .accItem.open .accIcon{transform:rotate(180deg);background:rgba(255,255,255,.16)}
     .accPanel{padding:0 12px 12px;color:#d7e3fb;font-size:14px;line-height:1.52;display:none}
@@ -162,9 +188,11 @@
 
     
 
-    <section class="faqV2" aria-label="Frequently asked questions"><h2>FAQ</h2><div class="accList"><div class="accItem open"><button class="accBtn" type="button" aria-expanded="true" aria-controls="faq-marginradar-1" id="faq-btn-marginradar-1"><span>What is break-even ROAS?</span><span class="accIcon">▾</span></button><div class="accPanel" id="faq-marginradar-1" role="region" aria-labelledby="faq-btn-marginradar-1" style="display:block"><p>Break-even ROAS is the minimum return on ad spend where profit after ad cost is zero. Above this level you are profitable, below it you lose money.</p></div></div><div class="accItem"><button class="accBtn" type="button" aria-expanded="false" aria-controls="faq-marginradar-2" id="faq-btn-marginradar-2"><span>What does Max CAC mean?</span><span class="accIcon">▾</span></button><div class="accPanel" id="faq-marginradar-2" role="region" aria-labelledby="faq-btn-marginradar-2"><p>Max CAC is the highest acquisition cost you can pay per order while still meeting your target margin assumptions.</p></div></div><div class="accItem"><button class="accBtn" type="button" aria-expanded="false" aria-controls="faq-marginradar-3" id="faq-btn-marginradar-3"><span>Should I include VAT in price inputs?</span><span class="accIcon">▾</span></button><div class="accPanel" id="faq-marginradar-3" role="region" aria-labelledby="faq-btn-marginradar-3"><p>Yes—use your real selling economics consistently. If your team tracks margins ex-VAT, keep all inputs aligned to that model.</p></div></div><div class="accItem"><button class="accBtn" type="button" aria-expanded="false" aria-controls="faq-marginradar-4" id="faq-btn-marginradar-4"><span>Can I use MarginRadar for Google and Meta ads?</span><span class="accIcon">▾</span></button><div class="accPanel" id="faq-marginradar-4" role="region" aria-labelledby="faq-btn-marginradar-4"><p>Yes. The tool is channel-agnostic because it models unit economics, not platform-specific metrics.</p></div></div><div class="accItem"><button class="accBtn" type="button" aria-expanded="false" aria-controls="faq-marginradar-5" id="faq-btn-marginradar-5"><span>How often should I update assumptions?</span><span class="accIcon">▾</span></button><div class="accPanel" id="faq-marginradar-5" role="region" aria-labelledby="faq-btn-marginradar-5"><p>Update assumptions whenever COGS, shipping, discount mix, or AOV changes. Weekly refresh is a good operating rhythm.</p></div></div><div class="accItem"><button class="accBtn" type="button" aria-expanded="false" aria-controls="faq-marginradar-6" id="faq-btn-marginradar-6"><span>Is any data sent to a server?</span><span class="accIcon">▾</span></button><div class="accPanel" id="faq-marginradar-6" role="region" aria-labelledby="faq-btn-marginradar-6"><p>No. MarginRadar runs in your browser and does not require API calls or account login.</p></div></div></div></section>
+    
 
-    <section class="relatedV2" aria-label="Related tools"><h2>Related tools</h2><div class="relatedGridV2"><a href="/tools/stockpulse/" class="rCard amber"><div class="rVisual"><div class="rGlow"></div><div class="rPanel sp"></div></div><div class="rBody"><strong>StockPulse</strong><span>Inventory runway timing</span></div></a><a href="/tools/promoguard/" class="rCard rose"><div class="rVisual"><div class="rGlow"></div><div class="rPanel pg"></div></div><div class="rBody"><strong>PromoGuard</strong><span>Promo margin impact</span></div></a><a href="/tools/drunk-shopper-test/" class="rCard violet"><div class="rVisual"><div class="rGlow"></div><div class="rPanel ds"></div></div><div class="rBody"><strong>Drunk Shopper Test</strong><span>Copy clarity stress test</span></div></a></div></section>
+    <section class="faqV2" aria-label="Frequently asked questions"><h2>FAQ</h2><div class="faqList"><details class="faqItem" open><summary><span>What is break-even ROAS?</span><span class="icon">▾</span></summary><p>Break-even ROAS is the minimum return on ad spend where profit after ad cost is zero. Above this level you are profitable, below it you lose money.</p></details><details class="faqItem"><summary><span>What does Max CAC mean?</span><span class="icon">▾</span></summary><p>Max CAC is the highest acquisition cost you can pay per order while still meeting your target margin assumptions.</p></details><details class="faqItem"><summary><span>Should I include VAT in price inputs?</span><span class="icon">▾</span></summary><p>Yes—use your real selling economics consistently. If your team tracks margins ex-VAT, keep all inputs aligned to that model.</p></details><details class="faqItem"><summary><span>Can I use MarginRadar for Google and Meta ads?</span><span class="icon">▾</span></summary><p>Yes. The tool is channel-agnostic because it models unit economics, not platform-specific metrics.</p></details><details class="faqItem"><summary><span>How often should I update assumptions?</span><span class="icon">▾</span></summary><p>Update assumptions whenever COGS, shipping, discount mix, or AOV changes. Weekly refresh is a good operating rhythm.</p></details><details class="faqItem"><summary><span>Is any data sent to a server?</span><span class="icon">▾</span></summary><p>No. MarginRadar runs in your browser and does not require API calls or account login.</p></details></div></section>
+
+    <section class="relatedV2" aria-label="Related tools"><h2>Related tools</h2><div class="relatedGridV2"><a href="/tools/stockpulse/" class="rCard amber"><div class="rVisual"><div class="rGlow"></div><div class="rPanel sp"></div></div><div class="rBody"><strong>StockPulse</strong><span>Inventory runway timing</span></div></a><a href="/tools/promoguard/" class="rCard rose"><div class="rVisual"><div class="rGlow"></div><div class="rPanel pg"></div></div><div class="rBody"><strong>PromoGuard</strong><span>Promo margin impact</span></div></a></div></section>
 
     <footer>Built by Mini Tools Lab</footer>
   </main>
@@ -200,27 +228,6 @@
     fields.forEach(f=>{syncPair(f,defaults[f]);bind(f)}); $('currency').addEventListener('change',calc); calc();
     $('resetBtn').addEventListener('click',()=>{fields.forEach(f=>syncPair(f,defaults[f]));$('currency').value='DKK';calc()});
     $('copyBtn').addEventListener('click',async()=>{const text=`MarginRadar\nCurrency: ${$('currency').value}\nBreak-even ROAS: ${$('roas').textContent}\nProfit/order: ${$('profit').textContent}\nMax CAC: ${$('maxCac').textContent}\nContribution: ${$('contribution').textContent}\nMargin: ${$('marginPct').textContent}`;try{await navigator.clipboard.writeText(text);$('copyBtn').textContent='Copied';setTimeout(()=>$('copyBtn').textContent='Copy results',1000)}catch{}});
-
-    // FAQ accordion UX
-    document.querySelectorAll('.accBtn').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        const item=btn.closest('.accItem');
-        const panel=item.querySelector('.accPanel');
-        const open=item.classList.contains('open');
-        item.parentElement.querySelectorAll('.accItem').forEach(i=>{
-          i.classList.remove('open');
-          const b=i.querySelector('.accBtn');
-          const p=i.querySelector('.accPanel');
-          b.setAttribute('aria-expanded','false');
-          p.style.display='none';
-        });
-        if(!open){
-          item.classList.add('open');
-          btn.setAttribute('aria-expanded','true');
-          panel.style.display='block';
-        }
-      });
-    });
 </script>
 </body>
 </html>
