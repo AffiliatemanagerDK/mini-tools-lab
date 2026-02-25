@@ -6,6 +6,7 @@ A free micro-tool hub for e-commerce owners.
 - MarginRadar (`/tools/marginradar/`): Break-even ROAS + Profit per order
 - StockPulse (`/tools/stockpulse/`): Inventory runway + reorder timeline
 - PromoGuard (`/tools/promoguard/`): Discount scenario comparator
+- Drunk Shopper Test (`/tools/drunk-shopper-test/`): Late-night copy clarity stress test
 
 ## Goal
 Ship practical no-API tools with zero ongoing token cost.

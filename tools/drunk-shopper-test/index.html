@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drunk Shopper Test — Clarity Stress Test</title>
+  <meta name="description" content="Test if your product description is understandable for a tired, distracted late-night shopper." />
+  <style>
+    :root{--bg:#0c1224;--bg2:#1a1230;--violet:#a78bfa;--violet2:#c4b5fd;--text:#eef1ff;--muted:#a9afd0;--good:#22c55e;--warn:#f59e0b;--bad:#ef4444}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--text);background:radial-gradient(900px 520px at 0% -20%,#4b2b8a55 0%,transparent 62%),radial-gradient(900px 520px at 100% -20%,#22386e55 0%,transparent 62%),linear-gradient(165deg,var(--bg),var(--bg2));}
+    .wrap{max-width:1140px;margin:20px auto 60px;padding:16px}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+    .brand{display:flex;gap:10px;align-items:center}.dot{width:14px;height:14px;border-radius:999px;background:var(--violet);box-shadow:0 0 0 0 #a78bfa66;animation:pulse 1.6s ease-in-out infinite}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 #a78bfa55}50%{box-shadow:0 0 0 9px transparent}}
+    a.hub{color:#d8ccff;text-decoration:none;font-size:13px}
+
+    .hero{border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px;background:radial-gradient(700px 220px at 75% -10%,#7a5de040,transparent 60%),rgba(15,18,38,.7)}
+    h1{margin:0 0 8px;font-size:38px;line-height:1.03}
+    .sub{margin:0;color:var(--muted);max-width:720px}
+
+    .split{display:grid;grid-template-columns:1.05fr .95fr;gap:12px;margin-top:12px}
+    .panel{border:1px solid rgba(255,255,255,.14);border-radius:16px;background:rgba(17,22,44,.72);overflow:hidden}
+    .head{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.1);font-size:13px;color:#d8ddff}
+    .body{padding:14px}
+
+    textarea{width:100%;min-height:240px;border-radius:12px;border:1px solid rgba(167,139,250,.4);background:#0f1630;color:var(--text);padding:12px;font:inherit;line-height:1.5}
+    textarea:focus{outline:none;box-shadow:0 0 0 3px #a78bfa29;border-color:var(--violet2)}
+
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+    .field label{display:block;font-size:11px;color:#c4c9e8;margin-bottom:6px}
+    .field input{width:100%;height:40px;border-radius:10px;border:1px solid rgba(167,139,250,.35);background:#101631;color:var(--text);padding:8px 10px;font-weight:700}
+
+    .scoreWrap{padding:10px;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:#10182f}
+    .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .score{font-size:44px;font-weight:900;letter-spacing:.02em;color:var(--violet2)}
+    .state{font-size:13px;padding:7px 10px;border-radius:999px;border:1px solid}
+    .good{color:#b7f4c9;border-color:#2f8f56;background:#103021}
+    .warn{color:#ffe3b4;border-color:#9e6f28;background:#3a280f}
+    .bad{color:#ffbcc6;border-color:#b74755;background:#3f1820}
+
+    .meter{height:12px;border-radius:999px;background:#28304c;overflow:hidden;margin-top:8px}
+    .fill{height:100%;width:0%;background:linear-gradient(90deg,var(--bad),var(--warn),var(--good));transition:width .3s ease}
+
+    .tips{margin-top:10px;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:#0f1630}
+    .tips ul{margin:6px 0 0 18px;padding:0;color:#d4dcf7;font-size:14px;display:grid;gap:4px}
+    .rewrite{margin-top:10px;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:#111a36;color:#d9e3ff;font-size:14px;line-height:1.5;max-height:200px;overflow:auto}
+
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .btn{height:42px;padding:0 12px;border-radius:10px;border:1px solid rgba(167,139,250,.45);background:#1b1c36;color:#eadfff;font-weight:700;cursor:pointer}
+
+    footer{margin-top:16px;text-align:center;color:#8f96bd;font-size:12px}
+
+    @media(max-width:900px){.split{grid-template-columns:1fr}h1{font-size:32px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <div class="brand"><span class="dot"></span><div><strong>Drunk Shopper Test</strong><div style="font-size:12px;color:var(--muted)">Will a distracted 23:00 shopper understand this?</div></div></div>
+      <a class="hub" href="/">← Tool Hub</a>
+    </header>
+
+    <section class="hero">
+      <h1>Clarity stress-test for late-night shoppers</h1>
+      <p class="sub">Paste your product description and see if it survives low attention, fatigue, and mild distraction. No API. Browser-side only.</p>
+    </section>
+
+    <section class="split">
+      <article class="panel">
+        <div class="head">Input</div>
+        <div class="body">
+          <textarea id="copy">Experience unmatched thermal efficiency with our dual-layer merino composite hoodie, engineered with moisture-channel technology, adaptive thermoregulation, and abrasion-resistant seam architecture for all-terrain performance.</textarea>
+          <div class="grid">
+            <div class="field"><label>Target reading level (grade)</label><input id="grade" type="number" min="4" max="14" value="8"></div>
+            <div class="field"><label>Distraction intensity (1-10)</label><input id="distraction" type="number" min="1" max="10" value="7"></div>
+          </div>
+          <div class="actions">
+            <button class="btn" id="runBtn" type="button">Run test</button>
+            <button class="btn" id="copyBtn" type="button">Copy result</button>
+            <button class="btn" id="resetBtn" type="button">Reset</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="head">Output</div>
+        <div class="body">
+          <div class="scoreWrap">
+            <div class="row"><div id="score" class="score">58</div><div id="state" class="state warn">Probably confusing at 23:00</div></div>
+            <div class="meter"><div id="fill" class="fill" style="width:58%"></div></div>
+          </div>
+
+          <div class="tips">
+            <strong>Top fixes</strong>
+            <ul id="tipsList">
+              <li>Replace heavy jargon with plain words.</li>
+              <li>Shorten long sentences to 12-16 words.</li>
+              <li>Lead with direct customer outcome.</li>
+            </ul>
+          </div>
+
+          <div class="rewrite" id="rewrite">Warm hoodie for cold days. It keeps sweat away and stays comfortable while you move. Built to last for everyday wear and outdoor use.</div>
+        </div>
+      </article>
+    </section>
+
+    <footer>Built by Mini Tools Lab</footer>
+  </main>
+
+  <script>
+    const jargon=["unmatched","thermal","efficiency","dual-layer","composite","engineered","moisture-channel","adaptive","thermoregulation","abrasion-resistant","architecture","all-terrain","synergy","optimize","premium-grade"];
+    const filler=["very","really","extremely","basically","actually"];
+
+    const $=id=>document.getElementById(id);
+    const defaults={
+      copy:$('copy').value,
+      grade:8,
+      distraction:7
+    };
+
+    function splitSentences(t){return t.split(/[.!?]+/).map(s=>s.trim()).filter(Boolean)}
+    function words(t){return t.toLowerCase().match(/[a-zA-ZæøåÆØÅ'-]+/g)||[]}
+
+    function calc(){
+      const text=$('copy').value.trim();
+      const w=words(text);
+      const s=splitSentences(text);
+      const grade=+$('grade').value||8;
+      const distraction=+$('distraction').value||7;
+
+      const avgSentence=w.length/Math.max(1,s.length);
+      const longWords=w.filter(x=>x.length>=10).length;
+      const jargonHits=w.filter(x=>jargon.includes(x)).length;
+      const fillerHits=w.filter(x=>filler.includes(x)).length;
+
+      let score=100;
+      score-=Math.max(0,avgSentence-14)*2.2;
+      score-=longWords*1.1;
+      score-=jargonHits*4.5;
+      score-=fillerHits*1.2;
+      score-=Math.max(0,grade-8)*2;
+      score-=Math.max(0,distraction-5)*2.5;
+      score=Math.max(0,Math.min(100,Math.round(score)));
+
+      $('score').textContent=score;
+      $('fill').style.width=score+'%';
+
+      let stateText='Clear enough to convert';
+      let cls='good';
+      if(score<40){stateText='Likely confusing at 23:00';cls='bad'}
+      else if(score<70){stateText='Probably confusing at 23:00';cls='warn'}
+      $('state').textContent=stateText;
+      $('state').className='state '+cls;
+
+      const tips=[];
+      if(jargonHits>0) tips.push('Replace technical jargon with everyday words.');
+      if(avgSentence>16) tips.push('Break long sentences into short punchy lines.');
+      if(longWords>6) tips.push('Swap complex words for simpler synonyms.');
+      if(tips.length===0) tips.push('Lead with one concrete customer outcome first.');
+      tips.push('Put strongest benefit in first 8 words.');
+
+      $('tipsList').innerHTML=tips.slice(0,3).map(t=>`<li>${t}</li>`).join('');
+
+      // crude simplified rewrite
+      const plain=text
+        .replace(/engineered|adaptive|composite|architecture|efficiency|thermal|premium-grade/gi,'')
+        .replace(/\s+/g,' ')
+        .trim();
+      const first=splitSentences(plain)[0]||plain;
+      $('rewrite').textContent=`Simple rewrite:\n${first}.\n\nIt is comfortable, durable, and easy to understand at a glance.`;
+
+      return {score,state:stateText,tips,rewrite:$('rewrite').textContent};
+    }
+
+    $('runBtn').addEventListener('click',calc);
+    $('resetBtn').addEventListener('click',()=>{ $('copy').value=defaults.copy; $('grade').value=defaults.grade; $('distraction').value=defaults.distraction; calc(); });
+    $('copyBtn').addEventListener('click',async()=>{
+      const r=calc();
+      const text=`Drunk Shopper Test\nScore: ${r.score}/100\nVerdict: ${r.state}\nTop fixes:\n- ${r.tips.slice(0,3).join('\n- ')}\n\n${r.rewrite}`;
+      try{await navigator.clipboard.writeText(text); $('copyBtn').textContent='Copied'; setTimeout(()=>$('copyBtn').textContent='Copy result',1000);}catch{}
+    });
+
+    calc();
+  </script>
+</body>
+</html>
