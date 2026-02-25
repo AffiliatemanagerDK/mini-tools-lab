@@ -206,6 +206,48 @@ max-width:92%}
     .rpBul li::before{content:'→ ';opacity:.8}
     @media(max-width:900px){.relatedProGrid{grid-template-columns:1fr}.rpCard{min-height:260px}.rpBody h3{font-size:26px}}
 
+  
+    /* Related tools FINAL parity with homepage cards */
+    .relatedPro{margin-top:14px;padding:14px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(14,20,40,.78)}
+    .relatedPro h2{margin:0 0 10px;font-size:18px}
+    .relatedProGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .rvCard{position:relative;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(17,27,54,.72);box-shadow:0 16px 30px rgba(0,0,0,.26);text-decoration:none;color:#eef4ff;overflow:hidden;display:grid;grid-template-rows:58% 42%;min-height:300px;transition:.2s}
+    .rvCard:hover{transform:translateY(-2px) scale(1.01);border-color:rgba(255,255,255,.26)}
+    .rvCardPreview{height:100%;padding:12px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .rvBody{padding:12px}
+    .rvBody h3{margin:0 0 6px;font-size:36px;line-height:1.02}
+    .rvBody p{margin:0;color:#9fb2d6;font-size:14px}
+    .rvBul{margin:8px 0 0;padding:0;list-style:none;color:#d7e3fb;font-size:14px;display:grid;gap:3px}
+    .rvBul li::before{content:'→ ';opacity:.8}
+
+    .rv-teal{background:radial-gradient(700px 240px at 50% 120%, rgba(34,211,238,.22), transparent 65%), rgba(17,27,54,.72)}
+    .rv-amber{background:radial-gradient(700px 240px at 50% 120%, rgba(245,158,11,.22), transparent 65%), rgba(17,27,54,.72)}
+    .rv-rose{background:radial-gradient(700px 240px at 50% 120%, rgba(251,113,133,.2), transparent 65%), rgba(17,27,54,.72)}
+    .rv-violet{background:radial-gradient(700px 240px at 50% 120%, rgba(167,139,250,.22), transparent 65%), rgba(17,27,54,.72)}
+
+    .rvDonut{width:96px;height:96px;border-radius:50%;background:conic-gradient(#22d3ee 63%, #243851 0);margin:0 auto 8px}
+    .rvDonut::after{content:"";display:block;width:64px;height:64px;border-radius:50%;background:#13213f;margin:16px auto}
+    .rvStats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+    .rvBox{background:#102039;border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:6px}
+    .rvBox .k{font-size:10px;color:#9dbde2}
+    .rvBox .v{font-size:14px;font-weight:800;color:#b6f6ff}
+
+    .rvTop{font-size:11px;color:#efd2a5;display:flex;justify-content:space-between}
+    .rvBar{height:10px;border-radius:999px;background:#2a3142;overflow:hidden;margin:8px 0}
+    .rvBar i{display:block;height:100%;width:62%;background:linear-gradient(90deg,#22c55e,#f59e0b,#ef4444)}
+    .rvTimeline{position:relative;height:24px}
+    .rvTimeline .axis{position:absolute;left:0;right:0;top:10px;height:5px;border-radius:999px;background:#2b3448}
+    .rvTimeline .m{position:absolute;top:3px;width:8px;height:8px;border-radius:50%}
+    .rvTimeline .m1{left:45%;background:#f59e0b}
+    .rvTimeline .m2{left:86%;background:#ff8797}
+
+    .rvCompare{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .rvCol{background:#2a1522;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px}
+    .rvCol .k{font-size:10px;color:#edb6c1}
+    .rvCol .v{font-size:15px;font-weight:800;color:#ffd0d8}
+
+    @media(max-width:900px){.relatedProGrid{grid-template-columns:1fr}.rvCard{min-height:250px}.rvBody h3{font-size:30px}}
+
   </style>
 
   <script type="application/ld+json" id="faq-schema">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does the clarity score measure?", "acceptedAnswer": {"@type": "Answer", "text": "It estimates how understandable your product copy is for tired or distracted shoppers with low attention bandwidth."}}, {"@type": "Question", "name": "Why do long sentences hurt the score?", "acceptedAnswer": {"@type": "Answer", "text": "Long sentences increase cognitive load, especially on mobile, making key benefits harder to process quickly."}}, {"@type": "Question", "name": "What is a good target reading level?", "acceptedAnswer": {"@type": "Answer", "text": "Grade 7–9 is usually a practical range for e-commerce copy that aims for broad readability."}}, {"@type": "Question", "name": "What does distraction intensity change?", "acceptedAnswer": {"@type": "Answer", "text": "Higher distraction settings simulate weaker attention, so copy must be shorter and clearer to score well."}}, {"@type": "Question", "name": "How should I use the simple rewrite output?", "acceptedAnswer": {"@type": "Answer", "text": "Use it as a first plain-language draft, then edit to match your brand voice while keeping clarity high."}}, {"@type": "Question", "name": "Is my copy uploaded anywhere?", "acceptedAnswer": {"@type": "Answer", "text": "No. Analysis runs locally in your browser without external API calls."}}]}</script>
@@ -289,7 +331,7 @@ max-width:92%}
 
     
 
-    <section class="relatedPro" aria-label="Related tools"><h2>Related tools</h2><div class="relatedProGrid"><a class="rpCard teal" href="/tools/marginradar/"><div class="rpTop"><div class="bg"></div><div class="panel"></div><div class="rpLine"></div><div class="rpMetric">2.4x ROAS</div></div><div class="rpBody"><h3>MarginRadar</h3><p>ROAS + profit clarity</p><ul class="rpBul"><li>Break-even ROAS threshold</li></ul></div></a><a class="rpCard amber" href="/tools/stockpulse/"><div class="rpTop"><div class="bg"></div><div class="panel"></div><div class="rpLine"></div><div class="rpMetric">20 days SAFE</div></div><div class="rpBody"><h3>StockPulse</h3><p>Inventory runway timing</p><ul class="rpBul"><li>Days until stockout</li></ul></div></a></div></section>
+    <section class="relatedPro" aria-label="Related tools"><h2>Related tools</h2><div class="relatedProGrid"><a class="rvCard" href="/tools/marginradar/"><div class="rvCardPreview rv-teal"><div class="rvDonut"></div><div class="rvStats"><div class="rvBox"><div class="k">ROAS break-even</div><div class="v">2.4x</div></div><div class="rvBox"><div class="k">Max CAC</div><div class="v">DKK 113</div></div><div class="rvBox"><div class="k">Profit/order</div><div class="v">DKK 94</div></div></div></div><div class="rvBody"><h3>MarginRadar</h3><p>ROAS + profit clarity</p><ul class="rvBul"><li>Break-even ROAS threshold</li></ul></div></a><a class="rvCard" href="/tools/stockpulse/"><div class="rvCardPreview rv-amber"><div class="rvTop"><span>Today</span><span>Reorder</span><span>Stockout</span></div><div class="rvBar"><i></i></div><div class="rvTimeline"><div class="axis"></div><span class="m m1"></span><span class="m m2"></span></div><div class="rvStats" style="margin-top:6px"><div class="rvBox"><div class="k">Runway</div><div class="v" style="color:#ffd89a">20.0</div></div><div class="rvBox"><div class="k">Reorder</div><div class="v" style="color:#ffd89a">14 Mar</div></div><div class="rvBox"><div class="k">Qty</div><div class="v" style="color:#ffd89a">300</div></div></div></div><div class="rvBody"><h3>StockPulse</h3><p>Inventory runway timing</p><ul class="rvBul"><li>Days until stockout</li></ul></div></a></div></section>
 
     <footer>Built by Mini Tools Lab</footer>
   </main>
