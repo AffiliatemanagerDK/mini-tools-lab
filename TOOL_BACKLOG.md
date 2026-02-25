@@ -11,11 +11,14 @@ Status legend: `idea` | `building` | `live` | `paused`
   - URL: https://mini-tools-lab.vercel.app/tools/promoguard/
 - [x] Drunk Shopper Test — late-night copy clarity stress test (live)
   - URL: https://mini-tools-lab.vercel.app/tools/drunk-shopper-test/
+- [x] Checkout Friction Estimator — checkout abandonment risk estimator (live)
+  - URL: https://mini-tools-lab.vercel.app/tools/checkout-friction-estimator/
 
 ## Canonical 10-tool list from Mikael (to build)
 1. [x] Drunk Shopper Test (`live`)
    - URL: https://mini-tools-lab.vercel.app/tools/drunk-shopper-test/
-2. [ ] Checkout Friction Estimator (`idea`)
+2. [x] Checkout Friction Estimator (`live`)
+   - URL: https://mini-tools-lab.vercel.app/tools/checkout-friction-estimator/
 3. [ ] Shipping Psychology Optimizer (`idea`)
 4. [ ] Above-the-Fold Attention Simulator (`idea`)
 5. [ ] Product Name Duel (`idea`)

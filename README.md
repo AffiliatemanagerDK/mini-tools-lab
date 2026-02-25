@@ -7,6 +7,7 @@ A free micro-tool hub for e-commerce owners.
 - StockPulse (`/tools/stockpulse/`): Inventory runway + reorder timeline
 - PromoGuard (`/tools/promoguard/`): Discount scenario comparator
 - Drunk Shopper Test (`/tools/drunk-shopper-test/`): Late-night copy clarity stress test
+- Checkout Friction Estimator (`/tools/checkout-friction-estimator/`): Checkout abandonment risk estimator
 
 ## Goal
 Ship practical no-API tools with zero ongoing token cost.

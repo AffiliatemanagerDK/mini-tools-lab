@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout Friction Estimator — Abandonment Risk Calculator</title>
+  <meta name="description" content="Estimate checkout friction score and abandonment risk from form complexity, steps, account requirements, and UX signals." />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="theme-color" content="#0b1121" />
+  <link rel="canonical" href="https://mini-tools-lab.vercel.app/tools/checkout-friction-estimator/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="NorthGrid Tools" />
+  <meta property="og:title" content="Checkout Friction Estimator — Abandonment Risk Calculator" />
+  <meta property="og:description" content="Score checkout friction and estimate likely abandonment from UX inputs in seconds." />
+  <meta property="og:url" content="https://mini-tools-lab.vercel.app/tools/checkout-friction-estimator/" />
+  <meta property="og:image" content="https://mini-tools-lab.vercel.app/og/checkout-friction-estimator-og.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Checkout Friction Estimator — Abandonment Risk Calculator" />
+  <meta name="twitter:description" content="Score checkout friction and estimate likely abandonment from UX inputs in seconds." />
+  <meta name="twitter:image" content="https://mini-tools-lab.vercel.app/og/checkout-friction-estimator-og.svg" />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Checkout Friction Estimator","applicationCategory":"BusinessApplication","operatingSystem":"Any","isAccessibleForFree":true,"url":"https://mini-tools-lab.vercel.app/tools/checkout-friction-estimator/","description":"Checkout friction and abandonment risk estimator for e-commerce flows."}</script>
+  <script type="application/ld+json" id="faq-schema">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is checkout friction?","acceptedAnswer":{"@type":"Answer","text":"Checkout friction is the effort and uncertainty users experience during checkout, including too many fields, extra steps, required account creation, and missing trust signals."}},{"@type":"Question","name":"How is the score calculated?","acceptedAnswer":{"@type":"Answer","text":"The score combines weighted penalties from form fields, steps, account requirements, payment flexibility, speed, and UX safeguards to estimate relative friction."}},{"@type":"Question","name":"What is a good friction score?","acceptedAnswer":{"@type":"Answer","text":"Lower is better. A score under 30 is typically smooth, 30-55 is moderate, and above 55 usually indicates strong abandonment risk."}},{"@type":"Question","name":"Can this replace analytics?","acceptedAnswer":{"@type":"Answer","text":"No. This is a fast diagnostic layer. Use it with analytics and session recordings for final prioritization."}},{"@type":"Question","name":"What should I fix first?","acceptedAnswer":{"@type":"Answer","text":"Start with the largest weighted contributors: reduce field count, remove forced account creation, and simplify payment and shipping clarity."}},{"@type":"Question","name":"Is data sent to servers?","acceptedAnswer":{"@type":"Answer","text":"No. All calculations run in your browser with no API calls."}}]}</script>
+  <style>
+    :root{--bg:#0b1121;--bg2:#131d36;--text:#eef4ff;--muted:#9fb2d6;--line:rgba(255,255,255,.14);--sky:#38bdf8;--good:#22c55e;--warn:#f59e0b;--bad:#ef4444}
+    *{box-sizing:border-box}
+    body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:radial-gradient(900px 520px at -10% -20%,#2367a055 0%,transparent 58%),radial-gradient(900px 520px at 110% -20%,#20356755 0%,transparent 58%),linear-gradient(165deg,var(--bg),var(--bg2))}
+    .wrap{max-width:1120px;margin:20px auto 60px;padding:16px}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;padding:21px 24px}
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{width:63px;height:63px;display:block;filter:drop-shadow(0 0 10px #38bdf866)}
+    .hub{color:#c9e9ff;text-decoration:none;font-size:14px}
+
+    .hero{border:1px solid var(--line);border-radius:16px;padding:18px;background:radial-gradient(700px 220px at 80% -10%,#38bdf832,transparent 62%),rgba(15,25,48,.72)}
+    h1{margin:0;font-size:42px;line-height:1.02}
+    .sub{margin:8px 0 0;color:var(--muted);max-width:780px}
+
+    .layout{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+    .panel{border:1px solid var(--line);border-radius:14px;background:rgba(16,25,47,.78);overflow:hidden}
+    .head{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.1);font-weight:700}
+    .body{padding:14px}
+
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .field label{display:block;font-size:12px;color:#cad8f1;margin-bottom:6px}
+    .field input,.field select{width:100%;height:42px;border-radius:10px;border:1px solid rgba(56,189,248,.35);background:#101a33;color:var(--text);padding:8px 10px;font:inherit;font-weight:700}
+    .field input:focus,.field select:focus{outline:none;border-color:#79d6ff;box-shadow:0 0 0 3px #38bdf82a}
+
+    .scoreBox{padding:12px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:#101a33}
+    .scoreRow{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .score{font-size:50px;font-weight:900;color:#9be3ff}
+    .state{font-size:12px;font-weight:700;padding:6px 10px;border-radius:999px;border:1px solid}
+    .state.good{color:#baf6cc;border-color:#2e8f55;background:#103220}
+    .state.warn{color:#ffe3b2;border-color:#a06f26;background:#3b280e}
+    .state.bad{color:#ffc1ca;border-color:#b74655;background:#3d1720}
+
+    .bar{height:12px;border-radius:999px;background:#2a3450;overflow:hidden;margin-top:8px}
+    .fill{height:100%;width:0;background:linear-gradient(90deg,var(--good),var(--warn),var(--bad));transition:width .3s ease}
+    .est{margin-top:8px;font-size:14px;color:#d7e4fb}
+
+    .breakdown{margin-top:10px;display:grid;gap:8px}
+    .brow{display:grid;grid-template-columns:140px 1fr auto;gap:8px;align-items:center}
+    .btrack{height:8px;border-radius:999px;background:#2a3450;overflow:hidden}
+    .btrack i{display:block;height:100%;background:#38bdf8}
+    .brow span{font-size:12px;color:#c4d3ee}
+
+    .tips{margin-top:12px;padding:10px;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:#111a34}
+    .tips ul{margin:6px 0 0 18px;padding:0;color:#d6e2fa;display:grid;gap:4px}
+
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .btn{height:42px;padding:0 12px;border-radius:10px;border:1px solid rgba(56,189,248,.4);background:#12203b;color:#dff2ff;font-weight:700;cursor:pointer}
+
+    .faqV2{margin-top:14px;padding:14px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(14,20,40,.78)}
+    .faqV2 h2{margin:0 0 10px;font-size:18px}
+    .faqList{display:grid;gap:8px}
+    .faqItem{border:1px solid rgba(255,255,255,.12);border-radius:12px;background:#111a33;overflow:hidden}
+    .faqItem[open]{border-color:rgba(255,255,255,.26);box-shadow:0 10px 22px rgba(0,0,0,.22);background:#132041}
+    .faqItem summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;cursor:pointer;font-weight:700;font-size:14px;color:#eef4ff}
+    .faqItem summary::-webkit-details-marker{display:none}
+    .faqItem summary .icon{width:22px;height:22px;border-radius:999px;display:grid;place-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);font-size:14px;color:#dbe8ff;transition:transform .2s ease}
+    .faqItem[open] summary .icon{transform:rotate(180deg)}
+    .faqItem p{margin:0;padding:0 12px 12px;color:#d7e3fb;font-size:14px;line-height:1.52}
+
+    .relatedPro{margin-top:14px;padding:14px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(14,20,40,.78)}
+    .relatedPro h2{margin:0 0 10px;font-size:18px}
+    .relatedProGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .rvCard{position:relative;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(17,27,54,.72);box-shadow:0 16px 30px rgba(0,0,0,.26);text-decoration:none;color:#eef4ff;overflow:hidden;display:grid;grid-template-rows:58% 42%;min-height:300px;transition:.2s}
+    .rvCard:hover{transform:translateY(-2px) scale(1.01);border-color:rgba(255,255,255,.26)}
+    .rvCardPreview{height:100%;padding:12px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .rvBody{padding:12px}.rvBody h3{margin:0 0 6px;font-size:34px;line-height:1.02}.rvBody p{margin:0;color:#9fb2d6;font-size:14px}
+    .rvTitle{display:flex;align-items:center;gap:8px}.rvLogo{width:36px;height:36px;flex:0 0 36px;filter:drop-shadow(0 0 6px rgba(255,255,255,.25))}
+    .rvBul{margin:8px 0 0;padding:0;list-style:none;color:#d7e3fb;font-size:14px;display:grid;gap:3px}.rvBul li::before{content:'→ ';opacity:.8}
+    .rv-teal{background:radial-gradient(700px 240px at 50% 120%, rgba(34,211,238,.22), transparent 65%), rgba(17,27,54,.72)}
+    .rv-amber{background:radial-gradient(700px 240px at 50% 120%, rgba(245,158,11,.22), transparent 65%), rgba(17,27,54,.72)}
+    .rv-rose{background:radial-gradient(700px 240px at 50% 120%, rgba(251,113,133,.2), transparent 65%), rgba(17,27,54,.72)}
+    .rv-violet{background:radial-gradient(700px 240px at 50% 120%, rgba(167,139,250,.22), transparent 65%), rgba(17,27,54,.72)}
+    .rvDonut{width:96px;height:96px;border-radius:50%;background:conic-gradient(#22d3ee 63%, #243851 0);margin:0 auto 8px}.rvDonut::after{content:"";display:block;width:64px;height:64px;border-radius:50%;background:#13213f;margin:16px auto}
+    .rvStats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.rvBox{background:#102039;border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:6px}.rvBox .k{font-size:10px;color:#9dbde2}.rvBox .v{font-size:14px;font-weight:800;color:#b6f6ff}
+    .rvTop{font-size:11px;color:#efd2a5;display:flex;justify-content:space-between}.rvBar{height:10px;border-radius:999px;background:#2a3142;overflow:hidden;margin:8px 0}.rvBar i{display:block;height:100%;width:62%;background:linear-gradient(90deg,#22c55e,#f59e0b,#ef4444)}
+    .rvTimeline{position:relative;height:24px}.rvTimeline .axis{position:absolute;left:0;right:0;top:10px;height:5px;border-radius:999px;background:#2b3448}.rvTimeline .m{position:absolute;top:3px;width:8px;height:8px;border-radius:50%}.rvTimeline .m1{left:45%;background:#f59e0b}.rvTimeline .m2{left:86%;background:#ff8797}
+    .rvCompare{display:grid;grid-template-columns:1fr 1fr;gap:8px}.rvCol{background:#2a1522;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px}.rvCol .k{font-size:10px;color:#edb6c1}.rvCol .v{font-size:15px;font-weight:800;color:#ffd0d8}
+
+    footer{margin-top:14px;text-align:center;color:#8f9dbc;font-size:12px}
+    @media(max-width:900px){.layout{grid-template-columns:1fr}.relatedProGrid{grid-template-columns:1fr}.rvCard{min-height:250px}.rvBody h3{font-size:28px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <div class="brand"><img class="logo" src="./logo.svg" alt="Checkout Friction Estimator logo" /><div><strong>Checkout Friction Estimator</strong><div style="font-size:12px;color:var(--muted)">Score checkout effort before it hurts conversion.</div></div></div>
+      <a class="hub" href="/">← Tool Hub</a>
+    </header>
+
+    <section class="hero">
+      <h1>Find the friction that kills checkout conversion</h1>
+      <p class="sub">Model field count, step complexity, trust and payment flexibility to estimate abandonment risk and prioritize fixes.</p>
+    </section>
+
+    <section class="layout">
+      <article class="panel">
+        <div class="head">Checkout assumptions</div>
+        <div class="body">
+          <div class="grid">
+            <div class="field"><label>Form fields (total)</label><input id="fields" type="number" min="4" max="80" value="24" /></div>
+            <div class="field"><label>Checkout steps</label><input id="steps" type="number" min="1" max="8" value="4" /></div>
+            <div class="field"><label>Payment methods shown</label><input id="payments" type="number" min="1" max="8" value="2" /></div>
+            <div class="field"><label>Avg checkout load time (sec)</label><input id="speed" type="number" min="0.5" max="15" step="0.1" value="3.8" /></div>
+            <div class="field"><label>Forced account creation</label><select id="forced"><option value="1">Yes</option><option value="0">No</option></select></div>
+            <div class="field"><label>Guest checkout available</label><select id="guest"><option value="1">Yes</option><option value="0" selected>No</option></select></div>
+            <div class="field"><label>Trust badges/reviews visible</label><select id="trust"><option value="1">Yes</option><option value="0" selected>No</option></select></div>
+            <div class="field"><label>Shipping cost surprise late?</label><select id="shipping"><option value="1" selected>Yes</option><option value="0">No</option></select></div>
+          </div>
+          <div class="actions">
+            <button class="btn" id="calcBtn" type="button">Calculate</button>
+            <button class="btn" id="copyBtn" type="button">Copy results</button>
+            <button class="btn" id="resetBtn" type="button">Reset</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="head">Estimated friction impact</div>
+        <div class="body">
+          <div class="scoreBox">
+            <div class="scoreRow"><div id="score" class="score">61</div><div id="state" class="state bad">High friction</div></div>
+            <div class="bar"><div id="fill" class="fill" style="width:61%"></div></div>
+            <div class="est" id="abandon">Estimated abandonment pressure: 73%</div>
+          </div>
+
+          <div class="breakdown" id="breakdown"></div>
+
+          <div class="tips">
+            <strong>Priority fixes</strong>
+            <ul id="tipsList"></ul>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="faqV2" aria-label="Frequently asked questions">
+      <h2>FAQ</h2>
+      <div class="faqList">
+        <details class="faqItem" open><summary><span>What is checkout friction?</span><span class="icon">▾</span></summary><p>Checkout friction is the effort and uncertainty users experience during checkout, including too many fields, extra steps, required account creation, and missing trust signals.</p></details>
+        <details class="faqItem"><summary><span>How is the score calculated?</span><span class="icon">▾</span></summary><p>The score combines weighted penalties from form fields, steps, account requirements, payment flexibility, speed, and UX safeguards to estimate relative friction.</p></details>
+        <details class="faqItem"><summary><span>What is a good friction score?</span><span class="icon">▾</span></summary><p>Lower is better. A score under 30 is typically smooth, 30-55 is moderate, and above 55 usually indicates strong abandonment risk.</p></details>
+        <details class="faqItem"><summary><span>Can this replace analytics?</span><span class="icon">▾</span></summary><p>No. This is a fast diagnostic layer. Use it with analytics and session recordings for final prioritization.</p></details>
+        <details class="faqItem"><summary><span>What should I fix first?</span><span class="icon">▾</span></summary><p>Start with the largest weighted contributors: reduce field count, remove forced account creation, and simplify payment and shipping clarity.</p></details>
+        <details class="faqItem"><summary><span>Is data sent to servers?</span><span class="icon">▾</span></summary><p>No. All calculations run in your browser with no API calls.</p></details>
+      </div>
+    </section>
+
+    <section class="relatedPro" aria-label="Related tools">
+      <h2>Related tools</h2>
+      <div class="relatedProGrid" id="related-grid" data-current-slug="checkout-friction-estimator">
+        <a class="rvCard" href="/tools/marginradar/"><div class="rvCardPreview rv-teal"><div class="rvDonut"></div><div class="rvStats"><div class="rvBox"><div class="k">ROAS break-even</div><div class="v">2.4x</div></div><div class="rvBox"><div class="k">Max CAC</div><div class="v">DKK 113</div></div><div class="rvBox"><div class="k">Profit/order</div><div class="v">DKK 94</div></div></div></div><div class="rvBody"><h3 class="rvTitle"><span>MarginRadar</span><img class="rvLogo" src="/tools/marginradar/logo.svg" alt="MarginRadar logo" /></h3><p>ROAS + profit clarity</p><ul class="rvBul"><li>Break-even ROAS threshold</li></ul></div></a>
+        <a class="rvCard" href="/tools/stockpulse/"><div class="rvCardPreview rv-amber"><div class="rvTop"><span>Today</span><span>Reorder</span><span>Stockout</span></div><div class="rvBar"><i></i></div><div class="rvTimeline"><div class="axis"></div><span class="m m1"></span><span class="m m2"></span></div><div class="rvStats" style="margin-top:6px"><div class="rvBox"><div class="k">Runway</div><div class="v" style="color:#ffd89a">20.0</div></div><div class="rvBox"><div class="k">Reorder</div><div class="v" style="color:#ffd89a">14 Mar</div></div><div class="rvBox"><div class="k">Qty</div><div class="v" style="color:#ffd89a">300</div></div></div></div><div class="rvBody"><h3 class="rvTitle"><span>StockPulse</span><img class="rvLogo" src="/tools/stockpulse/logo.svg" alt="StockPulse logo" /></h3><p>Inventory runway timing</p><ul class="rvBul"><li>Days until stockout</li></ul></div></a>
+        <a class="rvCard" href="/tools/promoguard/"><div class="rvCardPreview rv-rose"><div class="rvCompare"><div class="rvCol"><div class="k">Full price</div><div class="v">42% margin</div></div><div class="rvCol"><div class="k">20% off</div><div class="v">11% margin</div></div></div><div class="rvBar" style="margin-top:10px"><i style="width:36%;background:linear-gradient(90deg,#ffb3c1,#fb7185)"></i></div></div><div class="rvBody"><h3 class="rvTitle"><span>PromoGuard</span><img class="rvLogo" src="/tools/promoguard/logo.svg" alt="PromoGuard logo" /></h3><p>Promo margin impact</p><ul class="rvBul"><li>Before vs after margin</li></ul></div></a>
+        <a class="rvCard" href="/tools/drunk-shopper-test/"><div class="rvCardPreview rv-violet"><div class="rvStats"><div class="rvBox"><div class="k">Score</div><div class="v" style="color:#ddd0ff">58/100</div></div><div class="rvBox"><div class="k">Verdict</div><div class="v" style="color:#ddd0ff">Confusing</div></div><div class="rvBox"><div class="k">Mode</div><div class="v" style="color:#ddd0ff">23:00</div></div></div><div class="rvBar" style="margin-top:10px"><i style="width:58%;background:linear-gradient(90deg,#ef4444,#f59e0b,#22c55e)"></i></div></div><div class="rvBody"><h3 class="rvTitle"><span>Drunk Shopper Test</span><img class="rvLogo" src="/tools/drunk-shopper-test/logo.svg" alt="Drunk Shopper Test logo" /></h3><p>Copy clarity stress test</p><ul class="rvBul"><li>Clarity score</li></ul></div></a>
+      </div>
+    </section>
+
+    <footer>Built by Mini Tools Lab</footer>
+  </main>
+
+  <script>
+    const defaults={fields:24,steps:4,payments:2,speed:3.8,forced:1,guest:0,trust:0,shipping:1};
+    const $=id=>document.getElementById(id);
+
+    function calc(){
+      const v={
+        fields:+$('fields').value||0,
+        steps:+$('steps').value||0,
+        payments:+$('payments').value||0,
+        speed:+$('speed').value||0,
+        forced:+$('forced').value||0,
+        guest:+$('guest').value||0,
+        trust:+$('trust').value||0,
+        shipping:+$('shipping').value||0,
+      };
+
+      const penalties={
+        fields: Math.max(0,(v.fields-12))*1.2,
+        steps: Math.max(0,(v.steps-2))*7,
+        payments: Math.max(0,(3-v.payments))*5,
+        speed: Math.max(0,(v.speed-2))*6,
+        forced: v.forced?13:0,
+        guest: v.guest?0:9,
+        trust: v.trust?0:7,
+        shipping: v.shipping?10:0,
+      };
+
+      let score=8+Object.values(penalties).reduce((a,b)=>a+b,0);
+      score=Math.max(0,Math.min(100,Math.round(score)));
+      const abandon=Math.max(22,Math.min(92,Math.round(26+score*0.78)));
+
+      $('score').textContent=score;
+      $('fill').style.width=score+'%';
+      $('abandon').textContent=`Estimated abandonment pressure: ${abandon}%`;
+
+      let cls='good', txt='Low friction';
+      if(score>55){cls='bad';txt='High friction'}
+      else if(score>30){cls='warn';txt='Moderate friction'}
+      $('state').className='state '+cls; $('state').textContent=txt;
+
+      const map=[
+        ['Form complexity',penalties.fields],['Steps',penalties.steps],['Payment flexibility',penalties.payments],
+        ['Speed',penalties.speed],['Forced account',penalties.forced],['Guest checkout',penalties.guest],
+        ['Trust signals',penalties.trust],['Shipping surprise',penalties.shipping],
+      ].sort((a,b)=>b[1]-a[1]);
+      $('breakdown').innerHTML=map.map(([k,v])=>`<div class="brow"><span>${k}</span><div class="btrack"><i style="width:${Math.min(100,Math.max(6,v*5))}%"></i></div><span>${v.toFixed(1)}</span></div>`).join('');
+
+      const tips=[];
+      if(penalties.fields>6) tips.push('Cut non-essential fields or move them post-purchase.');
+      if(penalties.steps>7) tips.push('Reduce step count to 2–3 and show progress clearly.');
+      if(v.forced) tips.push('Allow guest checkout by default.');
+      if(!v.trust) tips.push('Add trust badges, payment logos, and clear return policy near CTA.');
+      if(v.shipping) tips.push('Show shipping cost/threshold earlier to avoid late surprise.');
+      if(penalties.speed>6) tips.push('Prioritize checkout speed and script weight reduction.');
+      if(!tips.length) tips.push('Great baseline. Run A/B tests on CTA placement and field labels.');
+      $('tipsList').innerHTML=tips.slice(0,4).map(t=>`<li>${t}</li>`).join('');
+
+      return {score,abandon,txt,tips};
+    }
+
+    $('calcBtn').addEventListener('click',calc);
+    $('resetBtn').addEventListener('click',()=>{Object.entries(defaults).forEach(([k,v])=>$(k).value=v);calc();});
+    $('copyBtn').addEventListener('click',async()=>{
+      const r=calc();
+      const msg=`Checkout Friction Estimator\nScore: ${r.score}/100 (${r.txt})\nEstimated abandonment pressure: ${r.abandon}%\nTop fixes:\n- ${r.tips.join('\n- ')}`;
+      try{await navigator.clipboard.writeText(msg); $('copyBtn').textContent='Copied'; setTimeout(()=>$('copyBtn').textContent='Copy results',1000);}catch{}
+    });
+
+    // Dynamic related tools: show 2 of 4 cards (daily rotation)
+    (function(){
+      const grid=$('related-grid');
+      if(!grid) return;
+      const cards=[...grid.querySelectorAll('.rvCard')];
+      const day=new Date().toISOString().slice(0,10);
+      const seed=(day+'|checkout-friction-estimator').split('').reduce((a,c)=>(a*31+c.charCodeAt(0))>>>0,7);
+      const hideCount=Math.max(0,cards.length-2);
+      let s=seed;
+      const pick=new Set();
+      while(pick.size<hideCount){ s=(s*1664525+1013904223)>>>0; pick.add(s%cards.length); }
+      cards.forEach((c,i)=>{ c.style.display=pick.has(i)?'none':''; });
+    })();
+
+    calc();
+  </script>
+</body>
+</html>
