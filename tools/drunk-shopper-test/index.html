@@ -83,10 +83,42 @@
     .relatedGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
     .relatedCard{display:block;padding:10px 12px;border:1px solid rgba(255,255,255,.12);border-radius:10px;background:#111a32;text-decoration:none;color:#e8efff}
     .relatedCard span{display:block;color:#9fb2d6;font-size:12px;margin-top:2px}
+
+    /* FAQ + related v2 */
+    .faqV2{margin-top:12px;padding:14px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(14,20,40,.72)}
+    .faqV2 h2{margin:0 0 10px;font-size:18px}
+    .accList{display:grid;gap:8px}
+    .accItem{border:1px solid rgba(255,255,255,.11);border-radius:12px;background:#111a32;overflow:hidden}
+    .accBtn{all:unset;display:flex;align-items:center;justify-content:space-between;width:100%;padding:12px 12px;cursor:pointer;font-weight:700;font-size:14px;color:#eef4ff}
+    .accBtn:hover{background:rgba(255,255,255,.03)}
+    .accIcon{font-size:18px;line-height:1;opacity:.8}
+    .accPanel{padding:0 12px 12px;color:#cedaf4;font-size:14px;line-height:1.5;display:none}
+    .accItem.open .accPanel{display:block}
+    .accItem.open .accIcon{transform:rotate(45deg)}
+
+    .relatedV2{margin-top:12px;padding:14px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(14,20,40,.72)}
+    .relatedV2 h2{margin:0 0 10px;font-size:18px}
+    .relatedGridV2{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .rCard{position:relative;display:block;text-decoration:none;color:#eaf1ff;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:#101932;overflow:hidden;transition:.2s}
+    .rCard:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.22)}
+    .rVisual{height:70px;position:relative;background:radial-gradient(300px 120px at 15% 10%,rgba(255,255,255,.08),transparent 65%),#14203a;border-bottom:1px solid rgba(255,255,255,.08)}
+    .rVisual::after{content:'';position:absolute;inset:16px 18px auto 18px;height:10px;border-radius:999px;background:linear-gradient(90deg,rgba(34,197,94,.95),rgba(245,158,11,.95),rgba(239,68,68,.95));opacity:.9}
+    .rBody{padding:10px 12px}
+    .rBody strong{display:block;font-size:14px}
+    .rBody span{display:block;color:#9fb2d6;font-size:12px;margin-top:2px}
+    .rCard.teal .rVisual{background:radial-gradient(300px 120px at 15% 10%,rgba(34,211,238,.22),transparent 65%),#14203a}
+    .rCard.amber .rVisual{background:radial-gradient(300px 120px at 15% 10%,rgba(245,158,11,.24),transparent 65%),#14203a}
+    .rCard.rose .rVisual{background:radial-gradient(300px 120px at 15% 10%,rgba(251,113,133,.22),transparent 65%),#14203a}
+    .rCard.violet .rVisual{background:radial-gradient(300px 120px at 15% 10%,rgba(167,139,250,.24),transparent 65%),#14203a}
+    @media(max-width:900px){.relatedGridV2{grid-template-columns:1fr 1fr}}
+    @media(max-width:620px){.relatedGridV2{grid-template-columns:1fr}}
+
     @media(max-width:700px){.relatedGrid{grid-template-columns:1fr}}
 
     @media(max-width:900px){.split{grid-template-columns:1fr}h1{font-size:32px}}
   </style>
+
+  <script type="application/ld+json" id="faq-schema">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does the clarity score measure?", "acceptedAnswer": {"@type": "Answer", "text": "It estimates how understandable your product copy is for tired or distracted shoppers with low attention bandwidth."}}, {"@type": "Question", "name": "Why do long sentences hurt the score?", "acceptedAnswer": {"@type": "Answer", "text": "Long sentences increase cognitive load, especially on mobile, making key benefits harder to process quickly."}}, {"@type": "Question", "name": "What is a good target reading level?", "acceptedAnswer": {"@type": "Answer", "text": "Grade 7–9 is usually a practical range for e-commerce copy that aims for broad readability."}}, {"@type": "Question", "name": "What does distraction intensity change?", "acceptedAnswer": {"@type": "Answer", "text": "Higher distraction settings simulate weaker attention, so copy must be shorter and clearer to score well."}}, {"@type": "Question", "name": "How should I use the simple rewrite output?", "acceptedAnswer": {"@type": "Answer", "text": "Use it as a first plain-language draft, then edit to match your brand voice while keeping clarity high."}}, {"@type": "Question", "name": "Is my copy uploaded anywhere?", "acceptedAnswer": {"@type": "Answer", "text": "No. Analysis runs locally in your browser without external API calls."}}]}</script>
 </head>
 <body>
   <main class="wrap">
@@ -153,28 +185,18 @@
       </article>
     </section>
 
-    <section class="faqSection" aria-label="Frequently asked questions">
+    
+
+    
+
+    <section class="faqV2" aria-label="Frequently asked questions">
       <h2>FAQ</h2>
-      <div class="faqList">
-        <details class="faqItem" open>
-          <summary>What does the score mean?</summary>
-          <p>It estimates how understandable your copy is for low-attention shoppers.</p>
-        </details>
-        <details class="faqItem">
-          <summary>How do I improve a low score?</summary>
-          <p>Use shorter sentences, simpler words, and lead with concrete outcomes.</p>
-        </details>
-      </div>
+      <div class="accList"><div class="accItem open"><button class="accBtn" type="button" aria-expanded="true" aria-controls="faq-drunk-shopper-test-1" id="faq-btn-drunk-shopper-test-1"><span>What does the clarity score measure?</span><span class="accIcon">+</span></button><div class="accPanel" id="faq-drunk-shopper-test-1" role="region" aria-labelledby="faq-btn-drunk-shopper-test-1" style="display:block"><p>It estimates how understandable your product copy is for tired or distracted shoppers with low attention bandwidth.</p></div></div><div class="accItem"><button class="accBtn" type="button" aria-expanded="false" aria-controls="faq-drunk-shopper-test-2" id="faq-btn-drunk-shopper-test-2"><span>Why do long sentences hurt the score?</span><span class="accIcon">+</span></button><div class="accPanel" id="faq-drunk-shopper-test-2" role="region" aria-labelledby="faq-btn-drunk-shopper-test-2"><p>Long sentences increase cognitive load, especially on mobile, making key benefits harder to process quickly.</p></div></div><div class="accItem"><button class="accBtn" type="button" aria-expanded="false" aria-controls="faq-drunk-shopper-test-3" id="faq-btn-drunk-shopper-test-3"><span>What is a good target reading level?</span><span class="accIcon">+</span></button><div class="accPanel" id="faq-drunk-shopper-test-3" role="region" aria-labelledby="faq-btn-drunk-shopper-test-3"><p>Grade 7–9 is usually a practical range for e-commerce copy that aims for broad readability.</p></div></div><div class="accItem"><button class="accBtn" type="button" aria-expanded="false" aria-controls="faq-drunk-shopper-test-4" id="faq-btn-drunk-shopper-test-4"><span>What does distraction intensity change?</span><span class="accIcon">+</span></button><div class="accPanel" id="faq-drunk-shopper-test-4" role="region" aria-labelledby="faq-btn-drunk-shopper-test-4"><p>Higher distraction settings simulate weaker attention, so copy must be shorter and clearer to score well.</p></div></div><div class="accItem"><button class="accBtn" type="button" aria-expanded="false" aria-controls="faq-drunk-shopper-test-5" id="faq-btn-drunk-shopper-test-5"><span>How should I use the simple rewrite output?</span><span class="accIcon">+</span></button><div class="accPanel" id="faq-drunk-shopper-test-5" role="region" aria-labelledby="faq-btn-drunk-shopper-test-5"><p>Use it as a first plain-language draft, then edit to match your brand voice while keeping clarity high.</p></div></div><div class="accItem"><button class="accBtn" type="button" aria-expanded="false" aria-controls="faq-drunk-shopper-test-6" id="faq-btn-drunk-shopper-test-6"><span>Is my copy uploaded anywhere?</span><span class="accIcon">+</span></button><div class="accPanel" id="faq-drunk-shopper-test-6" role="region" aria-labelledby="faq-btn-drunk-shopper-test-6"><p>No. Analysis runs locally in your browser without external API calls.</p></div></div></div>
     </section>
 
-    <section class="faqSection" aria-label="Related tools">
+    <section class="relatedV2" aria-label="Related tools">
       <h2>Related tools</h2>
-      <div class="relatedGrid">
-        <a href="/tools/marginradar/" class="relatedCard"><strong>MarginRadar</strong><span>ROAS + profit</span></a>
-        <a href="/tools/stockpulse/" class="relatedCard"><strong>StockPulse</strong><span>Inventory runway</span></a>
-        <a href="/tools/promoguard/" class="relatedCard"><strong>PromoGuard</strong><span>Promo impact</span></a>
-        <a href="/tools/drunk-shopper-test/" class="relatedCard"><strong>Drunk Shopper Test</strong><span>Copy clarity</span></a>
-      </div>
+      <div class="relatedGridV2"><a href="/tools/marginradar/" class="rCard teal"><div class="rVisual"></div><div class="rBody"><strong>MarginRadar</strong><span>ROAS + profit clarity</span></div></a><a href="/tools/stockpulse/" class="rCard amber"><div class="rVisual"></div><div class="rBody"><strong>StockPulse</strong><span>Inventory runway timing</span></div></a><a href="/tools/promoguard/" class="rCard rose"><div class="rVisual"></div><div class="rBody"><strong>PromoGuard</strong><span>Promo margin impact</span></div></a></div>
     </section>
 
     <footer>Built by Mini Tools Lab</footer>
@@ -291,6 +313,27 @@
     });
 
     calc();
-  </script>
+  
+    // FAQ accordion UX
+    document.querySelectorAll('.accBtn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const item=btn.closest('.accItem');
+        const panel=item.querySelector('.accPanel');
+        const open=item.classList.contains('open');
+        item.parentElement.querySelectorAll('.accItem').forEach(i=>{
+          i.classList.remove('open');
+          const b=i.querySelector('.accBtn');
+          const p=i.querySelector('.accPanel');
+          b.setAttribute('aria-expanded','false');
+          p.style.display='none';
+        });
+        if(!open){
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded','true');
+          panel.style.display='block';
+        }
+      });
+    });
+</script>
 </body>
 </html>
