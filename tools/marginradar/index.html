@@ -168,6 +168,26 @@ max-width:92%}
     .rpBul li::before{content:'→ ';opacity:.8}
     @media(max-width:900px){.relatedProGrid{grid-template-columns:1fr}.rpCard{min-height:230px}}
 
+  
+    /* Related tools v2 (fit-for-space) */
+    .relatedProGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .rpCard{display:grid;grid-template-rows:52% 48%;min-height:320px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:#0f1830;text-decoration:none;color:#eef4ff}
+    .rpTop{position:relative;padding:12px;border-bottom:1px solid rgba(255,255,255,.1);overflow:hidden}
+    .rpTop .bg{position:absolute;inset:0;opacity:.95}
+    .rpTop .panel{position:absolute;inset:12px;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:#0f1729;box-shadow:0 8px 24px rgba(0,0,0,.34)}
+    .rpMetric{position:absolute;left:22px;bottom:20px;font-size:18px;font-weight:800;z-index:2}
+    .rpLine{position:absolute;left:22px;right:22px;top:26px;height:8px;border-radius:999px;background:linear-gradient(90deg,#22c55e,#f59e0b,#ef4444);z-index:2}
+    .rpCard.teal .rpTop .bg{background:radial-gradient(280px 140px at 12% 10%,rgba(34,211,238,.30),transparent 72%)}
+    .rpCard.amber .rpTop .bg{background:radial-gradient(280px 140px at 12% 10%,rgba(245,158,11,.30),transparent 72%)}
+    .rpCard.rose .rpTop .bg{background:radial-gradient(280px 140px at 12% 10%,rgba(251,113,133,.30),transparent 72%)}
+    .rpCard.violet .rpTop .bg{background:radial-gradient(280px 140px at 12% 10%,rgba(167,139,250,.30),transparent 72%)}
+    .rpBody{padding:12px}
+    .rpBody h3{margin:0 0 6px;font-size:30px;line-height:1.05}
+    .rpBody p{margin:0;color:#9fb2d6;font-size:14px}
+    .rpBul{margin:10px 0 0;padding:0;list-style:none;color:#d7e3fb;font-size:14px;display:grid;gap:4px}
+    .rpBul li::before{content:'→ ';opacity:.8}
+    @media(max-width:900px){.relatedProGrid{grid-template-columns:1fr}.rpCard{min-height:260px}.rpBody h3{font-size:26px}}
+
   </style>
 
   <script type="application/ld+json" id="faq-schema">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is break-even ROAS?", "acceptedAnswer": {"@type": "Answer", "text": "Break-even ROAS is the minimum return on ad spend where profit after ad cost is zero. Above this level you are profitable, below it you lose money."}}, {"@type": "Question", "name": "What does Max CAC mean?", "acceptedAnswer": {"@type": "Answer", "text": "Max CAC is the highest acquisition cost you can pay per order while still meeting your target margin assumptions."}}, {"@type": "Question", "name": "Should I include VAT in price inputs?", "acceptedAnswer": {"@type": "Answer", "text": "Yes—use your real selling economics consistently. If your team tracks margins ex-VAT, keep all inputs aligned to that model."}}, {"@type": "Question", "name": "Can I use MarginRadar for Google and Meta ads?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The tool is channel-agnostic because it models unit economics, not platform-specific metrics."}}, {"@type": "Question", "name": "How often should I update assumptions?", "acceptedAnswer": {"@type": "Answer", "text": "Update assumptions whenever COGS, shipping, discount mix, or AOV changes. Weekly refresh is a good operating rhythm."}}, {"@type": "Question", "name": "Is any data sent to a server?", "acceptedAnswer": {"@type": "Answer", "text": "No. MarginRadar runs in your browser and does not require API calls or account login."}}]}</script>
@@ -225,7 +245,7 @@ max-width:92%}
 
     
 
-    <section class="relatedPro" aria-label="Related tools"><h2>Related tools</h2><div class="relatedProGrid"><a class="rpCard" href="/tools/stockpulse/"><div class="rpTop amber"><div class="bg"></div><div class="panelBack"></div><div class="panel"></div><div class="viz"><div class="grid3" style="margin-bottom:6px"><span class="tinyDim">Today</span><span class="tinyDim" style="text-align:center">Reorder</span><span class="tinyDim" style="text-align:right">Stockout</span></div><div class="line"></div><div class="grid3" style="margin-top:8px"><div class="box"><div class="tinyDim">Runway</div><div class="tiny" style="font-weight:700;color:#ffdca7">20 days</div></div><div class="box"><div class="tinyDim">Risk</div><div class="tiny" style="font-weight:700;color:#ffdca7">SAFE</div></div><div class="box"><div class="tinyDim">Qty</div><div class="tiny" style="font-weight:700;color:#ffdca7">300</div></div></div></div></div><div class="rpBody"><h3>StockPulse</h3><p>Inventory runway timing</p><ul class="rpBul"><li>Days until stockout</li><li>Exact reorder date</li></ul></div></a><a class="rpCard" href="/tools/promoguard/"><div class="rpTop rose"><div class="bg"></div><div class="panelBack"></div><div class="panel"></div><div class="viz"><div class="grid2"><div class="box"><div class="tinyDim">Full price</div><div class="tiny" style="font-weight:700;color:#ffc8d2">42% margin</div><div class="muteline" style="margin-top:6px"><div class="line" style="width:84%;height:8px"></div></div></div><div class="box"><div class="tinyDim">20% off</div><div class="tiny" style="font-weight:700;color:#ffc8d2">11% margin</div><div class="muteline" style="margin-top:6px"><div class="line" style="width:28%;height:8px"></div></div></div></div><div class="grid2" style="margin-top:7px"><span class="tinyDim">● GO</span><span class="tinyDim" style="text-align:right">● CAUTION</span></div></div></div><div class="rpBody"><h3>PromoGuard</h3><p>Promo margin impact</p><ul class="rpBul"><li>Before vs after margin</li><li>Profit delta under promo</li></ul></div></a></div></section>
+    <section class="relatedPro" aria-label="Related tools"><h2>Related tools</h2><div class="relatedProGrid"><a class="rpCard amber" href="/tools/stockpulse/"><div class="rpTop"><div class="bg"></div><div class="panel"></div><div class="rpLine"></div><div class="rpMetric">20 days SAFE</div></div><div class="rpBody"><h3>StockPulse</h3><p>Inventory runway timing</p><ul class="rpBul"><li>Days until stockout</li></ul></div></a><a class="rpCard rose" href="/tools/promoguard/"><div class="rpTop"><div class="bg"></div><div class="panel"></div><div class="rpLine"></div><div class="rpMetric">42% vs 11%</div></div><div class="rpBody"><h3>PromoGuard</h3><p>Promo margin impact</p><ul class="rpBul"><li>Before vs after margin</li></ul></div></a></div></section>
 
     <footer>Built by Mini Tools Lab</footer>
   </main>

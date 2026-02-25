@@ -184,6 +184,26 @@ max-width:92%}
     .rpBul li::before{content:'→ ';opacity:.8}
     @media(max-width:900px){.relatedProGrid{grid-template-columns:1fr}.rpCard{min-height:230px}}
 
+  
+    /* Related tools v2 (fit-for-space) */
+    .relatedProGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .rpCard{display:grid;grid-template-rows:52% 48%;min-height:320px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:#0f1830;text-decoration:none;color:#eef4ff}
+    .rpTop{position:relative;padding:12px;border-bottom:1px solid rgba(255,255,255,.1);overflow:hidden}
+    .rpTop .bg{position:absolute;inset:0;opacity:.95}
+    .rpTop .panel{position:absolute;inset:12px;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:#0f1729;box-shadow:0 8px 24px rgba(0,0,0,.34)}
+    .rpMetric{position:absolute;left:22px;bottom:20px;font-size:18px;font-weight:800;z-index:2}
+    .rpLine{position:absolute;left:22px;right:22px;top:26px;height:8px;border-radius:999px;background:linear-gradient(90deg,#22c55e,#f59e0b,#ef4444);z-index:2}
+    .rpCard.teal .rpTop .bg{background:radial-gradient(280px 140px at 12% 10%,rgba(34,211,238,.30),transparent 72%)}
+    .rpCard.amber .rpTop .bg{background:radial-gradient(280px 140px at 12% 10%,rgba(245,158,11,.30),transparent 72%)}
+    .rpCard.rose .rpTop .bg{background:radial-gradient(280px 140px at 12% 10%,rgba(251,113,133,.30),transparent 72%)}
+    .rpCard.violet .rpTop .bg{background:radial-gradient(280px 140px at 12% 10%,rgba(167,139,250,.30),transparent 72%)}
+    .rpBody{padding:12px}
+    .rpBody h3{margin:0 0 6px;font-size:30px;line-height:1.05}
+    .rpBody p{margin:0;color:#9fb2d6;font-size:14px}
+    .rpBul{margin:10px 0 0;padding:0;list-style:none;color:#d7e3fb;font-size:14px;display:grid;gap:4px}
+    .rpBul li::before{content:'→ ';opacity:.8}
+    @media(max-width:900px){.relatedProGrid{grid-template-columns:1fr}.rpCard{min-height:260px}.rpBody h3{font-size:26px}}
+
   </style>
 
   <script type="application/ld+json" id="faq-schema">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is PromoGuard best used for?", "acceptedAnswer": {"@type": "Answer", "text": "PromoGuard compares full-price and discount scenarios so you can see margin and profit trade-offs before launch."}}, {"@type": "Question", "name": "Can I test both percentage and fixed discounts?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. You can switch between percent-off and fixed-amount discounts to compare impact."}}, {"@type": "Question", "name": "Why can revenue rise while profit falls?", "acceptedAnswer": {"@type": "Answer", "text": "Discounts can increase conversion but still reduce contribution margin per order. PromoGuard highlights that cannibalization risk."}}, {"@type": "Question", "name": "What inputs matter most?", "acceptedAnswer": {"@type": "Answer", "text": "Price, COGS, shipping, payment fees, ad cost, and discount depth are the key drivers of net profitability."}}, {"@type": "Question", "name": "How should I interpret “Warning” or “Critical”?", "acceptedAnswer": {"@type": "Answer", "text": "Those states indicate the promo likely damages economics under your assumptions and should be redesigned or limited."}}, {"@type": "Question", "name": "Is PromoGuard suitable for DTC teams?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. It is designed for practical DTC pricing checks and runs fully client-side."}}]}</script>
@@ -263,7 +283,7 @@ max-width:92%}
 
     
 
-    <section class="relatedPro" aria-label="Related tools"><h2>Related tools</h2><div class="relatedProGrid"><a class="rpCard" href="/tools/marginradar/"><div class="rpTop teal"><div class="bg"></div><div class="panelBack"></div><div class="panel"></div><div class="viz"><div class="tinyDim" style="margin-bottom:6px">BREAK-EVEN ROAS</div><div class="grid2" style="grid-template-columns:72px 1fr;align-items:center"><div style="width:64px;height:64px;border-radius:50%;background:conic-gradient(#22d3ee 68%, #2a3d5a 0);position:relative"><span style="position:absolute;inset:12px;border-radius:50%;background:#0f1729"></span></div><div><div class="tiny" style="font-weight:800;font-size:22px;color:#b9f6ff">2.4x</div><div class="tinyDim">Max CAC · Profit/order</div></div></div><div class="line" style="margin-top:8px"></div></div></div><div class="rpBody"><h3>MarginRadar</h3><p>ROAS + profit clarity</p><ul class="rpBul"><li>Break-even ROAS threshold</li><li>Max CAC per order</li></ul></div></a><a class="rpCard" href="/tools/stockpulse/"><div class="rpTop amber"><div class="bg"></div><div class="panelBack"></div><div class="panel"></div><div class="viz"><div class="grid3" style="margin-bottom:6px"><span class="tinyDim">Today</span><span class="tinyDim" style="text-align:center">Reorder</span><span class="tinyDim" style="text-align:right">Stockout</span></div><div class="line"></div><div class="grid3" style="margin-top:8px"><div class="box"><div class="tinyDim">Runway</div><div class="tiny" style="font-weight:700;color:#ffdca7">20 days</div></div><div class="box"><div class="tinyDim">Risk</div><div class="tiny" style="font-weight:700;color:#ffdca7">SAFE</div></div><div class="box"><div class="tinyDim">Qty</div><div class="tiny" style="font-weight:700;color:#ffdca7">300</div></div></div></div></div><div class="rpBody"><h3>StockPulse</h3><p>Inventory runway timing</p><ul class="rpBul"><li>Days until stockout</li><li>Exact reorder date</li></ul></div></a></div></section>
+    <section class="relatedPro" aria-label="Related tools"><h2>Related tools</h2><div class="relatedProGrid"><a class="rpCard teal" href="/tools/marginradar/"><div class="rpTop"><div class="bg"></div><div class="panel"></div><div class="rpLine"></div><div class="rpMetric">2.4x ROAS</div></div><div class="rpBody"><h3>MarginRadar</h3><p>ROAS + profit clarity</p><ul class="rpBul"><li>Break-even ROAS threshold</li></ul></div></a><a class="rpCard amber" href="/tools/stockpulse/"><div class="rpTop"><div class="bg"></div><div class="panel"></div><div class="rpLine"></div><div class="rpMetric">20 days SAFE</div></div><div class="rpBody"><h3>StockPulse</h3><p>Inventory runway timing</p><ul class="rpBul"><li>Days until stockout</li></ul></div></a></div></section>
 
     <footer id="footer">Built by Mini Tools Lab</footer>
   </main>
