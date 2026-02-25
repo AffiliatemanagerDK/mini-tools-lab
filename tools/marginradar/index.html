@@ -54,6 +54,19 @@
     .dangerStat{background:#3a1018;border-color:#7f1d1d}.dangerStat .v{color:#fb7185}
     .btn{height:44px;padding:0 12px;border-radius:10px;border:1px solid var(--line);background:#13243a;color:#d9e9ff;font-weight:600;cursor:pointer}
     footer{margin-top:16px;text-align:center;color:#89a0c6;font-size:12px}
+
+    .faqSection{margin-top:12px;padding:14px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(14,20,40,.72)}
+    .faqSection h2{margin:0 0 10px;font-size:18px}
+    .faqList{display:grid;gap:8px}
+    .faqItem{border:1px solid rgba(255,255,255,.1);border-radius:10px;background:#111a32;overflow:hidden}
+    .faqItem summary{list-style:none;cursor:pointer;padding:10px 12px;font-weight:700;font-size:14px}
+    .faqItem summary::-webkit-details-marker{display:none}
+    .faqItem p{margin:0;padding:0 12px 12px;color:#cedaf4;font-size:14px;line-height:1.45}
+    .relatedGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .relatedCard{display:block;padding:10px 12px;border:1px solid rgba(255,255,255,.12);border-radius:10px;background:#111a32;text-decoration:none;color:#e8efff}
+    .relatedCard span{display:block;color:#9fb2d6;font-size:12px;margin-top:2px}
+    @media(max-width:700px){.relatedGrid{grid-template-columns:1fr}}
+
     @media(max-width:900px){.grid{grid-template-columns:1fr}.bar{grid-template-columns:1fr 1fr}.stat .v{font-size:20px}.stat.roas .v{font-size:23px}}
   </style>
 </head>
@@ -96,9 +109,29 @@
     </section>
 
     <section class="glass cta"><div><strong>Want more tools like this?</strong><div style="color:var(--muted);font-size:13px">Explore the full mini-tool hub and upcoming calculators.</div></div><a href="/">Explore more tools →</a></section>
-    <section class="panel" style="margin-top:12px"><h2 style="margin:0 0 8px">FAQ</h2><p><strong>What does MarginRadar calculate?</strong> Break-even ROAS, max CAC, and profit per order.</p><p><strong>Is it free?</strong> Yes, fully browser-side and free.</p></section>
+    <section class="faqSection" aria-label="Frequently asked questions">
+      <h2>FAQ</h2>
+      <div class="faqList">
+        <details class="faqItem" open>
+          <summary>What does MarginRadar calculate?</summary>
+          <p>Break-even ROAS, max CAC, and profit per order from your current assumptions.</p>
+        </details>
+        <details class="faqItem">
+          <summary>Who is it for?</summary>
+          <p>E-commerce teams running paid traffic who want faster unit-economics decisions.</p>
+        </details>
+      </div>
+    </section>
 
-    <section style="margin-top:10px"><h2 style="font-size:18px;margin:0 0 8px">Related tools</h2><p style="margin:0"><a href="/tools/marginradar/">MarginRadar</a> · <a href="/tools/stockpulse/">StockPulse</a> · <a href="/tools/promoguard/">PromoGuard</a> · <a href="/tools/drunk-shopper-test/">Drunk Shopper Test</a></p></section>
+    <section class="faqSection" aria-label="Related tools">
+      <h2>Related tools</h2>
+      <div class="relatedGrid">
+        <a href="/tools/marginradar/" class="relatedCard"><strong>MarginRadar</strong><span>ROAS + profit</span></a>
+        <a href="/tools/stockpulse/" class="relatedCard"><strong>StockPulse</strong><span>Inventory runway</span></a>
+        <a href="/tools/promoguard/" class="relatedCard"><strong>PromoGuard</strong><span>Promo impact</span></a>
+        <a href="/tools/drunk-shopper-test/" class="relatedCard"><strong>Drunk Shopper Test</strong><span>Copy clarity</span></a>
+      </div>
+    </section>
 
     <footer>Built by Mini Tools Lab</footer>
   </main>

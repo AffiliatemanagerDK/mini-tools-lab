@@ -72,6 +72,19 @@
 
     footer{margin-top:16px;text-align:center;color:#8f96bd;font-size:12px}
 
+
+    .faqSection{margin-top:12px;padding:14px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(14,20,40,.72)}
+    .faqSection h2{margin:0 0 10px;font-size:18px}
+    .faqList{display:grid;gap:8px}
+    .faqItem{border:1px solid rgba(255,255,255,.1);border-radius:10px;background:#111a32;overflow:hidden}
+    .faqItem summary{list-style:none;cursor:pointer;padding:10px 12px;font-weight:700;font-size:14px}
+    .faqItem summary::-webkit-details-marker{display:none}
+    .faqItem p{margin:0;padding:0 12px 12px;color:#cedaf4;font-size:14px;line-height:1.45}
+    .relatedGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .relatedCard{display:block;padding:10px 12px;border:1px solid rgba(255,255,255,.12);border-radius:10px;background:#111a32;text-decoration:none;color:#e8efff}
+    .relatedCard span{display:block;color:#9fb2d6;font-size:12px;margin-top:2px}
+    @media(max-width:700px){.relatedGrid{grid-template-columns:1fr}}
+
     @media(max-width:900px){.split{grid-template-columns:1fr}h1{font-size:32px}}
   </style>
 </head>
@@ -140,9 +153,29 @@
       </article>
     </section>
 
-    <section class="panel" style="margin-top:12px"><div class="head">FAQ</div><div class="body"><p><strong>What is this score?</strong> A readability stress score for low-attention shoppers.</p><p><strong>What should I do with low scores?</strong> Use shorter sentences and simpler words, then retest.</p></div></section>
+    <section class="faqSection" aria-label="Frequently asked questions">
+      <h2>FAQ</h2>
+      <div class="faqList">
+        <details class="faqItem" open>
+          <summary>What does the score mean?</summary>
+          <p>It estimates how understandable your copy is for low-attention shoppers.</p>
+        </details>
+        <details class="faqItem">
+          <summary>How do I improve a low score?</summary>
+          <p>Use shorter sentences, simpler words, and lead with concrete outcomes.</p>
+        </details>
+      </div>
+    </section>
 
-    <section style="margin-top:10px"><h2 style="font-size:18px;margin:0 0 8px">Related tools</h2><p style="margin:0"><a href="/tools/marginradar/">MarginRadar</a> · <a href="/tools/stockpulse/">StockPulse</a> · <a href="/tools/promoguard/">PromoGuard</a> · <a href="/tools/drunk-shopper-test/">Drunk Shopper Test</a></p></section>
+    <section class="faqSection" aria-label="Related tools">
+      <h2>Related tools</h2>
+      <div class="relatedGrid">
+        <a href="/tools/marginradar/" class="relatedCard"><strong>MarginRadar</strong><span>ROAS + profit</span></a>
+        <a href="/tools/stockpulse/" class="relatedCard"><strong>StockPulse</strong><span>Inventory runway</span></a>
+        <a href="/tools/promoguard/" class="relatedCard"><strong>PromoGuard</strong><span>Promo impact</span></a>
+        <a href="/tools/drunk-shopper-test/" class="relatedCard"><strong>Drunk Shopper Test</strong><span>Copy clarity</span></a>
+      </div>
+    </section>
 
     <footer>Built by Mini Tools Lab</footer>
   </main>

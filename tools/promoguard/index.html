@@ -69,6 +69,19 @@
     .sbar{display:grid;grid-template-columns:1fr 1fr auto auto;gap:8px;background:#161126;border:1px solid #6f4258;border-radius:12px;padding:8px}
     .sstat{padding:7px;border-radius:8px;background:#1d1530}.sstat .k{font-size:10px}.sstat .v{font-size:18px;font-weight:800}
 
+
+    .faqSection{margin-top:12px;padding:14px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(14,20,40,.72)}
+    .faqSection h2{margin:0 0 10px;font-size:18px}
+    .faqList{display:grid;gap:8px}
+    .faqItem{border:1px solid rgba(255,255,255,.1);border-radius:10px;background:#111a32;overflow:hidden}
+    .faqItem summary{list-style:none;cursor:pointer;padding:10px 12px;font-weight:700;font-size:14px}
+    .faqItem summary::-webkit-details-marker{display:none}
+    .faqItem p{margin:0;padding:0 12px 12px;color:#cedaf4;font-size:14px;line-height:1.45}
+    .relatedGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .relatedCard{display:block;padding:10px 12px;border:1px solid rgba(255,255,255,.12);border-radius:10px;background:#111a32;text-decoration:none;color:#e8efff}
+    .relatedCard span{display:block;color:#9fb2d6;font-size:12px;margin-top:2px}
+    @media(max-width:700px){.relatedGrid{grid-template-columns:1fr}}
+
     @media(max-width:940px){.controls{grid-template-columns:1fr 1fr}.compare{grid-template-columns:1fr}}
     @media(max-width:768px){.controls{grid-template-columns:1fr}.sbar{grid-template-columns:1fr 1fr}.wrap{padding-bottom:150px}}
   </style>
@@ -134,9 +147,29 @@
       </div>
     </section>
 
-    <section class="panel" style="margin-top:12px"><h2 style="margin:0 0 8px">FAQ</h2><p><strong>What does PromoGuard compare?</strong> Full-price vs promo profitability and margin risk.</p><p><strong>Can I test fixed and % discounts?</strong> Yes, both are supported.</p></section>
+    <section class="faqSection" aria-label="Frequently asked questions">
+      <h2>FAQ</h2>
+      <div class="faqList">
+        <details class="faqItem" open>
+          <summary>What does PromoGuard compare?</summary>
+          <p>Full-price vs discount scenarios, including profit and margin impact.</p>
+        </details>
+        <details class="faqItem">
+          <summary>Can I test % and fixed discounts?</summary>
+          <p>Yes, you can switch between percentage-off and fixed-amount-off.</p>
+        </details>
+      </div>
+    </section>
 
-    <section style="margin-top:10px"><h2 style="font-size:18px;margin:0 0 8px">Related tools</h2><p style="margin:0"><a href="/tools/marginradar/">MarginRadar</a> · <a href="/tools/stockpulse/">StockPulse</a> · <a href="/tools/promoguard/">PromoGuard</a> · <a href="/tools/drunk-shopper-test/">Drunk Shopper Test</a></p></section>
+    <section class="faqSection" aria-label="Related tools">
+      <h2>Related tools</h2>
+      <div class="relatedGrid">
+        <a href="/tools/marginradar/" class="relatedCard"><strong>MarginRadar</strong><span>ROAS + profit</span></a>
+        <a href="/tools/stockpulse/" class="relatedCard"><strong>StockPulse</strong><span>Inventory runway</span></a>
+        <a href="/tools/promoguard/" class="relatedCard"><strong>PromoGuard</strong><span>Promo impact</span></a>
+        <a href="/tools/drunk-shopper-test/" class="relatedCard"><strong>Drunk Shopper Test</strong><span>Copy clarity</span></a>
+      </div>
+    </section>
 
     <footer id="footer">Built by Mini Tools Lab</footer>
   </main>
