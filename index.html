@@ -36,11 +36,11 @@
     .intro{margin:72px 0 30px;text-align:center}.intro h2{margin:0 0 8px;font-size:clamp(24px,3vw,30px)}.intro p{margin:0;color:var(--muted);font-size:16px}
 
     .cardGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-    .toolCard{position:relative;border-radius:16px;border:1px solid var(--line);background:rgba(17,27,54,.78);box-shadow:var(--shadow);transition:.22s;overflow:hidden;display:grid;grid-template-rows:40% 1fr auto;height:420px}
+    .toolCard{position:relative;border-radius:16px;border:1px solid var(--line);background:rgba(17,27,54,.78);box-shadow:var(--shadow);transition:.22s;overflow:hidden;display:grid;grid-template-rows:40% minmax(0,1fr) 64px;height:420px}
     .toolCard:hover{transform:translateY(-3px) scale(1.012);filter:brightness(1.04);box-shadow:0 30px 65px rgba(0,0,0,.55)}
     .toolCard .topVisual{padding:14px;border-bottom:1px solid rgba(255,255,255,.08);overflow:hidden;position:relative}
     .toolCard .content{height:60%;padding:16px 16px 24px;display:flex;flex-direction:column;justify-content:flex-start}
-    .actionsRow{padding:0 16px 16px;display:flex;justify-content:flex-end}
+    .actionsRow{padding:8px 16px 12px;display:flex;justify-content:flex-end;align-items:flex-start}
 
     .acc-teal{background:radial-gradient(900px 340px at 50% -20%,rgba(34,211,238,.20),transparent 62%),rgba(17,27,54,.78);border-bottom:3px solid var(--teal)}
     .acc-amber{background:radial-gradient(900px 340px at 50% -20%,rgba(245,158,11,.23),transparent 62%),rgba(17,27,54,.78);border-bottom:3px solid var(--amber)}
@@ -78,7 +78,7 @@
     .meta{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0 10px}
     .pill{font-size:11px;padding:5px 8px;border-radius:999px;border:1px solid currentColor;background:rgba(255,255,255,.06)}
     .pill.teal{color:#9ef2ff}.pill.amber{color:#ffd89a}.pill.rose{color:#ffc0cc}
-    .btn{display:inline-block;text-align:center;text-decoration:none;padding:11px 13px;border-radius:10px;font-weight:800}
+    .btn{display:inline-block;text-align:center;text-decoration:none;padding:10px 13px;border-radius:10px;font-weight:800;line-height:1}
     .btn.teal{background:linear-gradient(130deg,#95ebff,var(--teal));color:#041822}.btn.amber{background:linear-gradient(130deg,#ffd08a,var(--amber));color:#2c1804}.btn.rose{background:linear-gradient(130deg,#ffc0cc,var(--rose));color:#3b0f1a}.btn.neutral{background:#182746;color:#d4e4ff;border:1px solid var(--line)}
 
     .newsletter{margin-top:78px;border:1px solid var(--line);border-radius:18px;padding:24px;text-align:center;background:rgba(17,28,55,.62)}
@@ -102,7 +102,7 @@
       .toolCard h3{font-size:25px}
       .desc{font-size:14px}
       .points{font-size:13px}
-      .actionsRow{padding:0 15px 14px}
+      .actionsRow{padding:8px 15px 10px;align-items:flex-start}
       .btn{padding:10px 12px}
     }
 
