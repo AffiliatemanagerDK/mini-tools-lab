@@ -4,30 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StockPulse — Inventory Runway & Reorder Timeline Tool</title>
-  <meta name="description" content="Track inventory runway, reorder timing, and stockout risk with a visual timeline. Free, browser-side calculator." />
+  <meta name="description" content="Track inventory runway, reorder timing, and stockout risk with a visual timeline. Free browser-side calculator." />
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
   <meta name="theme-color" content="#0b1121" />
   <link rel="canonical" href="https://mini-tools-lab.vercel.app/tools/stockpulse/" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="StockPulse — Inventory Runway & Reorder Timeline Tool" />
-  <meta property="og:description" content="Track inventory runway, reorder timing, and stockout risk with a visual timeline. Free, browser-side calculator." />
-  <meta property="og:url" content="https://mini-tools-lab.vercel.app/tools/stockpulse/" />
   <meta property="og:site_name" content="NorthGrid Tools" />
+  <meta property="og:title" content="StockPulse — Inventory Runway & Reorder Timeline Tool" />
+  <meta property="og:description" content="Track inventory runway, reorder timing, and stockout risk with a visual timeline. Free browser-side calculator." />
+  <meta property="og:url" content="https://mini-tools-lab.vercel.app/tools/stockpulse/" />
+  <meta property="og:image" content="https://mini-tools-lab.vercel.app/og/stockpulse-og.svg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="StockPulse — Inventory Runway & Reorder Timeline Tool" />
-  <meta name="twitter:description" content="Track inventory runway, reorder timing, and stockout risk with a visual timeline. Free, browser-side calculator." />
-  <script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"SoftwareApplication",
-  "name":"StockPulse",
-  "applicationCategory":"BusinessApplication",
-  "operatingSystem":"Any",
-  "isAccessibleForFree":true,
-  "url":"https://mini-tools-lab.vercel.app/tools/stockpulse/",
-  "description":"Inventory runway and reorder date calculator with timeline visualization."
-}
-  </script>
+  <meta name="twitter:description" content="Track inventory runway, reorder timing, and stockout risk with a visual timeline. Free browser-side calculator." />
+  <meta name="twitter:image" content="https://mini-tools-lab.vercel.app/og/stockpulse-og.svg" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"StockPulse","applicationCategory":"BusinessApplication","operatingSystem":"Any","isAccessibleForFree":true,"url":"https://mini-tools-lab.vercel.app/tools/stockpulse/","description":"Inventory runway and reorder date calculator with timeline visualization."}</script>
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <style>
     :root{--bg:#0b1121;--zoneA:#1a2744;--zoneB:#0d1526;--text:#eaf1ff;--muted:#97a8c6;--accent:#f59e0b;--good:#22c55e;--warn:#f59e0b;--danger:#ef4444}
@@ -145,6 +136,10 @@
         <button id="resetBtn" class="btn" type="button">Reset inputs</button>
       </div>
     </section>
+
+    <section class="zone inputZone" style="margin-top:10px"><h2 style="margin:0 0 8px">FAQ</h2><p><strong>What is reorder date?</strong> The latest date to place a PO before projected stockout.</p><p><strong>Does it run in browser?</strong> Yes, no API or login required.</p></section>
+
+    <section style="margin-top:10px"><h2 style="font-size:18px;margin:0 0 8px">Related tools</h2><p style="margin:0"><a href="/tools/marginradar/">MarginRadar</a> · <a href="/tools/stockpulse/">StockPulse</a> · <a href="/tools/promoguard/">PromoGuard</a> · <a href="/tools/drunk-shopper-test/">Drunk Shopper Test</a></p></section>
 
     <footer id="footer">Built by Mini Tools Lab</footer>
   </main>
