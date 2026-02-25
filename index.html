@@ -91,13 +91,43 @@
     .foot{margin-top:26px;text-align:center;color:#8196bb;font-size:12px}
     [data-reveal]{opacity:0;transform:translateY(16px);transition:all .45s ease}[data-reveal].in{opacity:1;transform:none}
 
-    @media(max-width:980px){.featuredGrid{grid-template-columns:1fr}.fRight{padding-top:0}.cardGrid{grid-template-columns:1fr}.toolCard{height:auto;min-height:420px}}
-    @media(max-width:680px){
-      .tag{display:none}.wrap{margin-top:18px}.intro{margin-top:56px}
-      .toolCard .content{padding:16px 14px 14px}
-      .btn{align-self:stretch;width:100%;text-align:center;margin-top:0}
+    /* TABLET LAYOUT */
+    @media (max-width:1024px) and (min-width:681px){
+      .featuredGrid{grid-template-columns:1fr}
+      .fRight{padding-top:0}
+      .cardGrid{grid-template-columns:1fr 1fr}
+      .toolCard{height:430px}
+      .toolCard .topVisual{height:42%}
+      .toolCard .content{height:58%;padding:15px}
+      .toolCard h3{font-size:25px}
+      .desc{font-size:14px}
+      .points{font-size:13px}
+      .ctaRow{padding-top:8px;padding-bottom:10px}
+      .btn{padding:10px 12px}
+    }
+
+    /* MOBILE LAYOUT */
+    @media (max-width:680px){
+      .tag{display:none}
+      .wrap{margin-top:18px}
+      .intro{margin-top:56px}
+      .featuredGrid{grid-template-columns:1fr}
+      .fRight{padding-top:0}
+      .cardGrid{grid-template-columns:1fr}
+
+      .toolCard{height:auto;min-height:unset}
+      .toolCard .topVisual{height:150px;min-height:150px;padding:12px}
+      .toolCard .content{height:auto;padding:14px}
+      .toolCard h3{font-size:34px;line-height:1.05}
+      .desc{font-size:17px;line-height:1.45}
+      .points{font-size:15px;line-height:1.35}
+
       .meta{margin-bottom:10px}
-      .ctaRow{justify-content:stretch;padding-bottom:6px}
+      .ctaRow{margin-top:8px;padding-top:4px;padding-bottom:8px;justify-content:stretch}
+      .btn{display:block;align-self:stretch;width:100%;text-align:center;margin:0;padding:13px 14px;font-size:16px}
+
+      .newsletter{padding:18px}
+      .nlRow input,.nlRow button{width:100%}
     }
   </style>
 </head>
