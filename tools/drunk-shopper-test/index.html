@@ -28,7 +28,12 @@
     textarea:focus{outline:none;box-shadow:0 0 0 3px #a78bfa29;border-color:var(--violet2)}
 
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-    .field label{display:block;font-size:11px;color:#c4c9e8;margin-bottom:6px}
+    .field{position:relative}
+    .labelRow{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+    .field label{display:block;font-size:11px;color:#c4c9e8;margin:0}
+    .infoBtn{width:18px;height:18px;border-radius:999px;border:1px solid rgba(167,139,250,.5);background:#161c3a;color:#ded4ff;font-size:11px;line-height:1;display:grid;place-items:center;cursor:pointer;padding:0}
+    .infoBubble{position:absolute;left:0;top:26px;z-index:8;max-width:260px;padding:8px 10px;border-radius:10px;border:1px solid rgba(167,139,250,.4);background:#0e1430;color:#d8e0fb;font-size:12px;line-height:1.35;box-shadow:0 10px 24px rgba(0,0,0,.35);display:none}
+    .infoBubble.show{display:block}
     .field input{width:100%;height:40px;border-radius:10px;border:1px solid rgba(167,139,250,.35);background:#101631;color:var(--text);padding:8px 10px;font-weight:700}
 
     .scoreWrap{padding:10px;border:1px solid rgba(255,255,255,.1);border-radius:12px;background:#10182f}
@@ -72,8 +77,22 @@
         <div class="body">
           <textarea id="copy">Experience unmatched thermal efficiency with our dual-layer merino composite hoodie, engineered with moisture-channel technology, adaptive thermoregulation, and abrasion-resistant seam architecture for all-terrain performance.</textarea>
           <div class="grid">
-            <div class="field"><label>Target reading level (grade)</label><input id="grade" type="number" min="4" max="14" value="8"></div>
-            <div class="field"><label>Distraction intensity (1-10)</label><input id="distraction" type="number" min="1" max="10" value="7"></div>
+            <div class="field">
+              <div class="labelRow">
+                <label for="grade">Target reading level (grade)</label>
+                <button class="infoBtn" type="button" data-info="grade" aria-label="What is target reading level?">i</button>
+              </div>
+              <div class="infoBubble" id="info-grade">Recommended reading complexity. Grade 8 means simple, everyday language most shoppers understand quickly.</div>
+              <input id="grade" type="number" min="4" max="14" value="8">
+            </div>
+            <div class="field">
+              <div class="labelRow">
+                <label for="distraction">Distraction intensity (1-10)</label>
+                <button class="infoBtn" type="button" data-info="distraction" aria-label="What is distraction intensity?">i</button>
+              </div>
+              <div class="infoBubble" id="info-distraction">How tired/distracted the shopper is. Higher value = less attention, so copy must be shorter and clearer.</div>
+              <input id="distraction" type="number" min="1" max="10" value="7">
+            </div>
           </div>
           <div class="actions">
             <button class="btn" id="runBtn" type="button">Run test</button>
@@ -193,6 +212,22 @@
 
       return {score,state:stateText,tips,rewrite:$('rewrite').textContent};
     }
+
+    // info bubbles
+    const infoButtons=[...document.querySelectorAll('.infoBtn')];
+    const bubbles=[...document.querySelectorAll('.infoBubble')];
+    function closeBubbles(){bubbles.forEach(b=>b.classList.remove('show'));}
+    infoButtons.forEach(btn=>{
+      btn.addEventListener('click',(e)=>{
+        e.stopPropagation();
+        const id=btn.dataset.info;
+        const bubble=$(`info-${id}`);
+        const isOpen=bubble.classList.contains('show');
+        closeBubbles();
+        if(!isOpen) bubble.classList.add('show');
+      });
+    });
+    document.addEventListener('click',closeBubbles);
 
     $('runBtn').addEventListener('click',calc);
     $('resetBtn').addEventListener('click',()=>{ $('copy').value=defaults.copy; $('grade').value=defaults.grade; $('distraction').value=defaults.distraction; calc(); });
