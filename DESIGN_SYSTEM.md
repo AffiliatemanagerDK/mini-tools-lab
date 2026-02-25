@@ -1,180 +1,286 @@
-# Mini Tools Lab — Design System v2
+# Mini Tools Lab — Design System v3
 
-Every tool shares brand DNA but has its own visual personality. The hub should feel like a curated collection of specialist instruments — not the same template reskinned five times.
+The hub is a curated collection of specialist instruments. Each tool should feel like its own product that happens to share a family resemblance.
 
----
-
-## LAYER 1: SHARED DNA (same on every tool)
-
-These are the ONLY things that stay identical across tools:
-
-### Brand constants
-- **Dark base:** Background is always dark (`#0B1121` to `#0F172A` range). Never white.
-- **Typography:** Same font family across all tools (Inter, Satoshi, or General Sans).
-- **Card surface treatment:** Glassmorphism cards — `rgba(255,255,255,0.04-0.08)` with backdrop-blur and subtle border.
-- **Header pattern:** Tool logo + name (left), utility controls + "← Tool Hub" (right).
-- **Footer:** "Built by Mini Tools Lab" — centered, muted.
-- **Pill badges:** Same style for trust signals (Privacy-first, No API, Browser-side).
-- **Sticky bottom bar** with key outputs + Copy/Reset. Always present.
-- **Pre-filled default values.** Never show "-" on load. This is non-negotiable.
-- **Color-coded output states** (green/orange/red for healthy/warning/danger).
-
-### Brand DON'Ts
-- ❌ No white backgrounds, ever.
-- ❌ No empty/placeholder outputs on load.
-- ❌ No contradictory labels (positive label on negative number).
-- ❌ No default browser-styled form elements.
-
-That's it. Everything else is FLEXIBLE per tool.
+Think of it like Teenage Engineering's product line — every product is unmistakably "them" but no two products look alike.
 
 ---
 
-## LAYER 2: TOOL PERSONALITY (unique per tool)
+## LAYER 1: SHARED DNA (the ONLY constants)
 
-Each tool chooses its own combination from the options below. No two tools should make the same choices across all categories.
+This list is intentionally minimal. If it's not listed here, it's FREE to vary per tool.
 
-### A. Accent color (pick ONE primary accent per tool)
-- Electric teal / cyan (`#22D3EE`) — MarginRadar uses this
-- Amber / gold (`#F59E0B`) — warm, inventory/stock feel
-- Violet / purple (`#A78BFA`) — premium, analytical
-- Emerald (`#10B981`) — growth, health
-- Rose / coral (`#FB7185`) — urgency, alerts
-- Blue (`#3B82F6`) — trust, data
+1. **Dark base.** Background is always in the dark spectrum (#0B1121 to #1E293B). Never white. But the shade, gradients, grain, and texture are free to vary.
+2. **One font family** across all tools (Inter, Satoshi, or General Sans). But sizes, weights, and how type is used can vary dramatically.
+3. **"← Tool Hub" link** exists somewhere in the header area.
+4. **"Built by Mini Tools Lab"** exists somewhere at the bottom.
+5. **Pre-filled values.** Tools always show a live result on first load. Never "-" or empty.
+6. **Output color logic.** Green = good, orange = warning, red = danger. The shades, how they're applied, and what visualization they appear in — all free to vary.
+7. **Functional buttons.** Every tool has a way to copy results and reset inputs. Where they live and how they look is free.
 
-Each tool owns its accent. It tints: sliders, focus rings, active states, primary output numbers, links, icons.
+That's it. Seven rules. Everything else below is a menu of options, not requirements.
 
-### B. Layout archetype (pick ONE per tool)
+---
 
-**1. Control Panel** (MarginRadar uses this)
-Two-column card grid. Sliders + inputs on left/right. Dense, dashboard-like.
-Best for: tools with two related calculators.
+## LAYER 2: TOOL PERSONALITY
 
-**2. Vertical Flow / Timeline**
-Single column. Inputs flow top-down in a clear sequence.
-Outputs appear as a result "destination" at the bottom — like arriving at an answer.
-Best for: tools with one linear calculation (input → process → result).
-StockPulse fits this.
+For each new tool, make deliberate choices across these dimensions.
+The rule is simple: **look at what existing tools chose, then choose differently.**
 
-**3. Scenario Comparator**
-Side-by-side columns where the user builds 2-3 scenarios and compares them.
-Think "before/after" or "option A vs B".
-Best for: PromoGuard (compare discount scenarios), A/B test tools.
+### A. COLOR ACCENT
 
-**4. Dashboard / Scorecard**
-Output-first layout. Big numbers and visualizations at the top.
-Inputs collapse into an "assumptions" panel below or in a sidebar.
-Best for: tools where the result is the star, not the inputs.
+Pick one. It tints interactive elements, key outputs, and the tool's overall mood.
 
-**5. Wizard / Stepper**
-Multi-step flow with progress indicator. One section at a time.
-Reveals complexity progressively.
-Best for: complex tools with 8+ inputs that would overwhelm in a single view.
+| Color | Hex | Mood | Taken by |
+|-------|-----|------|----------|
+| Teal/cyan | #22D3EE | Precision, tech | MarginRadar |
+| Amber/gold | #F59E0B | Warmth, urgency | — |
+| Violet | #A78BFA | Premium, analytical | — |
+| Emerald | #10B981 | Growth, health | — |
+| Rose/coral | #FB7185 | Deals, alerts | — |
+| Sky blue | #38BDF8 | Trust, calm | — |
 
-### C. Input style (pick ONE primary style per tool)
+### B. PAGE STRUCTURE
 
-**1. Slider + number input combo** (MarginRadar uses this)
-Best for: ranges where dragging aids exploration.
+This is where the biggest visual differentiation comes from.
+Don't just pick a "layout" — think about the EXPERIENCE of using the tool.
 
-**2. Styled number inputs only** (no sliders)
-Clean, compact.
-Best for: tools where precision matters more than exploration, or where inputs are few.
+**1. Stacked Cards** (MarginRadar uses this)
+Traditional form-like flow. Cards with grouped inputs stacked or in columns. Familiar, dense.
 
-**3. Segmented controls / button groups**
-For categorical or preset choices.
-E.g., "Low / Medium / High" or "Express / Standard / Economy".
+**2. Output-First / Dashboard**
+The hero IS the output. Big visualization(s) dominate the top 60% of the viewport.
+Inputs are collapsed below in an accordion, a slide-out drawer, or a compact settings panel.
+The user sees the ANSWER first and tweaks assumptions second.
 
-**4. Card selectors**
-Clickable cards for major choices.
-E.g., selecting a shipping method, product category, or scenario.
+**3. Horizontal Swimlanes**
+Content flows in horizontal bands across the full viewport width.
+Each band is a different "zone" with its own background shade, height, and content type.
+Creates a layered, parallax-like depth.
+Think of it as a scrollytelling page where each section is visually distinct.
 
-**5. Inline editable table**
-For tools with multiple SKUs, line items, or rows of data.
+**4. Split Screen**
+Left half = inputs. Right half = live outputs. Persistent side-by-side.
+On mobile: tabs or a toggle between "Configure" and "Results" views.
 
-Mix styles within a tool when it makes sense — e.g., sliders for the main inputs + a segmented control for a mode toggle.
+**5. Scenario Builder**
+Multiple columns the user can add/remove. Each column is a scenario.
+Great for comparison tools (PromoGuard).
 
-### D. Hero visualization (pick ONE per tool — this is what makes each tool visually memorable)
+**6. Wizard / Stepper**
+One step at a time. Progress bar at top. Reveal complexity progressively.
+Final step = full results dashboard.
+
+**7. Single Canvas**
+One big interactive visualization IS the tool.
+Inputs are overlaid as floating controls or embedded directly into the viz (e.g., draggable points on a chart, editable numbers inside a diagram).
+Minimal chrome.
+
+### C. INPUT TREATMENT
+
+How the user enters data. This changes the entire feel of interaction.
+
+**1. Slider + number box** (MarginRadar uses this)
+Exploratory. Good for ranges.
+
+**2. Clean number inputs only**
+Minimal, fast. Good for tools with few inputs.
+Can be styled as large, bold inline-editable numbers.
+
+**3. Inline editable — numbers live inside the output visualization**
+The number IS part of the graphic.
+User clicks a number in a diagram/chart/sentence and edits it in place.
+No separate "form" area.
+
+**4. Natural language input**
+"I have [___] units, selling [___] per day, lead time is [___] days"
+Inputs are embedded in a readable sentence. The form IS the explanation.
+
+**5. Card/tile selectors + number inputs**
+Major choices as clickable cards (e.g., shipping method, product category), detail values as number inputs.
+
+**6. Compact parameter row**
+All inputs in a single horizontal row or grid at the top — like a toolbar/control bar.
+The rest of the page is all output.
+Good for tools with 3-6 simple inputs.
+
+### D. HERO VISUALIZATION
+
+The single most memorable visual element per tool.
+This is what makes each tool instantly recognizable in a screenshot.
 
 **1. Donut / radial gauge** (MarginRadar uses this)
-Shows a percentage or health score.
 
-**2. Horizontal runway bar**
-A progress-style bar showing "days remaining" or "stock remaining".
-Depletes left-to-right.
-Color shifts green → orange → red as it empties.
-Perfect for StockPulse.
+**2. Runway depletion bar**
+Horizontal bar that empties left-to-right.
+Shows time remaining.
+Color gradient shifts as it depletes.
 
-**3. Timeline / Gantt-style bar**
-Shows dates on a horizontal axis.
-"Today" marker, "reorder date" marker, "stockout date" marker.
-Visual storytelling of time.
+**3. Timeline with date markers**
+Horizontal timeline.
+"Today" pin, "Reorder by" pin, "Stockout" pin.
+Distances are proportional to actual days.
+Tells a time story.
 
-**4. Before/after split**
-Two big number cards side by side showing the delta.
-Great for promo/discount tools.
+**4. Animated counter / odometer**
+A single giant number that rolls/ticks when inputs change.
+Mechanical counter feel.
+Dramatic for single-KPI tools.
 
-**5. Sparkline or mini area chart**
-Shows a projected trend (e.g., inventory depletion over time, margin under different scenarios).
+**5. Comparison bars / before-after**
+Two horizontal bars or two big number cards showing delta between scenarios.
 
-**6. Traffic light / signal**
-Three stacked circles (red/yellow/green).
-Instantly scannable.
-Great for go/no-go decisions.
+**6. Heat map or risk matrix**
+Colored grid cells.
+Great for multi-variable risk assessment.
 
-**7. Animated counter / odometer**
-Large number that rolls like a mechanical counter when inputs change.
-High-impact, single-number tools.
+**7. Sparkline / area chart**
+Projected depletion curve, margin curve over time, etc.
+Adds a temporal dimension.
 
-### E. Micro-interaction flavor (pick a vibe)
+**8. Isometric or 3D illustration**
+Stylized warehouse boxes, product stacks, etc.
+Decorative but informative — stack height represents quantity.
 
-**1. Precision** — clean transitions, no bounce, everything ease-out. Surgical. (MarginRadar)
+**9. Circular countdown**
+Like a timer/clock face counting down days.
+Combines the urgency of a countdown with the radial aesthetic.
 
-**2. Pulse** — heartbeat-like animations, breathing glows, rhythmic. (StockPulse — it's a "pulse" after all)
+**10. Status dashboard with signal indicators**
+Multiple small indicators (dots, traffic lights, status bars) arranged in a grid.
+Each shows one metric's health at a glance.
+Feels like a monitoring console.
 
-**3. Snap** — quick, snappy spring animations. Playful but fast.
+### E. ANIMATION PERSONALITY
 
-**4. Gravity** — elements slide in from top, numbers cascade down. Weighty, impactful.
+**1. Precision** — clean ease-out, no bounce. Surgical. (MarginRadar)
+
+**2. Pulse** — breathing glows, rhythmic fades. Living, organic.
+
+**3. Snap** — spring physics, quick overshoots. Energetic.
+
+**4. Gravity** — elements drop in, numbers cascade. Weighty.
+
+**5. Typewriter** — numbers and text reveal character by character. Retro-tech.
+
+### F. SURFACE TREATMENT
+
+The card/container style. This subtly but powerfully changes the feel.
+
+**1. Glassmorphism** — frosted glass, blur, subtle borders. (MarginRadar uses this)
+
+**2. Solid elevated cards** — opaque dark cards with soft shadow. No blur. Clean and defined.
+
+**3. Borderless sections** — no cards at all. Content sits on subtle background shade shifts between sections. Minimal, editorial.
+
+**4. Outlined/wireframe** — thin borders, no fills. Blueprint/schematic feel.
+
+**5. Gradient mesh backgrounds** — subtle color gradients behind sections. Atmospheric, modern.
+
+**6. Noise/grain texture** — subtle film grain overlay on surfaces. Analog, tactile.
+
+---
+
+## OUTPUT BAR BEHAVIOR (replaces "sticky bar" rule)
+
+### Desktop (>768px)
+
+**No sticky bar.**
+Outputs live inline in the layout — in a sidebar, in the top section, or as part of the visualization.
+On desktop the viewport is large enough that good layout eliminates the need for sticky elements.
+
+### Mobile (<768px)
+
+**Smart sticky bar** that appears ONLY when the output section has scrolled out of the viewport.
+Uses IntersectionObserver:
+- Output section visible → no sticky bar.
+- Output section scrolled away → sticky bar fades in.
+- Footer enters viewport → sticky bar fades out (never blocks footer).
+
+Implementation: observe both the output section and the footer.
+Bar is visible only when outputs are NOT in view AND footer is NOT in view.
+
+### Copy/Reset buttons
+
+Live wherever makes sense per tool — in the output section, in the sticky bar on mobile, in a toolbar, or as floating actions.
+Not mandated to a specific location.
 
 ---
 
 ## TOOL ASSIGNMENTS
 
-### MarginRadar (existing — reference implementation)
-- Accent: Teal/cyan
-- Layout: Control Panel (2-col)
-- Inputs: Slider + number combo
+### MarginRadar ✅ (shipped)
+- Accent: Teal
+- Structure: Stacked Cards (2-col on desktop)
+- Inputs: Slider + number box
 - Hero viz: Donut gauge
-- Micro vibe: Precision
+- Animation: Precision
+- Surface: Glassmorphism
 
-### StockPulse (needs redesign)
-- Accent: **Amber/gold** (`#F59E0B`) — warm, warehouse feel. Urgency.
-- Layout: **Vertical Flow** — single column. Inputs are a short linear sequence (stock → velocity → lead time → safety → MOQ), and the "answer" is a destination at the bottom.
-- Inputs: **Styled number inputs only** (no sliders — StockPulse has only 5 inputs, sliders add bulk without value here). Consider a segmented control for a "velocity period" toggle (units/day vs units/week).
-- Hero viz: **Horizontal runway bar** showing days remaining. "Today" on the left, "Stockout" on the right. Fill level depletes and changes color. Below it, a **timeline bar** with markers for "Reorder by" date and "Stockout" date — this tells a visual story that numbers alone can't.
-- Micro vibe: **Pulse** — gentle breathing glow on the risk status indicator. The runway bar subtly pulses when in warning/critical zone. Fits the "pulse" name perfectly.
-- Additional unique element: **Calendar date display** for reorder date. Show an actual date (e.g., "March 14, 2026") with a small calendar icon, not just "X days". Makes it actionable — the user can put it in their calendar.
-- Output cards: Arrange the 4 outputs in a **2x2 grid of mini-cards** instead of a vertical list. Each card gets an icon, the number, and a sublabel. This is visually distinct from MarginRadar's output style.
+### StockPulse 🔄 (needs redesign — currently too similar to MarginRadar)
+
+**Direction: "Output-First Dashboard" — the answer dominates, inputs are secondary.**
+
+- **Accent: Amber/gold** (`#F59E0B`). Warm, warehouse, urgency.
+- **Structure: Output-First Dashboard.** Top 50-60% of the page is a big, visual results area. Below that, a compact inputs section — either in an accordion panel labeled "Assumptions" that can collapse, or as a compact parameter grid (2-3 columns of small input fields). The inversion of MarginRadar's "form first, result at bottom" structure is the single biggest differentiator.
+- **Inputs: Natural language input** — or at minimum, a compact parameter row. Five inputs can fit in a tight 2x3 grid without needing individual slider rows. Each input is just a label + a styled number field. No sliders, no sublabels (tooltip on hover/tap instead). This makes it feel fundamentally different from MarginRadar's tall, slider-heavy form.
+- **Hero viz: Timeline with date markers.** A horizontal timeline spanning the top section showing:
+  - "Today" (left, pinned)
+  - "Reorder by [date]" (amber marker)
+  - "Stockout [date]" (red marker, if applicable)
+  - The space between markers is proportional to actual days
+  - Below the timeline: a runway depletion bar showing remaining stock as a percentage
+  - Below that: the 4 output values in a 2x2 grid of compact cards
+- **Animation: Pulse.** The runway bar subtly breathes. The reorder date marker gently pulses amber when in warning zone. Risk status indicator has a heartbeat-like glow when critical.
+- **Surface: Borderless sections.** No glassmorphism cards. Instead, content sits on subtle background shade shifts — the output zone is slightly lighter (#1a2744), the input zone is slightly darker (#0d1526). A single thin horizontal divider separates them. Feels completely different from MarginRadar's frosted card aesthetic.
+- **Risk status:** Large, bold, color-coded word in the output zone — "SAFE" / "ORDER NOW" / "CRITICAL". Not a small badge. It should be the first thing you read.
+
+**The screenshot test:**
+If you put MarginRadar and StockPulse side by side, you should see:
+- MarginRadar: Dense, card-heavy, teal, slider-filled, donut chart, glassmorphism
+- StockPulse: Open, output-dominated, amber, timeline viz, compact inputs, borderless sections
+
+They should look like siblings, not twins.
 
 ### PromoGuard (future)
-- Accent: **Rose/coral** (`#FB7185`) — promotions, urgency, deals.
-- Layout: **Scenario Comparator** — side-by-side "No discount" vs "With discount" columns.
-- Inputs: **Segmented controls** for discount type (%, fixed, BOGO) + number inputs for values.
-- Hero viz: **Before/after split** — two big cards showing margin with vs without the promo.
-- Micro vibe: **Snap** — quick toggling between scenarios feels responsive and fun.
-
-### Future tools: always pick DIFFERENT combinations from the options above.
-Check existing tools first and deliberately diverge.
+- Accent: Rose/coral
+- Structure: Scenario Builder (2-3 columns to compare discount scenarios)
+- Inputs: Segmented controls for discount type + number inputs
+- Hero viz: Before/after comparison bars
+- Animation: Snap
+- Surface: Solid elevated cards (no blur, clean shadows)
 
 ---
 
-## HOW TO USE THIS DOCUMENT
+## DECISION CHECKLIST FOR NEW TOOLS
 
-When building a new tool:
-1. Check which accents, layouts, input styles, and hero vizzes are already taken.
-2. Pick a DIFFERENT combination for the new tool.
-3. Apply Layer 1 (shared DNA) exactly as specified.
-4. Apply Layer 2 (personality) based on your chosen combination.
-5. If in doubt, the test is: "If I put screenshots of all tools side by side, can I instantly tell them apart?" If no, you need more differentiation.
+Before building, fill in:
+
+```
+Tool name: _______________
+Accent color: _____________ (different from existing tools)
+Page structure: ____________ (different from existing tools)
+Input treatment: ___________ (different from existing tools)
+Hero visualization: ________ (different from existing tools)
+Animation personality: _____ (different from existing tools)
+Surface treatment: _________ (different from existing tools)
+Screenshot test: If I put all tools side-by-side, can I instantly tell this one apart by silhouette alone? YES / NO
+```
+
+If you answered NO, change at least 2 more dimensions.
 
 ---
 
-*This is the canonical design system for Mini Tools Lab. Every tool ships styled from v1 with its own visual identity. There is no "plain first, style later" phase.*
+## ANTI-PATTERNS (things that make tools look the same)
+
+- ❌ Repeating the "section header → slider → input → sublabel" vertical rhythm from MarginRadar
+- ❌ Using glassmorphism cards on every tool
+- ❌ Putting all outputs at the bottom below a long form
+- ❌ Using the same font sizes and weights for headers across tools
+- ❌ Always using the same hero section layout (icon + H1 + subtitle + pills)
+- ❌ Making every input a slider — sliders are ONE option among many
+- ❌ Copying MarginRadar's spacing and padding values. Each tool can breathe differently.
+
+---
+
+*This is the canonical design system for Mini Tools Lab v3. Shared DNA is minimal. Per-tool personality is maximal. Every tool ships with its own identity from v1. The test is always: "Can I tell the tools apart by silhouette alone?"*

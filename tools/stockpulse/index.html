@@ -3,227 +3,221 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StockPulse — Inventory Runway Timeline</title>
-  <meta name="description" content="StockPulse: no-API inventory runway + reorder timeline calculator for e-commerce operators." />
+  <title>StockPulse — Output-First Inventory Timeline</title>
+  <meta name="description" content="StockPulse: output-first inventory runway timeline with reorder markers. 100% browser-side." />
   <style>
-    :root{
-      --bg:#0b1121;--bg2:#0f172a;--surface:rgba(255,255,255,.06);--line:rgba(255,255,255,.11);
-      --text:#eef4ff;--muted:#9fb0cb;--accent:#f59e0b;--accentSoft:#fbbf24;--green:#22c55e;--orange:#f59e0b;--red:#ef4444;
-    }
+    :root{--bg:#0b1121;--zoneA:#1a2744;--zoneB:#0d1526;--text:#eaf1ff;--muted:#97a8c6;--accent:#f59e0b;--good:#22c55e;--warn:#f59e0b;--danger:#ef4444}
     *{box-sizing:border-box}
-    body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:radial-gradient(900px 500px at 120% -15%, #5b3b0f66 0%, transparent 60%),radial-gradient(1100px 700px at -15% -20%, #1d2f6d66 0%, transparent 58%),linear-gradient(165deg,var(--bg),var(--bg2));}
-    .wrap{max-width:900px;margin:20px auto 120px;padding:14px}
-    .glass{background:var(--surface);border:1px solid var(--line);backdrop-filter:blur(10px);border-radius:16px}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--text);background:radial-gradient(1200px 600px at 120% -10%,#7a4a0e66 0%,transparent 60%),linear-gradient(170deg,#0b1121,#101a32)}
+    .wrap{max-width:1050px;margin:0 auto;padding:18px 16px 120px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .pulse{width:14px;height:14px;border-radius:999px;background:var(--accent);box-shadow:0 0 0 0 #f59e0b66;animation:pulse 1.8s ease-out infinite}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 #f59e0b66}100%{box-shadow:0 0 0 13px transparent}}
+    .hub{color:#ffd89a;text-decoration:none;font-size:13px}
 
-    .top{padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-    .brand{display:flex;gap:10px;align-items:center}
-    .logo{width:38px;height:38px;border-radius:11px;border:1px solid #6a4c1e;background:#201606;display:grid;place-items:center}
-    .pulseDot{width:14px;height:14px;border-radius:999px;background:var(--accent);box-shadow:0 0 0 0 #f59e0baa;animation:pulse 1.8s ease-out infinite}
-    @keyframes pulse{0%{box-shadow:0 0 0 0 #f59e0b66}100%{box-shadow:0 0 0 14px transparent}}
-    .top a{color:#ffdca2;text-decoration:none;font-size:13px}
+    .zone{border-radius:18px;padding:18px}
+    .outputZone{background:var(--zoneA);border:1px solid rgba(255,255,255,.08)}
+    .inputZone{margin-top:10px;background:var(--zoneB);border-top:1px solid rgba(255,255,255,.12)}
 
-    .hero{margin-top:10px;padding:16px}
-    .hero h1{margin:0;font-size:34px;line-height:1.04}
-    .hero p{margin:8px 0 0;color:var(--muted)}
-    .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .badge{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#2a1f0d}
+    h1{margin:0 0 6px;font-size:36px;line-height:1.02}
+    .sub{color:var(--muted);margin:0 0 14px}
+    .riskWord{font-size:46px;line-height:1;font-weight:900;letter-spacing:.06em;margin:0 0 12px}
+    .riskWord.safe{color:#8ef0b2}.riskWord.warn{color:#ffd08c}.riskWord.danger{color:#ff9ca8}
 
-    .section{margin-top:12px;padding:14px}
-    .section h2{margin:0 0 10px;font-size:19px}
-    .flow{display:grid;gap:10px}
-    .field{padding:11px;border:1px dashed #7f6025;border-radius:12px;background:#1b1408}
-    .label{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:#ffe7bf}
-    .sub{font-size:11px;color:var(--muted);margin-top:5px}
-    input[type=number]{width:100%;height:46px;margin-top:8px;border-radius:10px;border:1px solid #7a612e;background:#130f08;color:var(--text);padding:10px 12px;font-weight:700;font-size:16px}
-    input[type=number]:focus{outline:none;border-color:var(--accentSoft);box-shadow:0 0 0 3px #f59e0b2c}
+    .timelineWrap{padding:12px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(0,0,0,.15)}
+    .timeline{position:relative;height:58px}
+    .axis{position:absolute;left:0;right:0;top:24px;height:6px;border-radius:999px;background:#2b3347}
+    .mk{position:absolute;top:7px;transform:translateX(-50%);text-align:center;min-width:88px}
+    .mk .dot{width:10px;height:10px;border-radius:999px;margin:0 auto 4px}
+    .mk .txt{font-size:10px;color:#b7c6e2}
+    .today .dot{background:#c6d6ff}
+    .reorder .dot{background:var(--warn);animation:reopulse 1.6s ease-in-out infinite}
+    .stockout .dot{background:#ff8f9b}
+    @keyframes reopulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
 
-    .toggle{display:flex;gap:8px;margin-top:8px}
-    .seg{border:1px solid #6f5424;background:#191206;color:#d9c49a;padding:8px 12px;border-radius:999px;font-size:12px;cursor:pointer}
-    .seg.active{border-color:var(--accentSoft);color:#ffe8bd;background:#2f220d}
+    .runway{margin-top:10px}
+    .runwayTop{display:flex;justify-content:space-between;font-size:12px;color:#cfd8ec}
+    .track{height:16px;border-radius:999px;background:#2a3142;overflow:hidden;margin-top:7px}
+    .fill{height:100%;width:0%;background:linear-gradient(90deg,var(--good),var(--warn),var(--danger));transition:width .35s ease}
+    .fill.pulse{animation:barpulse 1.2s ease-in-out infinite}
+    @keyframes barpulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.2)}}
 
-    .runway{margin-top:10px;padding:12px;border-radius:12px;background:#171008;border:1px solid #5e4820}
-    .runwayHead{display:flex;justify-content:space-between;font-size:12px;color:#dcc6a1}
-    .track{height:14px;border-radius:999px;background:#2b2418;margin-top:8px;overflow:hidden;position:relative}
-    .fill{height:100%;width:0%;background:linear-gradient(90deg,var(--green),var(--accent),var(--red));transition:width .35s ease}
-    .fill.warn{animation:pulsebar 1.4s ease-in-out infinite}
-    @keyframes pulsebar{0%,100%{filter:brightness(1)}50%{filter:brightness(1.2)}}
+    .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+    .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:12px}
+    .k{font-size:11px;color:var(--muted)}
+    .v{font-size:24px;font-weight:800;color:#ffe0af;margin-top:5px}
 
-    .timeline{margin-top:10px;position:relative;height:56px}
-    .axis{position:absolute;left:0;right:0;top:24px;height:6px;border-radius:999px;background:#322818}
-    .mark{position:absolute;top:9px;transform:translateX(-50%);text-align:center;min-width:88px}
-    .mark .dot{width:10px;height:10px;border-radius:999px;margin:0 auto 4px;background:#ffd48a}
-    .mark .t{font-size:10px;color:#ceb484}
-    .mark.today .dot{background:#c4d6ff}
-    .mark.reorder .dot{background:var(--accentSoft)}
-    .mark.stockout .dot{background:#ff8c8c}
+    .assumpHead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .assumpTitle{font-size:16px;font-weight:700}
+    .toggleBtn{border:1px solid rgba(255,255,255,.2);background:#18243d;color:#dbe7ff;border-radius:10px;padding:8px 10px;cursor:pointer}
+    .assumpGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+    .field label{display:block;font-size:12px;color:#cdd8f0;margin-bottom:6px}
+    .field input{width:100%;height:42px;border-radius:10px;border:1px solid rgba(245,158,11,.35);background:#0b1326;color:var(--text);padding:8px 10px;font-weight:700}
+    .field input:focus{outline:none;border-color:#fbbf24;box-shadow:0 0 0 3px #f59e0b22}
 
-    .cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-    .mini{padding:11px;border:1px solid var(--line);border-radius:12px;background:#141a2a}
-    .mini .k{font-size:11px;color:var(--muted)}
-    .mini .v{margin-top:5px;font-size:24px;font-weight:800;color:var(--accentSoft)}
-    .mini .icon{font-size:13px;opacity:.9;margin-right:5px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .btn{height:42px;padding:0 12px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:#1a243a;color:#e5efff;font-weight:700;cursor:pointer}
 
-    .risk{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700;margin-top:6px}
-    .safe{color:#a8f5c1;border:1px solid #348b55;background:#10311f}
-    .warning{color:#ffe0ac;border:1px solid #9f6b23;background:#39260d}
-    .critical{color:#ffb0bb;border:1px solid #b2414f;background:#42151a}
+    footer{margin-top:16px;text-align:center;color:#8fa2c2;font-size:12px}
 
-    .cta{margin-top:12px;padding:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-    .cta a{color:var(--accentSoft);text-decoration:none;font-weight:700}
-    footer{margin-top:12px;text-align:center;color:#8fa3c2;font-size:12px}
+    .sticky{position:fixed;left:12px;right:12px;bottom:10px;display:none;z-index:30}
+    .sticky.show{display:block}
+    .sbar{display:grid;grid-template-columns:1fr 1fr auto auto;gap:8px;background:#101a30;border:1px solid rgba(245,158,11,.25);border-radius:12px;padding:8px}
+    .sstat{background:#131f37;border-radius:9px;padding:7px}.sstat .k{font-size:10px}.sstat .v{font-size:19px}
 
-    .sticky{position:fixed;left:12px;right:12px;bottom:10px;z-index:20}
-    .bar{padding:10px;display:grid;grid-template-columns:1.4fr 1fr auto auto;gap:8px;align-items:center;border-top:1px solid #5e4820;box-shadow:0 -10px 24px #0006}
-    .stat{padding:8px;border-radius:10px;background:#191105;border:1px solid #61491e}
-    .stat .k{font-size:11px;color:#d0b788}.stat .v{font-size:24px;font-weight:800;color:var(--accentSoft)}
-    .btn{height:44px;padding:0 12px;border-radius:10px;border:1px solid #735721;background:#2a1f0d;color:#ffe4b5;font-weight:700;cursor:pointer}
-
-    @media(max-width:900px){.bar{grid-template-columns:1fr 1fr}.cards{grid-template-columns:1fr}}
+    @media(max-width:900px){.assumpGrid{grid-template-columns:1fr 1fr}.riskWord{font-size:36px}}
+    @media(max-width:768px){.cards{grid-template-columns:1fr}.assumpGrid{grid-template-columns:1fr}.sbar{grid-template-columns:1fr 1fr}.wrap{padding-bottom:145px}}
   </style>
 </head>
 <body>
   <main class="wrap">
-    <div class="glass top">
-      <div class="brand">
-        <div class="logo"><div class="pulseDot"></div></div>
-        <div>
-          <div style="font-weight:700">StockPulse</div>
-          <div style="font-size:12px;color:var(--muted)">Inventory timing for DTC operators.</div>
-        </div>
-      </div>
-      <a href="/">← Tool Hub</a>
-    </div>
+    <header class="top">
+      <div class="brand"><div class="pulse"></div><div><strong>StockPulse</strong><div style="font-size:12px;color:var(--muted)">Output-first inventory control</div></div></div>
+      <a class="hub" href="/">← Tool Hub</a>
+    </header>
 
-    <section class="glass hero">
-      <h1>See your runway.<br/>Know your reorder date.</h1>
-      <p>Linear, actionable flow: stock → velocity → lead time → reorder moment.</p>
-      <div class="badges"><span class="badge">🛡️ Privacy-first</span><span class="badge">🌐 Browser-side</span><span class="badge">⚡ No API cost</span></div>
-    </section>
+    <section id="outputSection" class="zone outputZone">
+      <h1>Inventory timeline at a glance</h1>
+      <p class="sub">See reorder date, stockout date, runway, and risk first. Then adjust assumptions.</p>
+      <div id="riskWord" class="riskWord safe">SAFE</div>
 
-    <section class="glass section">
-      <h2>Input flow</h2>
-      <div class="flow">
-        <div class="field"><div class="label"><span>Current stock</span><span id="stockv">520</span></div><input id="stock" type="number" min="0" value="520"><div class="sub">Units available now.</div></div>
-        <div class="field">
-          <div class="label"><span>Sales velocity</span><span id="salesv">26 / day</span></div>
-          <div class="toggle"><button class="seg active" id="modeDay" type="button">Units / day</button><button class="seg" id="modeWeek" type="button">Units / week</button></div>
-          <input id="sales" type="number" min="0.01" step="0.01" value="26"><div class="sub">How fast stock is moving.</div>
-        </div>
-        <div class="field"><div class="label"><span>Lead time (days)</span><span id="leadv">14</span></div><input id="lead" type="number" min="0" value="14"><div class="sub">PO to received inventory.</div></div>
-        <div class="field"><div class="label"><span>Safety stock</span><span id="safetyv">120</span></div><input id="safety" type="number" min="0" value="120"><div class="sub">Buffer for volatility.</div></div>
-        <div class="field"><div class="label"><span>MOQ</span><span id="moqv">300</span></div><input id="moq" type="number" min="0" value="300"><div class="sub">Supplier minimum order.</div></div>
-      </div>
-    </section>
-
-    <section class="glass section">
-      <h2>Runway timeline</h2>
-      <div class="runway">
-        <div class="runwayHead"><span id="riskTag" class="risk safe">Safe</span><span id="runwayDays">20.0 days runway</span></div>
-        <div class="track"><div id="runwayFill" class="fill"></div></div>
+      <div class="timelineWrap">
         <div class="timeline">
           <div class="axis"></div>
-          <div class="mark today" style="left:0%"><div class="dot"></div><div class="t">Today</div></div>
-          <div class="mark reorder" id="reorderMark" style="left:25%"><div class="dot"></div><div class="t">Reorder by</div></div>
-          <div class="mark stockout" id="stockoutMark" style="left:100%"><div class="dot"></div><div class="t">Stockout</div></div>
+          <div class="mk today" style="left:0%"><div class="dot"></div><div class="txt">Today</div></div>
+          <div id="mkReorder" class="mk reorder" style="left:45%"><div class="dot"></div><div class="txt">Reorder by</div></div>
+          <div id="mkStockout" class="mk stockout" style="left:100%"><div class="dot"></div><div class="txt">Stockout</div></div>
+        </div>
+        <div class="runway">
+          <div class="runwayTop"><span id="runwayText">20.0 days runway</span><span id="riskInline">Safe</span></div>
+          <div class="track"><div id="runwayFill" class="fill"></div></div>
         </div>
       </div>
 
       <div class="cards">
-        <div class="mini"><div class="k"><span class="icon">📦</span>Recommended order</div><div class="v" id="orderQty">300 units</div></div>
-        <div class="mini"><div class="k"><span class="icon">🗓️</span>Reorder date</div><div class="v" id="reorderDate" style="font-size:20px">11 Mar 2026</div></div>
-        <div class="mini"><div class="k"><span class="icon">⛳</span>Stockout date</div><div class="v" id="stockoutDate" style="font-size:20px">17 Mar 2026</div></div>
-        <div class="mini"><div class="k"><span class="icon">⚠️</span>Risk note</div><div class="v" id="riskNote" style="font-size:16px;color:#cfdaf2">No immediate reorder pressure.</div></div>
+        <article class="card"><div class="k">Recommended order</div><div class="v" id="orderQty">300 units</div></article>
+        <article class="card"><div class="k">Reorder date</div><div class="v" id="reorderDate" style="font-size:20px">14 Mar 2026</div></article>
+        <article class="card"><div class="k">Stockout date</div><div class="v" id="stockoutDate" style="font-size:20px">20 Mar 2026</div></article>
+        <article class="card"><div class="k">Days until reorder</div><div class="v" id="daysUntil">6.0</div></article>
       </div>
     </section>
 
-    <section class="glass cta"><div><strong>Want more tools like this?</strong><div style="color:var(--muted);font-size:13px">Explore the full mini-tool hub.</div></div><a href="/">Explore more tools →</a></section>
-    <footer>Built by Mini Tools Lab</footer>
+    <section class="zone inputZone">
+      <div class="assumpHead">
+        <div class="assumpTitle">Assumptions</div>
+        <button id="toggleAssump" class="toggleBtn" type="button">Collapse</button>
+      </div>
+      <div id="assumpGrid" class="assumpGrid">
+        <div class="field"><label>Current stock</label><input id="stock" type="number" min="0" value="520"></div>
+        <div class="field"><label>Units sold / day</label><input id="sales" type="number" min="0.01" step="0.01" value="26"></div>
+        <div class="field"><label>Lead time (days)</label><input id="lead" type="number" min="0" value="14"></div>
+        <div class="field"><label>Safety stock</label><input id="safety" type="number" min="0" value="120"></div>
+        <div class="field"><label>MOQ</label><input id="moq" type="number" min="0" value="300"></div>
+      </div>
+
+      <div class="actions">
+        <button id="copyBtn" class="btn" type="button">Copy results</button>
+        <button id="resetBtn" class="btn" type="button">Reset inputs</button>
+      </div>
+    </section>
+
+    <footer id="footer">Built by Mini Tools Lab</footer>
   </main>
 
-  <div class="sticky"><div class="glass bar"><div class="stat"><div class="k">Days until reorder</div><div class="v" id="stickyDays">6.0</div></div><div class="stat"><div class="k">Risk</div><div class="v" id="stickyRisk">Safe</div></div><button class="btn" id="copyBtn">Copy results</button><button class="btn" id="resetBtn">Reset</button></div></div>
+  <div id="sticky" class="sticky" aria-hidden="true">
+    <div class="sbar">
+      <div class="sstat"><div class="k">Runway</div><div id="sRunway" class="v">20.0d</div></div>
+      <div class="sstat"><div class="k">Risk</div><div id="sRisk" class="v">SAFE</div></div>
+      <button id="sCopy" class="btn" type="button">Copy</button>
+      <button id="sReset" class="btn" type="button">Reset</button>
+    </div>
+  </div>
 
   <script>
-    const defaults={stock:520,sales:26,lead:14,safety:120,moq:300,mode:'day'};
+    const defaults={stock:520,sales:26,lead:14,safety:120,moq:300};
     const $=id=>document.getElementById(id);
-    const fmtDate=d=>d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
-    let velocityMode=defaults.mode;
 
-    function setMode(mode){
-      velocityMode=mode;
-      $('modeDay').classList.toggle('active',mode==='day');
-      $('modeWeek').classList.toggle('active',mode==='week');
-      const v=+$('sales').value||0;
-      $('salesv').textContent=mode==='day'?`${v} / day`:`${v} / week`;
-      calc();
-    }
-
-    function val(id,min=0){return Math.max(min,+$(id).value||min)}
+    function fmtDate(d){return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}
+    function num(id,min=0){return Math.max(min,+$(id).value||min)}
 
     function calc(){
-      const stock=val('stock');
-      const salesRaw=val('sales',0.01);
-      const lead=val('lead');
-      const safety=val('safety');
-      const moq=val('moq');
+      const stock=num('stock');
+      const sales=num('sales',0.01);
+      const lead=num('lead');
+      const safety=num('safety');
+      const moq=num('moq');
 
-      const salesPerDay = velocityMode==='week' ? salesRaw/7 : salesRaw;
-      const runway = stock / salesPerDay;
-      const reorderPoint = salesPerDay*lead + safety;
-      const daysUntilReorder=(stock-reorderPoint)/salesPerDay;
-      const suggested=Math.max(0,Math.ceil(Math.max(moq,(salesPerDay*30+safety)-stock)));
+      const runway=stock/sales;
+      const reorderPoint=sales*lead+safety;
+      const daysUntil=(stock-reorderPoint)/sales;
+      const orderQty=Math.max(0,Math.ceil(Math.max(moq,(sales*30+safety)-stock)));
 
       const now=new Date();
-      const stockoutDate=new Date(now.getTime()+runway*86400000);
-      const reorderDate=new Date(stockoutDate.getTime()-lead*86400000);
+      const stockout=new Date(now.getTime()+runway*86400000);
+      const reorder=new Date(stockout.getTime()-lead*86400000);
 
-      $('stockv').textContent=stock.toLocaleString();
-      $('salesv').textContent=velocityMode==='day'?`${salesRaw} / day`:`${salesRaw} / week`;
-      $('leadv').textContent=lead;
-      $('safetyv').textContent=safety.toLocaleString();
-      $('moqv').textContent=moq.toLocaleString();
+      $('runwayText').textContent=`${runway.toFixed(1)} days runway`;
+      $('orderQty').textContent=`${orderQty.toLocaleString()} units`;
+      $('reorderDate').textContent=fmtDate(reorder);
+      $('stockoutDate').textContent=fmtDate(stockout);
+      $('daysUntil').textContent=daysUntil<=0?'NOW':daysUntil.toFixed(1);
 
-      $('runwayDays').textContent=`${runway.toFixed(1)} days runway`;
-      $('orderQty').textContent=`${suggested.toLocaleString()} units`;
-      $('reorderDate').textContent=fmtDate(reorderDate);
-      $('stockoutDate').textContent=fmtDate(stockoutDate);
-
-      const ratio=Math.max(0,Math.min(1,daysUntilReorder/Math.max(runway,0.01)));
-      $('reorderMark').style.left=`${(ratio*100).toFixed(1)}%`;
-      $('stockoutMark').style.left='100%';
+      const ratio=Math.max(0,Math.min(1,daysUntil/Math.max(runway,0.01)));
+      $('mkReorder').style.left=`${(ratio*100).toFixed(1)}%`;
+      $('mkStockout').style.left='100%';
 
       const fillPct=Math.max(0,Math.min(100,(runway/45)*100));
       const fill=$('runwayFill');
       fill.style.width=`${fillPct}%`;
-      fill.classList.remove('warn');
+      fill.classList.remove('pulse');
 
-      let label='Safe', note='No immediate reorder pressure.', cls='safe', color='#baf7cd';
-      if(daysUntilReorder<=0){label='Critical';note='Order now — below reorder point.';cls='critical';color='#ffb0bb';fill.classList.add('warn')}
-      else if(daysUntilReorder<=7){label='Order soon';note='Place PO this week to avoid stockout.';cls='warning';color='#ffe2b0';fill.classList.add('warn')}
+      let state='SAFE', cls='safe', color='#8ef0b2';
+      if(daysUntil<=0){state='CRITICAL';cls='danger';color='#ff9ca8';fill.classList.add('pulse')}
+      else if(daysUntil<=7){state='ORDER NOW';cls='warn';color='#ffd08c';fill.classList.add('pulse')}
 
-      $('riskTag').className='risk '+cls;
-      $('riskTag').textContent=label;
-      $('riskNote').textContent=note;
-      $('stickyRisk').textContent=label;
-      $('stickyRisk').style.color=color;
-      $('stickyDays').textContent=daysUntilReorder<=0?'Order now':daysUntilReorder.toFixed(1);
+      $('riskWord').textContent=state;
+      $('riskWord').className=`riskWord ${cls}`;
+      $('riskInline').textContent=state;
+      $('riskInline').style.color=color;
+      $('sRunway').textContent=`${runway.toFixed(1)}d`;
+      $('sRisk').textContent=state;
+      $('sRisk').style.color=color;
     }
 
+    function copyResults(){
+      const text=`StockPulse\nRunway: ${$('runwayText').textContent}\nReorder date: ${$('reorderDate').textContent}\nStockout date: ${$('stockoutDate').textContent}\nOrder qty: ${$('orderQty').textContent}\nRisk: ${$('riskWord').textContent}`;
+      navigator.clipboard.writeText(text).then(()=>{ $('copyBtn').textContent='Copied'; $('sCopy').textContent='Copied'; setTimeout(()=>{$('copyBtn').textContent='Copy results';$('sCopy').textContent='Copy';},1000); }).catch(()=>{});
+    }
+
+    function resetAll(){Object.entries(defaults).forEach(([k,v])=>$(k).value=v);calc();}
+
     ['stock','sales','lead','safety','moq'].forEach(id=>$(id).addEventListener('input',calc));
-    $('modeDay').addEventListener('click',()=>setMode('day'));
-    $('modeWeek').addEventListener('click',()=>setMode('week'));
+    $('copyBtn').addEventListener('click',copyResults);
+    $('resetBtn').addEventListener('click',resetAll);
+    $('sCopy').addEventListener('click',copyResults);
+    $('sReset').addEventListener('click',resetAll);
 
-    $('resetBtn').addEventListener('click',()=>{
-      Object.entries(defaults).forEach(([k,v])=>{if(k!=='mode')$(k).value=v});
-      setMode(defaults.mode);
-      calc();
+    $('toggleAssump').addEventListener('click',()=>{
+      const g=$('assumpGrid');
+      const hide=g.style.display==='none';
+      g.style.display=hide?'grid':'none';
+      $('toggleAssump').textContent=hide?'Collapse':'Expand';
     });
 
-    $('copyBtn').addEventListener('click',async()=>{
-      const txt=`StockPulse\nRunway: ${$('runwayDays').textContent}\nReorder date: ${$('reorderDate').textContent}\nStockout date: ${$('stockoutDate').textContent}\nOrder qty: ${$('orderQty').textContent}\nRisk: ${$('riskTag').textContent}`;
-      try{await navigator.clipboard.writeText(txt);$('copyBtn').textContent='Copied';setTimeout(()=>$('copyBtn').textContent='Copy results',1200)}catch{}
-    });
+    // Smart sticky bar (mobile only): show when outputs out of view and footer not visible.
+    const sticky=$('sticky');
+    let outputVisible=true, footerVisible=false;
+    const refreshSticky=()=>{
+      const mobile=window.matchMedia('(max-width: 768px)').matches;
+      sticky.classList.toggle('show', mobile && !outputVisible && !footerVisible);
+    };
+    const io1=new IntersectionObserver(([e])=>{outputVisible=e.isIntersecting;refreshSticky();},{threshold:0.08});
+    const io2=new IntersectionObserver(([e])=>{footerVisible=e.isIntersecting;refreshSticky();},{threshold:0.08});
+    io1.observe($('outputSection'));
+    io2.observe($('footer'));
+    window.addEventListener('resize',refreshSticky);
 
-    setMode(defaults.mode);
     calc();
   </script>
 </body>
