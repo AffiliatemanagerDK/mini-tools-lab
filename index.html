@@ -40,6 +40,7 @@
     .toolCard:hover{transform:translateY(-3px) scale(1.012);filter:brightness(1.04);box-shadow:0 30px 65px rgba(0,0,0,.55)}
     .toolCard .topVisual{height:40%;padding:14px;border-bottom:1px solid rgba(255,255,255,.08);overflow:hidden;position:relative}
     .toolCard .content{height:60%;padding:16px;display:flex;flex-direction:column;justify-content:flex-start}
+    .ctaRow{margin-top:auto;padding-top:10px;padding-bottom:10px;display:flex;justify-content:flex-end}
 
     .acc-teal{background:radial-gradient(900px 340px at 50% -20%,rgba(34,211,238,.20),transparent 62%),rgba(17,27,54,.78);border-bottom:3px solid var(--teal)}
     .acc-amber{background:radial-gradient(900px 340px at 50% -20%,rgba(245,158,11,.23),transparent 62%),rgba(17,27,54,.78);border-bottom:3px solid var(--amber)}
@@ -94,8 +95,9 @@
     @media(max-width:680px){
       .tag{display:none}.wrap{margin-top:18px}.intro{margin-top:56px}
       .toolCard .content{padding:16px 14px 14px}
-      .btn{align-self:stretch;width:100%;text-align:center;margin-top:12px}
+      .btn{align-self:stretch;width:100%;text-align:center;margin-top:0}
       .meta{margin-bottom:10px}
+      .ctaRow{justify-content:stretch;padding-bottom:6px}
     }
   </style>
 </head>
@@ -122,7 +124,7 @@
           <div class="vbg teal"></div><div class="glow teal"></div>
           <div class="uiStack"><div class="uiBack"></div><div class="uiMain"><div class="uiTitle">Break-even ROAS</div><div style="display:grid;grid-template-columns:70px 1fr;gap:8px;align-items:center"><div style="width:64px;height:64px;border-radius:50%;background:conic-gradient(var(--teal) 67%,#2a3d5a 0);position:relative"><span style="position:absolute;inset:12px;border-radius:50%;background:#0f1729"></span></div><div><div class="uiV tealTxt" style="font-size:18px">2.4x <span style="font-size:10px;color:#8be0ea">Healthy</span></div><div class="mline"><span>Max CAC</span><span>$47.20</span></div><div class="mline"><span>Profit/order</span><span>$18.50</span></div></div></div><div class="miniBar"><i style="width:72%;background:linear-gradient(90deg,#22d3ee,#79f5ff)"></i></div></div></div>
         </div>
-        <div class="content"><h3>MarginRadar</h3><p class="desc">Break-even calculator for ad decisions before you scale spend.</p><ul class="points"><li>ROAS threshold</li><li>Max CAC per order</li><li>Profit per order pre-spend</li></ul><div class="meta"><span class="pill teal">ROAS</span><span class="pill teal">Profit</span><span class="pill teal">No API</span></div><a class="btn teal" href="/tools/marginradar/">Open tool</a></div>
+        <div class="content"><h3>MarginRadar</h3><p class="desc">Break-even calculator for ad decisions before you scale spend.</p><ul class="points"><li>ROAS threshold</li><li>Max CAC per order</li><li>Profit per order pre-spend</li></ul><div class="meta"><span class="pill teal">ROAS</span><span class="pill teal">Profit</span><span class="pill teal">No API</span></div><div class="ctaRow"><a class="btn teal" href="/tools/marginradar/">Open tool</a></div></div>
       </article>
 
       <article class="toolCard acc-amber" data-reveal>
@@ -130,7 +132,7 @@
           <div class="vbg amber"></div><div class="glow amber"></div>
           <div class="uiStack"><div class="uiBack"></div><div class="uiMain"><div class="uiTitle">Inventory timeline</div><div class="mline"><span>Today</span><span>Reorder</span><span>Stockout</span></div><div class="miniBar"><i style="width:64%;background:linear-gradient(90deg,#22c55e,var(--amber),#ef4444)"></i></div><div style="position:relative;height:10px;margin:4px 0 8px"><span style="position:absolute;left:44%;top:0;width:8px;height:8px;border-radius:50%;background:var(--amber)"></span><span style="position:absolute;left:86%;top:0;width:8px;height:8px;border-radius:50%;background:#ff8797"></span></div><div class="uiGrid3"><div class="uiCell"><div class="uiK">Runway</div><div class="uiV amberTxt">20 days</div></div><div class="uiCell"><div class="uiK">Risk</div><div class="uiV amberTxt">SAFE</div></div><div class="uiCell"><div class="uiK">Order qty</div><div class="uiV amberTxt">300</div></div></div></div></div>
         </div>
-        <div class="content"><h3>StockPulse</h3><p class="desc">Timeline-first inventory risk tool with actionable reorder timing.</p><ul class="points"><li>Days until stockout</li><li>Exact reorder date</li><li>Recommended order quantity</li></ul><div class="meta"><span class="pill amber">Inventory</span><span class="pill amber">Timeline</span><span class="pill amber">No API</span></div><a class="btn amber" href="/tools/stockpulse/">Open tool</a></div>
+        <div class="content"><h3>StockPulse</h3><p class="desc">Timeline-first inventory risk tool with actionable reorder timing.</p><ul class="points"><li>Days until stockout</li><li>Exact reorder date</li><li>Recommended order quantity</li></ul><div class="meta"><span class="pill amber">Inventory</span><span class="pill amber">Timeline</span><span class="pill amber">No API</span></div><div class="ctaRow"><a class="btn amber" href="/tools/stockpulse/">Open tool</a></div></div>
       </article>
 
       <article class="toolCard acc-rose" data-reveal>
@@ -138,12 +140,12 @@
           <div class="vbg rose"></div><div class="glow rose"></div>
           <div class="uiStack"><div class="uiBack"></div><div class="uiMain"><div class="uiTitle">Promo compare</div><div class="uiGrid3" style="grid-template-columns:1fr 1fr"><div class="uiCell"><div class="uiK">Full price</div><div class="uiV roseTxt">42% margin</div><div class="miniBar"><i style="width:84%;background:linear-gradient(90deg,#22c55e,#7df2ad)"></i></div></div><div class="uiCell"><div class="uiK">20% off</div><div class="uiV roseTxt">11% margin</div><div class="miniBar"><i style="width:28%;background:linear-gradient(90deg,#ff9aa9,var(--rose))"></i></div></div></div><div class="mline" style="margin-top:6px"><span>● GO</span><span>● CAUTION</span></div></div></div>
         </div>
-        <div class="content"><h3>PromoGuard</h3><p class="desc">Scenario comparator that stress-tests discount impact before launch.</p><ul class="points"><li>Before vs after margin</li><li>Profit delta under promo</li><li>Go / caution / stop signal</li></ul><div class="meta"><span class="pill rose">Discounts</span><span class="pill rose">Margin</span><span class="pill rose">Scenario</span></div><a class="btn rose" href="/tools/promoguard/">Open tool</a></div>
+        <div class="content"><h3>PromoGuard</h3><p class="desc">Scenario comparator that stress-tests discount impact before launch.</p><ul class="points"><li>Before vs after margin</li><li>Profit delta under promo</li><li>Go / caution / stop signal</li></ul><div class="meta"><span class="pill rose">Discounts</span><span class="pill rose">Margin</span><span class="pill rose">Scenario</span></div><div class="ctaRow"><a class="btn rose" href="/tools/promoguard/">Open tool</a></div></div>
       </article>
 
       <article class="toolCard acc-neutral" data-reveal>
         <div class="topVisual" style="display:grid;place-items:center;color:#aec2e8;font-size:15px;letter-spacing:.08em">NEW TOOLS SHIP CONTINUOUSLY</div>
-        <div class="content"><h3>More mini-tools incoming</h3><p class="desc">Fresh no-API tools are added continuously for practical e-commerce decisions.</p><ul class="points"><li>New tools every week</li><li>Focused on actionability</li><li>Designed for fast decisions</li></ul><div class="meta"><span class="pill">Roadmap</span><span class="pill">E-commerce</span><span class="pill">Client-side</span></div><button class="btn neutral" type="button">Stay tuned</button></div>
+        <div class="content"><h3>More mini-tools incoming</h3><p class="desc">Fresh no-API tools are added continuously for practical e-commerce decisions.</p><ul class="points"><li>New tools every week</li><li>Focused on actionability</li><li>Designed for fast decisions</li></ul><div class="meta"><span class="pill">Roadmap</span><span class="pill">E-commerce</span><span class="pill">Client-side</span></div><div class="ctaRow"><button class="btn neutral" type="button">Stay tuned</button></div></div>
       </article>
     </section>
 
